@@ -7,7 +7,7 @@ import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 
 import bo.com.golpistasElectricistas.pocketGarage.model.Base;
-import bo.com.golpistasElectricistas.pocketGarage.model.Usuario;
+import bo.com.golpistasElectricistas.pocketGarage.model.User;
 import bo.com.golpistasElectricistas.pocketGarage.repository.RepositoryImpl;
 import bo.com.golpistasElectricistas.pocketGarage.repository.RepositoryMock;
 
@@ -19,7 +19,7 @@ public class LoginViewModel extends AndroidViewModel {
         repository = new RepositoryMock();
     }
 
-    public LiveData<Base<Usuario>> login(String email, String password) {
+    public LiveData<Base<User>> login(String email, String password) {
         return repository.login(email, password);
     }
 }

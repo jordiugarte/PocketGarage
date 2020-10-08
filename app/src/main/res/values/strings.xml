@@ -4,5 +4,9 @@
     <string name="category_cars">Autos</string>
     <string name="category_bikes">Motos</string>
     <string name="category_wheels">Llantas</string>
-    <string name="category_acctesories">Accesorios</string>
+    <string name="category_accesories">Accesorios</string>
+
+    <string name="empty_value_error">Llenar los campos requeridos</string>
+    <string name="invalid_email_error">Ingrese un email válido</string>
+    <string name="login_error">Email y/o contraseña incorrectos</string>
 </resources>

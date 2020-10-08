@@ -1,3 +1,6 @@
 <resources>
     <string name="app_name">Pocket Garage</string>
+
+    <string name="category_cars">Autos</string>
+    <string name="category_bikes">Motos</string>
 </resources>

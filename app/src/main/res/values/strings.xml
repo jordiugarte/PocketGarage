@@ -3,4 +3,6 @@
 
     <string name="category_cars">Autos</string>
     <string name="category_bikes">Motos</string>
+    <string name="category_wheels">Llantas</string>
+    <string name="category_acctesories">Accesorios</string>
 </resources>

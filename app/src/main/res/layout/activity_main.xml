@@ -5,60 +5,100 @@
     android:id="@+id/mainActivityLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.activities.MainActivity">
+    tools:context="bo.com.golpistasElectricistas.pocketGarage.ui.activities.MainActivity">
 
     <alirezat775.lib.carouselview.CarouselView
         android:id="@+id/carousel_view"
         android:layout_width="match_parent"
         android:layout_height="200dp"/>
 
-    <LinearLayout
+    <TableLayout
         android:id="@+id/categoriesLayout"
         android:layout_width="match_parent"
-        android:layout_height="405dp"
+        android:layout_height="wrap_content"
         android:layout_below="@+id/carousel_view"
         android:layout_alignParentStart="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginStart="69dp"
-        android:layout_marginLeft="10dp"
         android:layout_marginTop="20dp"
-        android:layout_marginEnd="20dp"
-        android:layout_marginRight="10dp"
         android:layout_marginBottom="20dp"
-        android:orientation="vertical" >
+        android:orientation="vertical"
+        android:background="@color/colorAccent"
+        android:paddingTop="5dp"
+        >
 
-        <LinearLayout
+        <TableRow
+            android:id="@+id/tableRow1"
             android:layout_width="match_parent"
-            android:layout_height="230dp"
-            android:layout_weight="2.1"
-            android:orientation="horizontal"
-            android:weightSum="2">
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp"
+            android:paddingBottom="5dp">
 
             <Button
                 android:id="@+id/carsCategoryButton"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginRight="5dp"
                 android:layout_weight="1"
                 android:height="70dp"
-                android:background="@drawable/gradient"
-                android:text="@string/category_cars" />
+                android:background="@drawable/gradient1"
+                android:fontFamily="sans-serif-black"
+                android:gravity="left|bottom"
+                android:padding="5dp"
+                android:text="@string/category_cars"
+                android:textColor="@color/colorWhite"
+                android:textSize="@dimen/category_button" />
 
             <Button
                 android:id="@+id/bikesCategoryButton"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="5dp"
                 android:layout_weight="1"
                 android:height="70dp"
-                android:background="@drawable/gradient"
-                android:text="@string/app_name" />
-        </LinearLayout>
-
-    </LinearLayout>
+                android:background="@drawable/gradient2"
+                android:fontFamily="sans-serif-black"
+                android:gravity="left|bottom"
+                android:padding="5dp"
+                android:text="@string/category_bikes"
+                android:textColor="@color/colorWhite"
+                android:textSize="@dimen/category_button" />
+        </TableRow>
+        <TableRow
+            android:id="@+id/tableRow2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp"
+            android:paddingBottom="5dp">
+            <Button
+                android:id="@+id/wheelsCategoryButton"
+                android:layout_width="match_parent"
+                android:layout_weight="1"
+                android:height="70dp"
+                android:background="@drawable/gradient3"
+                android:fontFamily="sans-serif-black"
+                android:gravity="left|bottom"
+                android:text="@string/category_wheels"
+                android:textColor="@color/colorWhite"
+                android:textSize="@dimen/category_button"
+                android:padding="5dp" />
+            <Button
+                android:id="@+id/repuestosCategoryButton"
+                android:layout_width="match_parent"
+                android:layout_weight="1"
+                android:height="70dp"
+                android:background="@drawable/gradient4"
+                android:fontFamily="sans-serif-black"
+                android:gravity="left|bottom"
+                android:text="@string/category_acctesories"
+                android:textColor="@color/colorWhite"
+                android:textSize="@dimen/category_button"
+                android:padding="5dp"
+                />
+        </TableRow>
+    </TableLayout>
 
     <androidx.viewpager2.widget.ViewPager2
         android:layout_width="match_parent"

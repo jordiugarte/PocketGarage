@@ -92,7 +92,7 @@
                 android:background="@drawable/gradient4"
                 android:fontFamily="sans-serif-black"
                 android:gravity="left|bottom"
-                android:text="@string/category_acctesories"
+                android:text="@string/category_accesories"
                 android:textColor="@color/colorWhite"
                 android:textSize="@dimen/category_button"
                 android:padding="5dp"

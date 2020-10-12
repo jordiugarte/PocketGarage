@@ -29,6 +29,8 @@ dependencies {
     implementation 'com.github.alirezat775:carousel-view:1.1.1'
     implementation 'com.synnapps:carouselview:0.1.5'
     implementation 'androidx.viewpager2:viewpager2:1.0.0'
+    implementation 'com.google.android.material:material:1.0.0'
+    implementation 'com.github.fevziomurtekin:SearchView:0.1.1'
     testImplementation 'android.arch.core:core-testing:1.0.0-alpha3'
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'

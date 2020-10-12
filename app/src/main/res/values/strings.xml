@@ -9,4 +9,7 @@
     <string name="empty_value_error">Llenar los campos requeridos</string>
     <string name="invalid_email_error">Ingrese un email válido</string>
     <string name="login_error">Email y/o contraseña incorrectos</string>
+    <string name="email_hint">Correo electrónico</string>
+    <string name="password_hint">Contraseña</string>
+    <string name="login_button">Iniciar sesión</string>
 </resources>

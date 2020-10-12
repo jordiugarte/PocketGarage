@@ -46,4 +46,48 @@ public class LoginUnitTest {
             }
         });
     }
+
+    @Test
+    public void loginFailedEmptyValues() {
+        String email = "";
+        String password = "ffffff";
+
+        LiveData<Base<User>> result = repository.login(email, password);
+        assertNotNull(result);
+
+        result.observeForever(userBase -> {
+            //userBase: Base<User>
+            assertFalse(userBase.isSuccess());
+            assertEquals(Constants.ERROR_EMPTY_VALUES, userBase.getMessage());
+        });
+    }
+
+    @Test
+    public void loginFailedInvalidEmail() {
+        String email = "lol"; //@ y que tenga . con extension
+        String password = "ffffff";
+
+        LiveData<Base<User>> result = repository.login(email, password);
+        assertNotNull(result);
+
+        result.observeForever(userBase -> {
+            assertFalse(userBase.isSuccess());
+            assertEquals(Constants.ERROR_INVALID_EMAIL, userBase.getMessage());
+        });
+    }
+    @Test
+    public void loginFailedInvalidPassword() {
+        String email = "sergio@laguna.com";
+        String password = "1"; //no es la misma contrasena
+
+        LiveData<Base<User>> result = repository.login(email, password);
+        assertNotNull(result);
+
+        result.observeForever(userBase -> {
+            assertFalse(userBase.isSuccess());
+            assertEquals(Constants.ERROR_INVALID_PASSWORD, userBase.getMessage());
+        });
+    }
+
+
 }

@@ -35,4 +35,8 @@ public class Base<T> {
     public T getData() {
         return data;
     }
+
+    public String getMessage() {
+        return getMessage();
+    }
 }

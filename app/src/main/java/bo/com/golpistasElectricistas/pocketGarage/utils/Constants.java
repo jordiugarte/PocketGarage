@@ -3,8 +3,6 @@ package bo.com.golpistasElectricistas.pocketGarage.utils;
 public class Constants {
     public static final String EMPTY_VALUE_ERROR = "Llenar los campos requeridos";
     public static final String INVALID_EMAIL_ERROR = "Ingrese un email válido";
-    public static final String LOGIN_ERROR = "Email y/o contraseña incorrectos";
-    public static final String ERROR_EMPTY_VALUES = "Porfavor llenar esta casilla" ;
-    public static final String ERROR_INVALID_EMAIL = "Ingrese un email valido";
-    public static final String ERROR_INVALID_PASSWORD = "Esta contraseña es incorrecta";
+    public static final String INCORRECT_EMAIL_ERROR = "El email es incorrecto";
+    public static final String INCORRECT_PASSWORD_ERROR = "La contraseña es incorrecta";
 }

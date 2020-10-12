@@ -35,9 +35,12 @@ public class RepositoryMock implements RepositoryImpl {
             if (user.getEmail().equals(email) && user.getPassword().equals(password)) {
                 result.postValue(new Base(user));
                 return result;
+            } else if (user.getEmail().equals(email)) {
+                result.postValue(new Base(Constants.INCORRECT_PASSWORD_ERROR, null));
+                return result;
             }
         }
-        result.postValue(new Base(Constants.LOGIN_ERROR, null));
+        result.postValue(new Base(Constants.INCORRECT_EMAIL_ERROR, null));
         return result;
     }
 }

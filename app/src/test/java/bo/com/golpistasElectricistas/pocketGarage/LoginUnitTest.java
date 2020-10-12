@@ -33,8 +33,8 @@ public class LoginUnitTest {
     public TestRule rule = new InstantTaskExecutorRule();
 
     @Test
-    public void loginFailed() {
-        String email = "sergio@laguna.com";
+    public void loginFailedIncorrectEmail() {
+        String email = "sergi@laguna.com";
         String password = "fffffff";
         LiveData<Base<User>> result = repository.login(email, password);
         assertNotNull(result);
@@ -42,7 +42,7 @@ public class LoginUnitTest {
             @Override
             public void onChanged(Base<User> userBase) {
                 assertFalse(userBase.isSuccess());
-                assertEquals(Constants.LOGIN_ERROR, userBase.getError());
+                assertEquals(Constants.INCORRECT_EMAIL_ERROR, userBase.getError());
             }
         });
     }
@@ -51,43 +51,44 @@ public class LoginUnitTest {
     public void loginFailedEmptyValues() {
         String email = "";
         String password = "ffffff";
-
         LiveData<Base<User>> result = repository.login(email, password);
         assertNotNull(result);
-
-        result.observeForever(userBase -> {
-            //userBase: Base<User>
-            assertFalse(userBase.isSuccess());
-            assertEquals(Constants.ERROR_EMPTY_VALUES, userBase.getMessage());
+        result.observeForever(new Observer<Base<User>>() {
+            @Override
+            public void onChanged(Base<User> userBase) {
+                assertFalse(userBase.isSuccess());
+                assertEquals(Constants.EMPTY_VALUE_ERROR, userBase.getError());
+            }
         });
     }
 
     @Test
     public void loginFailedInvalidEmail() {
-        String email = "lol"; //@ y que tenga . con extension
+        String email = "lol";
         String password = "ffffff";
-
         LiveData<Base<User>> result = repository.login(email, password);
         assertNotNull(result);
-
-        result.observeForever(userBase -> {
-            assertFalse(userBase.isSuccess());
-            assertEquals(Constants.ERROR_INVALID_EMAIL, userBase.getMessage());
+        result.observeForever(new Observer<Base<User>>() {
+            @Override
+            public void onChanged(Base<User> userBase) {
+                assertFalse(userBase.isSuccess());
+                assertEquals(Constants.INVALID_EMAIL_ERROR, userBase.getError());
+            }
         });
     }
+
     @Test
-    public void loginFailedInvalidPassword() {
+    public void loginFailedIncorrectPassword() {
         String email = "sergio@laguna.com";
-        String password = "1"; //no es la misma contrasena
-
+        String password = "1";
         LiveData<Base<User>> result = repository.login(email, password);
         assertNotNull(result);
-
-        result.observeForever(userBase -> {
-            assertFalse(userBase.isSuccess());
-            assertEquals(Constants.ERROR_INVALID_PASSWORD, userBase.getMessage());
+        result.observeForever(new Observer<Base<User>>() {
+            @Override
+            public void onChanged(Base<User> userBase) {
+                assertFalse(userBase.isSuccess());
+                assertEquals(Constants.INCORRECT_PASSWORD_ERROR, userBase.getError());
+            }
         });
     }
-
-
 }

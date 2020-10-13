@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/searchButton"
+        android:title="Search"
+        android:icon="@drawable/ic_baseline_search_24"
+        app:showAsAction="ifRoom|collapseActionView"
+        app:actionViewClass="com.fevziomurtekin.searchview.SearchView">
+    </item>
+    <item
+        android:id="@+id/optionsButton"
+        android:title="Options"
+        android:icon="@drawable/ic_baseline_more_vert_24"
+        app:actionViewClass="com.fevziomurtekin.searchview.SearchView">
+    </item>
+</menu>

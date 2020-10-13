@@ -27,22 +27,11 @@ public class LoginActivity extends AppCompatActivity {
         getSupportActionBar().hide();
         setContentView(R.layout.activity_login);
 
-        User user = new User("andres.vasquez@email.com", "test123");
-
+        User user = new User("test123@email.com", "test123");
         Base<User> baseUser = new Base<>(user);
-        Log.e(LOG + ".baseUser.success", "" + baseUser.isSuccess());
-        Log.e(LOG + ".baseUser.email", "" + baseUser.getData().getEmail());
-
         List<User> users = new ArrayList<>();
-        User user2 = new User("benjamin.soto@email.com", "test123");
         users.add(user);
-        users.add(user2);
-
         Base<List<User>> baseUsers = new Base<List<User>>(users);
-        Log.e(LOG + ".baseUsers.success", "" + baseUsers.isSuccess());
-        for (User userInTheList : baseUsers.getData()) {
-            Log.e(LOG + ".baseUsers.success", "" + userInTheList.getEmail());
-        }
     }
 
     public void openSecondActivity(View view) {

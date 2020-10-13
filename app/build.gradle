@@ -6,7 +6,7 @@ android {
 
     defaultConfig {
         applicationId "bo.com.golpistasElectricistas.pocketGarage"
-        minSdkVersion 21
+        minSdkVersion 22
         targetSdkVersion 30
         versionCode 1
         versionName "1.0"
@@ -35,6 +35,7 @@ dependencies {
     implementation 'androidx.viewpager2:viewpager2:1.0.0'
     implementation 'com.google.android.material:material:1.0.0'
     implementation 'com.github.fevziomurtekin:SearchView:0.1.1'
+    implementation 'com.squareup.picasso:picasso:2.5.2'
     testImplementation 'android.arch.core:core-testing:1.0.0-alpha3'
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'

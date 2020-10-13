@@ -12,4 +12,5 @@
     <string name="email_hint">Correo electrónico</string>
     <string name="password_hint">Contraseña</string>
     <string name="login_button">Iniciar sesión</string>
+    <string name="addArticle_button">Publicar</string>
 </resources>

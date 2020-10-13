@@ -2,6 +2,7 @@ package bo.com.golpistasElectricistas.pocketGarage.ui.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -19,6 +20,9 @@ public class LoginActivity extends AppCompatActivity {
 
     private static final String LOG = LoginActivity.class.getName();
 
+    private Context context;
+    private Intent mainActivity, registerActivity;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -26,6 +30,9 @@ public class LoginActivity extends AppCompatActivity {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         getSupportActionBar().hide();
         setContentView(R.layout.activity_login);
+        context = getApplicationContext();
+        initViews();
+        initIntents();
 
         User user = new User("test123@email.com", "test123");
         Base<User> baseUser = new Base<>(user);
@@ -34,7 +41,20 @@ public class LoginActivity extends AppCompatActivity {
         Base<List<User>> baseUsers = new Base<List<User>>(users);
     }
 
-    public void openSecondActivity(View view) {
-        startActivity(new Intent(LoginActivity.this, MainActivity.class));
+    private void initViews() {
+
+    }
+
+    private void initIntents() {
+        mainActivity = new Intent(context, MainActivity.class);
+        registerActivity = new Intent(context, RegisterActivity.class);
+    }
+
+    public void openRegisterActivity(View view) {
+        startActivity(registerActivity);
+    }
+
+    public void openMainActivity(View view) {
+        startActivity(mainActivity);
     }
 }

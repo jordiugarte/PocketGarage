@@ -11,7 +11,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 
-import com.fevziomurtekin.searchview.SearchView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.squareup.picasso.Picasso;
 import com.synnapps.carouselview.CarouselView;
@@ -38,21 +37,6 @@ public class MainActivity extends AppCompatActivity {
         Log.e(LOG, "onCreate");
         setContentView(R.layout.activity_main);
         initViews();
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.main_menu, menu);
-        MenuItem menuItem = menu.findItem(R.id.searchButton);
-        SearchView searchView = (SearchView) menuItem.getActionView();
-        searchView.setSearchView_hint("Search here");
-        searchView.setOnKeyListener(new SearchView.OnKeyListener() {
-            @Override
-            public boolean onKey(View view, int i, KeyEvent keyEvent) {
-                return false;
-            }
-        });
-        return super.onCreateOptionsMenu(menu);
     }
 
     private void initViews() {

@@ -12,5 +12,12 @@
     <string name="email_hint">Correo electrónico</string>
     <string name="password_hint">Contraseña</string>
     <string name="login_button">Iniciar sesión</string>
+    <string name="register_button">Registrarse</string>
     <string name="addArticle_button">Publicar</string>
+
+    <string name="categories_banner">Categorías</string>
+    <string name="posts_banner">Artículos</string>
+    <string name="wannaregister_banner">¿No tienes una cuenta aún? Regístrate </string>
+    <string name="here_banner">aquí.</string>
+    <string name="register_banner">Regístrate</string>
 </resources>

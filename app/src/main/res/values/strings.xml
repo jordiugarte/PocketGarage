@@ -11,6 +11,10 @@
     <string name="login_error">Email y/o contraseña incorrectos</string>
     <string name="email_hint">Correo electrónico</string>
     <string name="password_hint">Contraseña</string>
+    <string name="repeat_password_hint">Repetir contraseña</string>
+    <string name="names_hint">Nombres</string>
+    <string name="lastnames_hint">Apellidos</string>
+    <string name="ci_hint">C.I.</string>
     <string name="login_button">Iniciar sesión</string>
     <string name="register_button">Registrarse</string>
     <string name="addArticle_button">Publicar</string>

@@ -1,8 +1,10 @@
 package bo.com.golpistasElectricistas.pocketGarage.model;
 
+import java.util.List;
+
 public class Article {
     private String articleId;
-    private String coverPhoto;
+    private List<String> photos;
     private String shortDescription;
     private String description;
     private String title;
@@ -17,12 +19,12 @@ public class Article {
         this.articleId = articleId;
     }
 
-    public String getCoverPhoto() {
-        return coverPhoto;
+    public List<String> getPhotos() {
+        return photos;
     }
 
-    public void setCoverPhoto(String coverPhoto) {
-        this.coverPhoto = coverPhoto;
+    public void setPhotos(List<String> photos) {
+        this.photos = photos;
     }
 
     public String getShortDescription() {

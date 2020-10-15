@@ -2,6 +2,8 @@ package bo.com.golpistasElectricistas.pocketGarage.ui.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.KeyEvent;
@@ -21,6 +23,9 @@ import bo.com.golpistasElectricistas.pocketGarage.R;
 public class MainActivity extends AppCompatActivity {
 
     private static final String LOG = LoginActivity.class.getName();
+    private Context context;
+
+    private Intent newArticleActivity;
 
     String[] sampleImages = {
             "https://scontent.flpb2-2.fna.fbcdn.net/v/t1.0-9/121192448_3711992668812129_3055426446455598271_o.jpg?_nc_cat=106&_nc_sid=730e14&_nc_ohc=9xzNn9kpN_AAX-MJRXY&_nc_ht=scontent.flpb2-2.fna&oh=75800d9f014704494f4ede158f313c3b&oe=5FAAD43D",
@@ -36,7 +41,9 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         Log.e(LOG, "onCreate");
         setContentView(R.layout.activity_main);
+        context = getApplicationContext();
         initViews();
+        initIntents();
     }
 
     private void initViews() {
@@ -46,10 +53,18 @@ public class MainActivity extends AppCompatActivity {
         carouselView.setImageListener(imageListener);
     }
 
+    private void initIntents() {
+        newArticleActivity = new Intent(context, NewArticleActivity.class);
+    }
+
     ImageListener imageListener = new ImageListener() {
         @Override
         public void setImageForPosition(int position, ImageView imageView) {
             Picasso.with(getApplicationContext()).load(sampleImages[position]).into(imageView);
         }
     };
+
+    public void addNewArticle(View view) {
+        startActivity(newArticleActivity);
+    }
 }

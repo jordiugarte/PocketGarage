@@ -15,5 +15,14 @@ public class NewArticleActivity extends AppCompatActivity {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         getSupportActionBar().hide();
         setContentView(R.layout.activity_new_article);
+        
+        initViews();
+        initIntents();
+    }
+
+    private void initIntents() {
+    }
+
+    private void initViews() {
     }
 }

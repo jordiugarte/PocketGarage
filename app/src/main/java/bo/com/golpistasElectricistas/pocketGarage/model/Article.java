@@ -3,7 +3,7 @@ package bo.com.golpistasElectricistas.pocketGarage.model;
 import java.util.List;
 
 public class Article {
-    private String articleId;
+    private int articleId;
     private List<String> photos;
     private String shortDescription;
     private String description;
@@ -11,11 +11,21 @@ public class Article {
     private long timestamp;
     private double price;
 
-    public String getArticleId() {
+    public Article(int articleId, String title, String shortDescription, String description, List<String> photos, long timestamp, double price) {
+        this.articleId = articleId;
+        this.photos = photos;
+        this.shortDescription = shortDescription;
+        this.description = description;
+        this.title = title;
+        this.timestamp = timestamp;
+        this.price = price;
+    }
+
+    public int getArticleId() {
         return articleId;
     }
 
-    public void setArticleId(String articleId) {
+    public void setArticleId(int articleId) {
         this.articleId = articleId;
     }
 

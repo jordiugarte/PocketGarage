@@ -8,6 +8,7 @@
     tools:context="bo.com.golpistasElectricistas.pocketGarage.ui.activities.MainActivity">
 
     <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/articlesList"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@id/categoriesLayout" />

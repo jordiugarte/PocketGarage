@@ -1,6 +1,7 @@
 package bo.com.golpistasElectricistas.pocketGarage.ui.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Context;
 import android.content.Intent;
@@ -35,6 +36,7 @@ public class MainActivity extends AppCompatActivity {
 
     private FloatingActionButton publishButton;
     private CarouselView carouselView;
+    private RecyclerView articlesList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,6 +53,7 @@ public class MainActivity extends AppCompatActivity {
         carouselView = findViewById(R.id.carouselView);
         carouselView.setPageCount(sampleImages.length);
         carouselView.setImageListener(imageListener);
+        articlesList = findViewById(R.id.articlesList);
     }
 
     private void initIntents() {

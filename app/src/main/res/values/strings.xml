@@ -16,6 +16,11 @@
     <string name="lastnames_hint">Apellidos</string>
     <string name="ci_hint">C.I.</string>
     <string name="borndate_hint">Fecha de nacimiento</string>
+    <string name="title_article_hint">Título</string>
+    <string name="short_description_article_hint">Descripción corta</string>
+    <string name="description_hint">Descripción</string>
+    <string name="price_hint">Precio (Bs)</string>
+
     <string name="login_button">Iniciar sesión</string>
     <string name="register_button">Registrarse</string>
     <string name="addArticle_button">Publicar</string>
@@ -25,4 +30,6 @@
     <string name="wannaregister_banner">¿No tienes una cuenta aún? Regístrate </string>
     <string name="here_banner">aquí.</string>
     <string name="register_banner">Regístrate</string>
+    <string name="add_article_banner">Publica un artículo</string>
+    <string name="new_toggle_banner">Nuevo</string>
 </resources>

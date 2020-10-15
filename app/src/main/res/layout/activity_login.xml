@@ -25,39 +25,23 @@
             android:layout_marginBottom="50dp">
         </ImageView>
 
-        <com.google.android.material.textfield.TextInputLayout
+        <EditText
             android:id="@+id/emailField"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
+            android:layout_height="50dp"
             android:layout_marginBottom="10dp"
-            android:textColorHint="@color/colorWhite"
-            android:hint="@string/email_hint">
+            android:background="@drawable/text_gradient"
+            android:hint="@string/email_hint"
+            android:padding="10dp"></EditText>
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textColor="@color/colorWhite"
-                android:inputType="textEmailAddress"/>
-
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <com.google.android.material.textfield.TextInputLayout
+        <EditText
             android:id="@+id/passwordField"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
+            android:layout_height="50dp"
             android:layout_marginBottom="10dp"
-            android:textColorHint="@color/colorWhite"
-            android:hint="@string/password_hint">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textColor="@color/colorWhite"
-                android:inputType="textPassword"/>
-
-        </com.google.android.material.textfield.TextInputLayout>
+            android:background="@drawable/text_gradient"
+            android:hint="@string/password_hint"
+            android:padding="10dp"></EditText>
 
         <Button
             android:id="@+id/loginButton"

@@ -17,7 +17,7 @@
         android:text="@string/register_banner"
         android:textColor="@color/colorWhite"
         android:textSize="30sp"
-        android:textStyle="bold"></TextView>
+        android:textStyle="bold"/>
 
     <ScrollView
         android:layout_width="match_parent"
@@ -25,19 +25,23 @@
         android:layout_above="@id/registerButton"
         android:layout_below="@id/registerBanner"
         android:layout_marginBottom="10dp"
-        android:layout_marginTop="10dp">
+        android:layout_marginTop="10dp"
+        android:padding="20dp">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
 
-            <ImageView
+            <de.hdodenhof.circleimageview.CircleImageView
+                xmlns:app="http://schemas.android.com/apk/res-auto"
                 android:id="@+id/profileRegisterImage"
-                android:layout_width="150dp"
-                android:layout_height="150dp"
+                android:layout_width="120dp"
+                android:layout_height="120dp"
+                android:src="@color/colorWhite"
+                app:civ_border_color="#FF000000"
                 android:layout_gravity="center"
-                tools:srcCompat="@tools:sample/avatars" />
+                android:onClick="choosePhoto"/>
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/lastnamesField"
@@ -45,7 +49,6 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:layout_marginBottom="10dp"
-                android:digits="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
                 android:hint="@string/lastnames_hint"
                 android:textColorHint="@color/colorWhite">
 
@@ -69,7 +72,8 @@
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/colorWhite" />
+                    android:textColor="@color/colorWhite"
+                    android:inputType="textPassword"/>
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -86,7 +90,8 @@
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/colorWhite" />
+                    android:textColor="@color/colorWhite"
+                    android:inputType="textPassword"/>
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -96,7 +101,6 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:layout_marginBottom="10dp"
-                android:digits="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
                 android:hint="@string/names_hint"
                 android:textColorHint="@color/colorWhite">
 
@@ -113,7 +117,6 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:layout_marginBottom="10dp"
-                android:digits="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
                 android:hint="@string/email_hint"
                 android:textColorHint="@color/colorWhite">
 

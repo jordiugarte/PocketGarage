@@ -2,6 +2,7 @@ package bo.com.golpistasElectricistas.pocketGarage.ui.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -13,6 +14,8 @@ import android.util.Base64;
 import android.util.Log;
 import android.view.View;
 import android.view.Window;
+import android.widget.DatePicker;
+import android.widget.EditText;
 import android.widget.ImageView;
 
 import java.io.ByteArrayOutputStream;
@@ -20,7 +23,10 @@ import java.io.IOException;
 import java.io.InputStream;
 
 import bo.com.golpistasElectricistas.pocketGarage.R;
+import bo.com.golpistasElectricistas.pocketGarage.ui.fragments.DatePickerFragment;
 import de.hdodenhof.circleimageview.CircleImageView;
+
+import static android.app.PendingIntent.getActivity;
 
 public class RegisterActivity extends AppCompatActivity {
 
@@ -29,6 +35,7 @@ public class RegisterActivity extends AppCompatActivity {
     private Bitmap bitmap;
 
     private CircleImageView profilePicture;
+    private EditText dateText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,8 +47,9 @@ public class RegisterActivity extends AppCompatActivity {
         setViews();
     }
 
-    private void setViews(){
+    private void setViews() {
         profilePicture = findViewById(R.id.profileRegisterImage);
+        dateText = findViewById(R.id.dateField);
     }
 
     public void choosePhoto(View view) {
@@ -62,14 +70,9 @@ public class RegisterActivity extends AppCompatActivity {
             } catch (IOException e) {
                 e.printStackTrace();
             }
-            
+
             //UploadPicture();
         }
-    }
-
-    private void UploadPicture(final String id, final String photo) {
-        final ProgressDialog progressDialog= new ProgressDialog(this);
-        progressDialog.setMessage("Uploading"); //TODO
     }
 
     public String getStringImage(Bitmap bitmap) {
@@ -78,5 +81,18 @@ public class RegisterActivity extends AppCompatActivity {
         byte[] imageByteArray = byteArrayOutputStream.toByteArray();
         String encodedImage = Base64.encodeToString(imageByteArray, Base64.DEFAULT);
         return encodedImage;
+    }
+
+    public void showDatePickerDialog(View view) {
+        DatePickerFragment newFragment = DatePickerFragment.newInstance(new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker datePicker, int year, int month, int day) {
+                // +1 because January is zero
+                final String selectedDate = day + " / " + (month + 1) + " / " + year;
+                dateText.setText(selectedDate);
+            }
+        });
+
+        newFragment.show(getSupportFragmentManager(), "datePicker");
     }
 }

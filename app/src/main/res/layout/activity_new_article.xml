@@ -93,6 +93,7 @@
                 android:layout_marginBottom="10dp"
                 android:background="@drawable/text_gradient"
                 android:hint="@string/price_hint"
+                android:inputType="number"
                 android:padding="10dp"></EditText>
 
         </LinearLayout>

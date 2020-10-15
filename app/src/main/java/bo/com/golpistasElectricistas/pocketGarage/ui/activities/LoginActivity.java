@@ -11,6 +11,7 @@ import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
+import android.widget.EditText;
 
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputLayout;
@@ -26,8 +27,8 @@ public class LoginActivity extends AppCompatActivity {
 
     private Context context;
     private Intent mainActivity, registerActivity;
-    private TextInputLayout emailField;
-    private TextInputLayout passwordField;
+    private EditText emailField;
+    private EditText passwordField;
     private Button loginButton;
     private LoginViewModel viewModel;
 
@@ -60,8 +61,8 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     public void openMainActivity(View view) {
-        String email = emailField.getEditText().getText().toString();
-        String password = passwordField.getEditText().getText().toString();
+        String email = emailField.getText().toString();
+        String password = passwordField.getText().toString();
         viewModel.login(email, password).observeForever(new Observer<Base<User>>() {
             @Override
             public void onChanged(Base<User> userBase) {

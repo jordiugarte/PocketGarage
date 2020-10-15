@@ -41,6 +41,7 @@
             android:layout_marginBottom="10dp"
             android:background="@drawable/text_gradient"
             android:hint="@string/password_hint"
+            android:inputType="textPassword"
             android:padding="10dp"></EditText>
 
         <Button

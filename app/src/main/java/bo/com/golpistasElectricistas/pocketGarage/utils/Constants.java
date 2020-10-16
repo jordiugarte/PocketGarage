@@ -1,10 +1,12 @@
 package bo.com.golpistasElectricistas.pocketGarage.utils;
 
 public class Constants {
-    public static final String EMPTY_VALUE_ERROR = "Llenar los campos requeridos";
-    public static final String INVALID_EMAIL_ERROR = "Ingrese un email válido";
-    public static final String INCORRECT_EMAIL_ERROR = "El email es incorrecto";
-    public static final String INCORRECT_PASSWORD_ERROR = "La contraseña es incorrecta";
+    public static final int EMPTY_VALUE_ERROR = 1000;
+    public static final int INVALID_EMAIL_ERROR = 1001;
+    public static final int INCORRECT_EMAIL_ERROR = 1002;
+    public static final int INCORRECT_PASSWORD_ERROR = 1003;
+    public static final int INCORRECT_lOGIN_ERROR = 1004;
+    public static final int NO_CONNECTION_ERROR = 1005;
 
     //Api
     public static final String BASE_URL="https://firebasestorage.googleapis.com/v0/b/pocket-garage-9ce4d.appspot.com/o/";

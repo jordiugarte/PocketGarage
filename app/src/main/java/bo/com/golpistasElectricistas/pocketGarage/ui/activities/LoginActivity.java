@@ -14,7 +14,6 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import com.google.android.material.snackbar.Snackbar;
-import com.google.android.material.textfield.TextInputLayout;
 
 import bo.com.golpistasElectricistas.pocketGarage.R;
 import bo.com.golpistasElectricistas.pocketGarage.model.Base;

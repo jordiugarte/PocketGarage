@@ -52,7 +52,7 @@
             android:background="@drawable/gradient1"
             android:onClick="openMainActivity"
             android:padding="10dp"
-            android:text="@string/login_button"
+            android:text="@string/button_login"
             android:textAllCaps="false"
             android:textColor="@color/colorWhite"
             android:textSize="15sp" />
@@ -63,7 +63,7 @@
         android:paddingRight="20dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/wannaregister_banner"
+        android:text="@string/title_wanna_register"
         android:textColor="@color/colorWhite"
         android:textSize="18dp"
         android:layout_above="@id/hereButton"
@@ -80,7 +80,7 @@
         android:onClick="openRegisterActivity"
         android:paddingLeft="20dp"
         android:paddingRight="20dp"
-        android:text="@string/here_banner"
+        android:text="@string/button_here"
         android:textColor="@color/colorSecondaryDark"
         android:textSize="18dp"></TextView>
 

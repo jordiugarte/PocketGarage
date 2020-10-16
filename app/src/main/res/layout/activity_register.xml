@@ -14,7 +14,7 @@
         android:layout_height="wrap_content"
         android:gravity="top"
         android:padding="10dp"
-        android:text="@string/register_banner"
+        android:text="@string/title_register"
         android:textColor="@color/colorWhite"
         android:textSize="30sp"
         android:textStyle="bold" />
@@ -46,7 +46,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="20dp"
-                android:text="@string/profilePicBanner"
+                android:text="@string/title_profile_picture"
                 android:textColor="@color/colorWhite"
                 android:gravity="center"
                 android:layout_marginBottom="30dp">
@@ -122,7 +122,7 @@
         android:layout_marginBottom="15dp"
         android:background="@drawable/gradient4"
         android:padding="10dp"
-        android:text="@string/register_button"
+        android:text="@string/button_register"
         android:textAllCaps="false"
         android:textColor="@color/colorWhite">
 

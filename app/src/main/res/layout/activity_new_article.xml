@@ -12,13 +12,13 @@
         android:layout_height="wrap_content"
         android:gravity="top"
         android:padding="10dp"
-        android:text="@string/add_article_banner"
+        android:text="@string/title_add_article"
         android:textColor="@color/colorBlack"
         android:textSize="30sp"
         android:textStyle="bold" />
 
-    <LinearLayout
-        android:id="@+id/imagesArticleRow"
+    <HorizontalScrollView
+        android:id="@+id/imageAdderScrollView"
         android:layout_width="match_parent"
         android:layout_height="100dp"
         android:layout_below="@id/newArticleBanner"
@@ -26,24 +26,32 @@
         android:layout_marginTop="10dp"
         android:layout_marginEnd="10dp"
         android:layout_marginBottom="10dp"
-        android:orientation="horizontal">
+        android:fillViewport="true">
+        <LinearLayout
+            android:id="@+id/imagesArticleRow"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
 
-        <ImageView
-            android:id="@+id/imageView"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:background="@drawable/gradient4"
-            app:srcCompat="@drawable/ic_baseline_add_24" />
-    </LinearLayout>
+            <ImageView
+                android:id="@+id/imageView"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:background="@drawable/gradient4"
+                app:srcCompat="@drawable/ic_baseline_add_24"
+                android:onClick="addPhoto"/>
+        </LinearLayout>
+
+    </HorizontalScrollView>
 
     <Switch
         android:id="@+id/newSwitch"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/imagesArticleRow"
+        android:layout_below="@id/imageAdderScrollView"
         android:layout_alignParentEnd="true"
         android:layout_marginEnd="10dp"
-        android:text="@string/new_toggle_banner" />
+        android:text="@string/title_toggle_new" />
 
     <ScrollView
         android:layout_width="match_parent"
@@ -108,7 +116,7 @@
         android:layout_marginBottom="15dp"
         android:background="@drawable/gradient4"
         android:padding="10dp"
-        android:text="@string/addArticle_button"
+        android:text="@string/button_addArticle"
         android:textAllCaps="false"
         android:textColor="@color/colorWhite">
 

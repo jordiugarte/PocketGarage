@@ -2,18 +2,18 @@ package bo.com.golpistasElectricistas.pocketGarage.model;
 
 public class Base<T> {
     private boolean success;
-    private String error;
+    private int error;
     private Exception exception;
     private T data;
 
     public Base(T data) {
         this.success = true;
         this.data = data;
-        this.error = "";
+        this.error = 0;
         this.exception = null;
     }
 
-    public Base(String error, Exception exception) {
+    public Base(int error, Exception exception) {
         this.success = false;
         this.data = null;
         this.error = error;
@@ -24,7 +24,7 @@ public class Base<T> {
         return success;
     }
 
-    public String getError() {
+    public int getError() {
         return error;
     }
 

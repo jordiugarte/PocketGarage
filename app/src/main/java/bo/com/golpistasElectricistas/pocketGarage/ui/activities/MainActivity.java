@@ -1,32 +1,46 @@
 package bo.com.golpistasElectricistas.pocketGarage.ui.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.KeyEvent;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.gson.Gson;
 import com.squareup.picasso.Picasso;
 import com.synnapps.carouselview.CarouselView;
 import com.synnapps.carouselview.ImageListener;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import bo.com.golpistasElectricistas.pocketGarage.R;
+import bo.com.golpistasElectricistas.pocketGarage.model.Article;
+import bo.com.golpistasElectricistas.pocketGarage.model.Base;
+import bo.com.golpistasElectricistas.pocketGarage.ui.adapters.ArticleAdapter;
+import bo.com.golpistasElectricistas.pocketGarage.utils.ErrorMapper;
+import bo.com.golpistasElectricistas.pocketGarage.viewModel.MainViewModel;
 
 public class MainActivity extends AppCompatActivity {
 
     private static final String LOG = LoginActivity.class.getName();
     private Context context;
 
+    private MainViewModel viewModel;
+
     private Intent newArticleActivity;
+
+    private List<Article> articles = new ArrayList<>();
+
+    private ArticleAdapter adapter;
 
     String[] sampleImages = {
             "https://scontent.flpb2-2.fna.fbcdn.net/v/t1.0-9/121192448_3711992668812129_3055426446455598271_o.jpg?_nc_cat=106&_nc_sid=730e14&_nc_ohc=9xzNn9kpN_AAX-MJRXY&_nc_ht=scontent.flpb2-2.fna&oh=75800d9f014704494f4ede158f313c3b&oe=5FAAD43D",
@@ -44,8 +58,10 @@ public class MainActivity extends AppCompatActivity {
         Log.e(LOG, "onCreate");
         setContentView(R.layout.activity_main);
         context = getApplicationContext();
+        viewModel = new ViewModelProvider(this).get(MainViewModel.class);
         initViews();
         initIntents();
+        //subscribeToData();
     }
 
     private void initViews() {
@@ -54,6 +70,8 @@ public class MainActivity extends AppCompatActivity {
         carouselView.setPageCount(sampleImages.length);
         carouselView.setImageListener(imageListener);
         articlesList = findViewById(R.id.articlesList);
+        adapter = new ArticleAdapter(articles, context);
+        articlesList.setAdapter(adapter);
     }
 
     private void initIntents() {
@@ -69,5 +87,33 @@ public class MainActivity extends AppCompatActivity {
 
     public void addNewArticle(View view) {
         startActivity(newArticleActivity);
+    }
+
+    private void subscribeToData() {
+        viewModel.getArticles().observe(this, listBase -> {
+            //onChanged(Base<List<Posts>> listBase)
+            //T1, Tn: Firebase
+            if (listBase.isSuccess()) {
+                articles = listBase.getData();
+            } else {
+                Toast.makeText(context, ErrorMapper.getError(context, listBase.getError()),
+                        Toast.LENGTH_SHORT).show();
+            }
+        });
+        viewModel.getArticles().observe(this, new Observer<Base<List<Article>>>() {
+            @Override
+            public void onChanged(Base<List<Article>> listBase) {
+                //T1: Local
+                //T2: API
+                if (listBase.isSuccess()) {
+                    articles = listBase.getData();
+                    adapter.updateItems(articles);
+                    Log.e("getStartups", new Gson().toJson(listBase));
+                } else {
+                    Toast.makeText(context, ErrorMapper.getError(context, listBase.getError()),
+                            Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
     }
 }

@@ -1,14 +1,13 @@
 <resources>
     <string name="app_name">Pocket Garage</string>
 
+    <!-- Categories -->
     <string name="category_cars">Autos</string>
     <string name="category_bikes">Motos</string>
     <string name="category_wheels">Llantas</string>
     <string name="category_accesories">Accesorios</string>
 
-    <string name="empty_value_error">Llenar los campos requeridos</string>
-    <string name="invalid_email_error">Ingrese un email válido</string>
-    <string name="login_error">Email y/o contraseña incorrectos</string>
+    <!-- Hints -->
     <string name="email_hint">Correo electrónico</string>
     <string name="password_hint">Contraseña</string>
     <string name="repeat_password_hint">Repetir contraseña</string>
@@ -21,16 +20,28 @@
     <string name="description_hint">Descripción</string>
     <string name="price_hint">Precio (Bs)</string>
 
-    <string name="login_button">Iniciar sesión</string>
-    <string name="register_button">Registrarse</string>
-    <string name="addArticle_button">Publicar</string>
+    <!-- Buttons -->
+    <string name="button_login">Iniciar sesión</string>
+    <string name="button_register">Registrarse</string>
+    <string name="button_addArticle">Publicar</string>
+    <string name="button_here">aquí.</string>
 
-    <string name="categories_banner">Categorías</string>
-    <string name="posts_banner">Artículos</string>
-    <string name="wannaregister_banner">¿No tienes una cuenta aún? Regístrate </string>
-    <string name="here_banner">aquí.</string>
-    <string name="register_banner">Regístrate</string>
-    <string name="add_article_banner">Publica un artículo</string>
-    <string name="new_toggle_banner">Nuevo</string>
-    <string name="profilePicBanner">Foto de perfil</string>
+    <!-- Errors -->
+    <string name="error_fill_values">Please fill all the values</string>
+    <string name="error_no_connection">Please review your internet connection</string>
+    <string name="error_incorrect_login">Email or Password incorrect</string>
+    <string name="error_valid_email">Please enter a valid email</string>
+    <string name="error_unknown">Unknown error</string>
+    <string name="empty_value_error">Llenar los campos requeridos</string>
+    <string name="invalid_email_error">Ingrese un email válido</string>
+    <string name="login_error">Email y/o contraseña incorrectos</string>
+
+    <!-- Titles -->
+    <string name="title_categories">Categorías</string>
+    <string name="title_banner">Artículos</string>
+    <string name="title_wanna_register">¿No tienes una cuenta aún? Regístrate </string>
+    <string name="title_register">Regístrate</string>
+    <string name="title_add_article">Publica un artículo</string>
+    <string name="title_toggle_new">Nuevo</string>
+    <string name="title_profile_picture">Foto de perfil</string>
 </resources>

@@ -4,7 +4,14 @@ import android.app.Application;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MutableLiveData;
+import androidx.lifecycle.Observer;
 
+import java.util.List;
+
+import bo.com.golpistasElectricistas.pocketGarage.model.Article;
+import bo.com.golpistasElectricistas.pocketGarage.model.Base;
 import bo.com.golpistasElectricistas.pocketGarage.repository.RepositoryImpl;
 import bo.com.golpistasElectricistas.pocketGarage.repository.RepositoryMock;
 
@@ -14,5 +21,9 @@ public class MainViewModel extends AndroidViewModel {
     public MainViewModel(@NonNull Application application) {
         super(application);
         repository = new RepositoryMock();
+    }
+
+    public LiveData<Base<List<Article>>> getArticles() {
+        return repository.getArticlesItems();
     }
 }

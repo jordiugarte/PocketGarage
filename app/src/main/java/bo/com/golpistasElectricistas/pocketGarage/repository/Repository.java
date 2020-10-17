@@ -1,12 +1,15 @@
 package bo.com.golpistasElectricistas.pocketGarage.repository;
 
 import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MutableLiveData;
+import androidx.lifecycle.Observer;
 
 import java.util.List;
 
 import bo.com.golpistasElectricistas.pocketGarage.model.Article;
 import bo.com.golpistasElectricistas.pocketGarage.model.Base;
 import bo.com.golpistasElectricistas.pocketGarage.model.User;
+import bo.com.golpistasElectricistas.pocketGarage.repository.api.ApiRepository;
 import bo.com.golpistasElectricistas.pocketGarage.repository.firebase.Firebase;
 
 public class Repository implements RepositoryImpl {
@@ -17,6 +20,15 @@ public class Repository implements RepositoryImpl {
 
     @Override
     public LiveData<Base<List<Article>>> getArticlesItems() {
-        return null;
+        MutableLiveData<Base<List<Article>>> result = new MutableLiveData<>();
+        ApiRepository.getInstance().getArticles().observeForever(new Observer<Base<List<Article>>>() {
+            @Override
+            public void onChanged(Base<List<Article>> listBase) {
+                if (listBase.isSuccess()) {
+                    result.postValue(listBase);
+                }
+            }
+        });
+        return result;
     }
 }

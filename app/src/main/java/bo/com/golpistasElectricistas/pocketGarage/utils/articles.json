@@ -1,7 +1,20 @@
-{
-  "articleId": 1,
-  "shortDescription": "lindo auto verde",
-  "description": "es un mazda verde",
-  "title": "mazda verde",
-  "prize": 1000
-}
+[
+  {
+    "articleId": 1,
+    "photos": [],
+    "shortDescription": "lindo auto verde",
+    "description": "es un mazda verde",
+    "title": "mazda verde",
+    "timestamp": 1,
+    "prize": 1000
+  },
+  {
+    "articleId": 2,
+    "photos": [],
+    "shortDescription": "repuesto",
+    "description": "chino",
+    "title": "robado",
+    "timestamp": 2,
+    "prize": 200
+  }
+]

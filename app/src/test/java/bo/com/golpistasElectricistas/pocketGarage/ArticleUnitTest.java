@@ -8,21 +8,19 @@ import org.junit.Test;
 import org.junit.rules.TestRule;
 
 import bo.com.golpistasElectricistas.pocketGarage.repository.RepositoryImpl;
-import bo.com.golpistasElectricistas.pocketGarage.repository.RepositoryMock;
+import bo.com.golpistasElectricistas.pocketGarage.repository.Repository;
 
 public class ArticleUnitTest {
     RepositoryImpl repository;
 
     @Before
     public void beforeEach() {
-        repository = new RepositoryMock();
+        repository = new Repository();
     }
 
     @Rule
     public TestRule rule = new InstantTaskExecutorRule();
 
     @Test
-    public void getArticlesError(){
-
-    }
+    public void articleError(){}
 }

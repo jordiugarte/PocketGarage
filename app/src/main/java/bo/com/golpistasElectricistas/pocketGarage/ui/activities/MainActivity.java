@@ -61,7 +61,7 @@ public class MainActivity extends AppCompatActivity {
         viewModel = new ViewModelProvider(this).get(MainViewModel.class);
         initViews();
         initIntents();
-        //subscribeToData();
+        subscribeToData();
     }
 
     private void initViews() {

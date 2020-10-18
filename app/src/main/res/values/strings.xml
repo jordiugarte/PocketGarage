@@ -25,6 +25,8 @@
     <string name="button_register">Registrarse</string>
     <string name="button_addArticle">Publicar</string>
     <string name="button_here">aquí.</string>
+    <string name="button_logout">Cerrar sesión</string>
+    <string name="button_edit_profile">Editar perfil</string>
 
     <!-- Errors -->
     <string name="error_fill_values">Please fill all the values</string>
@@ -44,4 +46,6 @@
     <string name="title_add_article">Publica un artículo</string>
     <string name="title_toggle_new">Nuevo</string>
     <string name="title_profile_picture">Foto de perfil</string>
+    <string name="title_seller">Vendedor</string>
+    <string name="title_profile">Perfil</string>
 </resources>

@@ -27,6 +27,7 @@
     <string name="button_here">aquí.</string>
     <string name="button_logout">Cerrar sesión</string>
     <string name="button_edit_profile">Editar perfil</string>
+    <string name="button_save_changes">Guardar cambios</string>
 
     <!-- Errors -->
     <string name="error_fill_values">Please fill all the values</string>
@@ -48,4 +49,8 @@
     <string name="title_profile_picture">Foto de perfil</string>
     <string name="title_seller">Vendedor</string>
     <string name="title_profile">Perfil</string>
+    <string name="title_edit_profile">Editar perfil</string>
+
+    <!-- Actions -->
+    <string name="action_profile">Perfil</string>
 </resources>

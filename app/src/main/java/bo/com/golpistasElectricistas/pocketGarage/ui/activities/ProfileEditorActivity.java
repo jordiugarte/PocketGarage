@@ -2,51 +2,50 @@ package bo.com.golpistasElectricistas.pocketGarage.ui.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
-import android.util.Log;
 import android.view.View;
 import android.view.Window;
-import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ImageView;
 
 import java.io.IOException;
 
 import bo.com.golpistasElectricistas.pocketGarage.R;
-import bo.com.golpistasElectricistas.pocketGarage.ui.fragments.DatePickerFragment;
-import de.hdodenhof.circleimageview.CircleImageView;
 
-import static android.app.PendingIntent.getActivity;
+public class ProfileEditorActivity extends AppCompatActivity {
 
-public class RegisterActivity extends AppCompatActivity {
-
-    private static final String LOG = LoginActivity.class.getName();
-
+    private ImageView profilePicture;
+    private EditText nameField, ageField, addressField, numberField, emailField;
     private Bitmap bitmap;
-
-    private CircleImageView profilePicture;
-    private EditText dateText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Log.e(LOG, "onCreate");
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         getSupportActionBar().hide();
-        setContentView(R.layout.activity_register);
+        setContentView(R.layout.activity_profile_editor);
         initViews();
     }
 
     private void initViews() {
-        profilePicture = findViewById(R.id.profileRegisterImage);
-        dateText = findViewById(R.id.dateField);
+        profilePicture = findViewById(R.id.editProfileImageButton);
+        nameField = findViewById(R.id.namesEditProfileField);
+        ageField = findViewById(R.id.ageEditProfileField);
+        addressField = findViewById(R.id.addressEditProfileField);
+        numberField = findViewById(R.id.numberEditPofileField);
+        emailField = findViewById(R.id.emailField);
     }
 
-    public void choosePhoto(View view) {
+    public void saveChanges(View view) {
+        //TODO
+        finish();
+    }
+
+    public void chooseNewPhoto(View view) {
         Intent intent = new Intent();
         intent.setType("image/*");
         intent.setAction(Intent.ACTION_GET_CONTENT);
@@ -64,9 +63,12 @@ public class RegisterActivity extends AppCompatActivity {
             } catch (IOException e) {
                 e.printStackTrace();
             }
-
             //UploadPicture();
         }
+    }
+
+    public void returnToPrevious(View view) {
+        finish();
     }
 /*
     public String getStringImage(Bitmap bitmap) {
@@ -76,17 +78,4 @@ public class RegisterActivity extends AppCompatActivity {
         String encodedImage = Base64.encodeToString(imageByteArray, Base64.DEFAULT);
         return encodedImage;
     }*/
-
-    public void showDatePickerDialog(View view) {
-        DatePickerFragment newFragment = DatePickerFragment.newInstance(new DatePickerDialog.OnDateSetListener() {
-            @Override
-            public void onDateSet(DatePicker datePicker, int year, int month, int day) {
-                // +1 because January is zero
-                final String selectedDate = day + " / " + (month + 1) + " / " + year;
-                dateText.setText(selectedDate);
-            }
-        });
-
-        newFragment.show(getSupportFragmentManager(), "datePicker");
-    }
 }

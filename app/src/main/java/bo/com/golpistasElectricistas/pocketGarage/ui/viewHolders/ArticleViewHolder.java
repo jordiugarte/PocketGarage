@@ -18,9 +18,9 @@ public class ArticleViewHolder extends RecyclerView.ViewHolder {
 
     public ArticleViewHolder(@NonNull View itemView) {
         super(itemView);
-        coverImageView = itemView.findViewById(R.id.articleImage);
+        coverImageView = itemView.findViewById(R.id.articleItemImage);
         titleTextView = itemView.findViewById(R.id.titleField);
-        shortDescriptionTextView = itemView.findViewById(R.id.articleShortDescription);
-        priceTextView = itemView.findViewById(R.id.articlePrice);
+        shortDescriptionTextView = itemView.findViewById(R.id.articleItemShortDescription);
+        priceTextView = itemView.findViewById(R.id.articleItemPrice);
     }
 }

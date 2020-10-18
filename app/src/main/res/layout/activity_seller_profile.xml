@@ -27,7 +27,7 @@
             android:padding="10dp"
             android:text="@string/title_seller"
             android:textColor="@color/colorBlack"
-            android:textSize="30sp"
+            android:textSize="@dimen/dimen_title"
             android:textStyle="bold" />
     </LinearLayout>
 

@@ -33,35 +33,34 @@
     </LinearLayout>
 
     <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
-        android:id="@+id/profileImage"
+        android:id="@+id/editProfileImageButton"
         android:layout_width="160dp"
         android:layout_height="160dp"
         android:layout_marginTop="20dp"
         android:src="@color/colorWhite"
         app:civ_border_color="#FF000000"
-        app:civ_border_width="1dp" />
+        app:civ_border_width="1dp"
+        android:onClick="chooseNewPhoto"/>
 
-    <TextView
-        android:id="@+id/profileNames"
-        android:layout_width="match_parent"
+    <EditText
+        android:id="@+id/namesEditProfileField"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:gravity="center"
         android:padding="10dp"
         android:text="Nombres y apellidos"
-        android:textSize="30sp"
-        android:textStyle="bold" />
+        android:textSize="30sp" />
 
-    <TextView
-        android:id="@+id/profileAge"
-        android:layout_width="match_parent"
+    <EditText
+        android:id="@+id/ageEditProfileField"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:gravity="center"
         android:text="Edad: "
-        android:textSize="20sp"
-        android:textStyle="italic" />
+        android:textSize="20sp" />
 
-    <TextView
-        android:id="@+id/profileAddress"
+    <EditText
+        android:id="@+id/addressEditProfileField"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:drawableLeft="@drawable/ic_baseline_location_on_24"
@@ -70,10 +69,11 @@
         android:padding="15dp"
         android:text="Direccion: "
         android:textSize="20sp"
-        android:textStyle="normal" />
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp" />
 
-    <TextView
-        android:id="@+id/profileNumber"
+    <EditText
+        android:id="@+id/numberEditPofileField"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:drawableLeft="@drawable/ic_baseline_local_phone_24"
@@ -82,11 +82,12 @@
         android:padding="15dp"
         android:text="Numero: "
         android:textSize="20sp"
-        android:textStyle="normal" />
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"/>
 
 
-    <TextView
-        android:id="@+id/profileEmail"
+    <EditText
+        android:id="@+id/mailEditProfileField"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:drawableLeft="@drawable/ic_baseline_alternate_email_24"
@@ -95,7 +96,8 @@
         android:padding="15dp"
         android:text="Correo: "
         android:textSize="20sp"
-        android:textStyle="normal" />
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"/>
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -108,30 +110,17 @@
             android:padding="10dp"
             android:layout_alignParentBottom="true">
             <Button
-                android:id="@+id/editProfileButton"
+                android:id="@+id/saveProfileChangesButton"
                 android:layout_width="match_parent"
                 android:layout_weight="1"
                 android:layout_height="wrap_content"
                 android:background="@drawable/gradient4"
-                android:text="@string/button_edit_profile"
+                android:text="@string/button_save_changes"
                 android:textColor="@color/colorWhite"
                 android:textAllCaps="false"
                 android:padding="10dp"
                 android:layout_marginEnd="5dp"
-                android:onClick="goToEditProfileActivity"/>
-
-            <Button
-                android:id="@+id/logoutButton"
-                android:layout_weight="1"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@drawable/gradient2"
-                android:text="@string/button_logout"
-                android:textColor="@color/colorWhite"
-                android:textAllCaps="false"
-                android:padding="10dp"
-                android:layout_marginStart="5dp"
-                android:onClick="logOut"/>
+                android:onClick="saveChanges"/>
         </LinearLayout>
 
     </RelativeLayout>

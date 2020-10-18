@@ -17,7 +17,8 @@
             android:layout_height="30dp"
             android:background="@drawable/ic_baseline_arrow_back_24"
             android:backgroundTint="@color/colorBlack"
-            android:layout_gravity="center"/>
+            android:layout_gravity="center"
+            android:onClick="returnToPrevious"/>
 
         <TextView
             android:layout_width="match_parent"
@@ -26,7 +27,7 @@
             android:padding="10dp"
             android:text="@string/title_seller"
             android:textColor="@color/colorBlack"
-            android:textSize="30sp"
+            android:textSize="@dimen/dimen_title"
             android:textStyle="bold" />
     </LinearLayout>
 
@@ -131,7 +132,8 @@
         android:padding="10dp"
         android:text="@string/button_addArticle"
         android:textAllCaps="false"
-        android:textColor="@color/colorWhite">
+        android:textColor="@color/colorWhite"
+        android:onClick="postArticle">
 
     </Button>
 

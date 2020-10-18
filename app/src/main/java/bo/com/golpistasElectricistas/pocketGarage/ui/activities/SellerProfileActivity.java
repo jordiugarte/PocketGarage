@@ -3,6 +3,7 @@ package bo.com.golpistasElectricistas.pocketGarage.ui.activities;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.view.View;
 import android.view.Window;
 
 import bo.com.golpistasElectricistas.pocketGarage.R;
@@ -15,5 +16,9 @@ public class SellerProfileActivity extends AppCompatActivity {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         getSupportActionBar().hide();
         setContentView(R.layout.activity_seller_profile);
+    }
+
+    public void returnToPrevious(View view) {
+        finish();
     }
 }

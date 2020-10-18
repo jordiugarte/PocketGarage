@@ -9,6 +9,9 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
@@ -36,7 +39,7 @@ public class MainActivity extends AppCompatActivity {
 
     private MainViewModel viewModel;
 
-    private Intent newArticleActivity;
+    private Intent newArticleActivity, myProfileActivity;
 
     private List<Article> articles = new ArrayList<>();
 
@@ -48,7 +51,6 @@ public class MainActivity extends AppCompatActivity {
             "https://scontent.flpb2-1.fna.fbcdn.net/v/t1.0-9/106571277_1453836774811044_5992646281856668927_n.jpg?_nc_cat=110&_nc_sid=730e14&_nc_ohc=7b9a8hvn32EAX9scXvj&_nc_ht=scontent.flpb2-1.fna&oh=46c15bfbb5ab245ef6242e96dc37600b&oe=5FAC2C3C"
     };
 
-    private FloatingActionButton publishButton;
     private CarouselView carouselView;
     private RecyclerView articlesList;
 
@@ -64,8 +66,23 @@ public class MainActivity extends AppCompatActivity {
         subscribeToData();
     }
 
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.main_menu, menu);
+        return true;
+    }
+
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.action_profile:
+                startActivity(myProfileActivity);
+                return true;
+            default:
+                return true;
+        }
+    }
+
     private void initViews() {
-        publishButton = findViewById(R.id.publishButton);
         carouselView = findViewById(R.id.carouselView);
         carouselView.setPageCount(sampleImages.length);
         carouselView.setImageListener(imageListener);
@@ -76,6 +93,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void initIntents() {
         newArticleActivity = new Intent(context, NewArticleActivity.class);
+        myProfileActivity = new Intent(context, MyProfileActivity.class);
     }
 
     ImageListener imageListener = new ImageListener() {
@@ -115,5 +133,10 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
+    }
+
+    @Override
+    public void onBackPressed(){
+        return;
     }
 }

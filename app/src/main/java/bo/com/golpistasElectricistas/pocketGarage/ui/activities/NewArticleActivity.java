@@ -29,6 +29,8 @@ public class NewArticleActivity extends AppCompatActivity {
 
     private List<Bitmap> imageBitmaps = new ArrayList<Bitmap>();
 
+    private Intent mainActivity;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,6 +43,7 @@ public class NewArticleActivity extends AppCompatActivity {
     }
 
     private void initIntents() {
+        mainActivity = new Intent(context, MainActivity.class);
     }
 
     private void initViews() {
@@ -79,5 +82,14 @@ public class NewArticleActivity extends AppCompatActivity {
         imageView.setImageBitmap(bitmap);
         imageViews.add(imageView);
         return imageView;
+    }
+
+    public void postArticle(View view) {
+        //TODO
+        startActivity(mainActivity);
+    }
+
+    public void returnToPrevious(View view) {
+        finish();
     }
 }

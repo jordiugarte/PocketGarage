@@ -5,7 +5,6 @@ public class Constants {
     public static final int INVALID_EMAIL_ERROR = 1001;
     public static final int INCORRECT_EMAIL_ERROR = 1002;
     public static final int INCORRECT_PASSWORD_ERROR = 1003;
-    public static final int INCORRECT_lOGIN_ERROR = 1004;
     public static final int NO_CONNECTION_ERROR = 1005;
 
     public static final int SERVER_ERROR = 5000;

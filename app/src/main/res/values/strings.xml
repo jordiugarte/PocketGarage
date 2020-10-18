@@ -34,10 +34,12 @@
     <string name="error_no_connection">Please review your internet connection</string>
     <string name="error_incorrect_login">Email or Password incorrect</string>
     <string name="error_valid_email">Please enter a valid email</string>
-    <string name="error_unknown">Unknown error</string>
-    <string name="empty_value_error">Llenar los campos requeridos</string>
+
+    <string name="unknown_error">Error desconocido</string>
+    <string name="empty_value_error">Llenar todos los campos requeridos</string>
     <string name="invalid_email_error">Ingrese un email válido</string>
-    <string name="login_error">Email y/o contraseña incorrectos</string>
+    <string name="incorrect_email_error">Email incorrecto</string>
+    <string name="incorrect_password_error">Contraseña incorrecta</string>
 
     <!-- Titles -->
     <string name="title_categories">Categorías</string>

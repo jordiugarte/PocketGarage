@@ -32,6 +32,7 @@
             android:layout_marginBottom="10dp"
             android:background="@drawable/text_gradient"
             android:hint="@string/email_hint"
+            android:inputType="textEmailAddress"
             android:padding="10dp"></EditText>
 
         <EditText

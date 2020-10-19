@@ -1,5 +1,7 @@
 package bo.com.golpistasElectricistas.pocketGarage.repository;
 
+import android.app.Application;
+
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
@@ -13,11 +15,11 @@ import bo.com.golpistasElectricistas.pocketGarage.utils.Constants;
 import bo.com.golpistasElectricistas.pocketGarage.utils.Validations;
 
 public class RepositoryMock implements RepositoryImpl {
-    public List<User> getMockUsers() {
+    protected List<User> getMockUsers(){
         List<User> mockUsers = new ArrayList<>();
-        mockUsers.add(new User(1,"jordi@ugarte.com","ffffffff","Jordi","Ugarte","01/01/1999"));
-        mockUsers.add(new User(2,"ignacio@delrio.com","ffffffff","Ignacio","del Rio","01/01/1999"));
-        mockUsers.add(new User(3,"sergio@laguna.com","ffffffff","Sergio","Laguna","01/01/1999"));
+        mockUsers.add(new User("https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcSIxyT0DAa5_kwzb-e-bpTvAXIyW0OispA76Q&usqp=CAU",1,"jordi@ugarte.com","ffffffff","Jordi","Ugarte","01/01/1999"));
+        mockUsers.add(new User("https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcSIxyT0DAa5_kwzb-e-bpTvAXIyW0OispA76Q&usqp=CAU",2,"ignacio@delrio.com","ffffffff","Ignacio","del Rio","01/01/1999"));
+        mockUsers.add(new User("https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcSIxyT0DAa5_kwzb-e-bpTvAXIyW0OispA76Q&usqp=CAU",3,"sergio@laguna.com","ffffffff","Sergio","Laguna","01/01/1999"));
         return mockUsers;
     }
 
@@ -76,6 +78,22 @@ public class RepositoryMock implements RepositoryImpl {
         for (Article article : getMockArticles()) {
             result.postValue(new Base(article));
         }
+        return result;
+    }
+
+    @Override
+    public LiveData<Base<User>> register(String photo, int ci, String email, String pass, String name, String lastName, String date) {
+        MutableLiveData<Base<User>> result = new MutableLiveData<>();
+        for (User user: getMockUsers()){
+            if (ci == user.getCi()){
+                result.postValue(new Base<>(1,null));
+            }
+            if (email.equals(user.getEmail())){
+                result.postValue(new Base<>(1,null));
+            }
+        }
+        User user = new User(photo, ci, email, pass, name, lastName, date);
+        result.postValue(new Base<>(user));
         return result;
     }
 }

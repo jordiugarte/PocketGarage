@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:id="@+id/registerParent"
     android:background="@drawable/gradient2"
     android:orientation="vertical"
     tools:context=".ui.activities.RegisterActivity">
@@ -71,12 +72,23 @@
                 android:padding="10dp"></EditText>
 
             <EditText
+                android:id="@+id/emailRegisterField"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginBottom="10dp"
+                android:background="@drawable/text_gradient"
+                android:hint="@string/email_hint"
+                android:inputType="textEmailAddress"
+                android:padding="10dp"></EditText>
+
+            <EditText
                 android:id="@+id/passwordRegisterField"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:layout_marginBottom="10dp"
                 android:background="@drawable/text_gradient"
                 android:hint="@string/password_hint"
+                android:inputType="textPassword"
                 android:padding="10dp"></EditText>
 
             <EditText
@@ -86,6 +98,7 @@
                 android:layout_marginBottom="10dp"
                 android:background="@drawable/text_gradient"
                 android:hint="@string/repeat_password_hint"
+                android:inputType="textPassword"
                 android:padding="10dp"></EditText>
 
             <EditText
@@ -123,6 +136,7 @@
         android:background="@drawable/gradient4"
         android:padding="10dp"
         android:text="@string/button_register"
+        android:onClick="register"
         android:textAllCaps="false"
         android:textColor="@color/colorWhite">
 

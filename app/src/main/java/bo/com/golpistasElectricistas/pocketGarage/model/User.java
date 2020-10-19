@@ -9,7 +9,8 @@ public class User {
     private String photo;
     private String bornDate;
 
-    public User(int ci, String email, String password, String name, String lastName, String bornDate) {
+    public User(String photo, int ci, String email, String password, String name, String lastName, String bornDate) {
+        this.photo = photo;
         this.ci = ci;
         this.email = email;
         this.password = password;

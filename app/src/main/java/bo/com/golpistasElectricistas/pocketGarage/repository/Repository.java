@@ -31,4 +31,9 @@ public class Repository implements RepositoryImpl {
         });
         return result;
     }
+
+    @Override
+    public LiveData<Base<User>> register(String photo, int ci, String email, String pass, String name, String lastName, String date) {
+        return null;
+    }
 }

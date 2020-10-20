@@ -33,7 +33,7 @@ public class Repository implements RepositoryImpl {
     }
 
     @Override
-    public LiveData<Base<User>> register(String photo, int ci, String email, String pass, String name, String lastName, String date) {
+    public LiveData<Base<User>> register(String photo, String ci, String email, String pass, String name, String lastName, String date) {
         return null;
     }
 }

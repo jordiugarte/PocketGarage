@@ -7,6 +7,12 @@ public class Constants {
     public static final int INCORRECT_PASSWORD_ERROR = 1003;
     public static final int NO_CONNECTION_ERROR = 1005;
 
+    public static final int INVALID_NAME_ERROR = 2000;
+    public static final int INVALID_LAST_NAME_ERROR = 2001;
+    public static final int INVALID_CI_ERROR = 2002;
+    public static final int REPEATED_CI_ERROR = 2003;
+    public static final int REPEATED_EMAIL_ERROR = 2004;
+
     public static final int SERVER_ERROR = 5000;
 
     //Api

@@ -41,6 +41,12 @@
     <string name="incorrect_email_error">Email incorrecto</string>
     <string name="incorrect_password_error">Contraseña incorrecta</string>
 
+    <string name="invalid_ci_error">Ingrese un ci válido</string>
+    <string name="invalid_name_error">Ingrese un nombre válido</string>
+    <string name="invalid_last_name_error">Ingrese un apellido válido</string>
+    <string name="repeated_email_error">Ya hay un usuario con ese email</string>
+    <string name="repeated_ci_error">Ya hay un usuario con ese ci</string>
+
     <!-- Titles -->
     <string name="title_categories">Categorías</string>
     <string name="title_banner">Artículos</string>

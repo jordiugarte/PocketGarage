@@ -17,6 +17,16 @@ public class ErrorMapper {
                 return  context.getString(R.string.incorrect_password_error);
             case Constants.INVALID_EMAIL_ERROR:
                 return  context.getString(R.string.invalid_email_error);
+            case Constants.INVALID_CI_ERROR:
+                return  context.getString(R.string.invalid_ci_error);
+            case Constants.INVALID_NAME_ERROR:
+                return  context.getString(R.string.invalid_name_error);
+            case Constants.INVALID_LAST_NAME_ERROR:
+                return  context.getString(R.string.invalid_last_name_error);
+            case Constants.REPEATED_CI_ERROR:
+                return  context.getString(R.string.repeated_ci_error);
+            case Constants.REPEATED_EMAIL_ERROR:
+                return  context.getString(R.string.repeated_email_error);
             default:
                 return context.getString(R.string.unknown_error);
         }

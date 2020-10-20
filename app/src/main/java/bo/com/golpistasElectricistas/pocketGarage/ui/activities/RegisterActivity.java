@@ -123,7 +123,7 @@ public class RegisterActivity extends AppCompatActivity {
         String email = emailText.getText().toString();
         String pass = passwordText.getText().toString();
         String pass2 = passwordConfirmText.getText().toString();
-        int ci = Integer.parseInt(ciText.getText().toString());
+        String ci = ciText.getText().toString();
         String date = dateText.getText().toString();
         if (pass.equals(pass2)) {
             viewModel.register(photo, ci, email, pass, name, lastName, date).observeForever(new Observer<Base<User>>() {
@@ -131,7 +131,7 @@ public class RegisterActivity extends AppCompatActivity {
                 public void onChanged(Base<User> userBase) {
                     if (userBase.isSuccess()) {
                         //Snackbar.make(view, "Usuario creado exitosamente", Snackbar.LENGTH_SHORT).show();
-                        Log.e("f","creado");
+                        Log.e("Creado con exito", userBase.getData().toString());
                         Intent intent = new Intent(context, LoginActivity.class);
                         startActivity(intent);
                     } else {
@@ -139,7 +139,7 @@ public class RegisterActivity extends AppCompatActivity {
                     }
                 }
             });
-        }else {
+        } else {
             Snackbar.make(view, "Las contraseñas no coinciden.", Snackbar.LENGTH_SHORT).show();
         }
     }

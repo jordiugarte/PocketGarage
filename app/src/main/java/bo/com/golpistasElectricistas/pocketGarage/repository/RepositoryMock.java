@@ -5,6 +5,7 @@ import android.app.Application;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,11 +16,11 @@ import bo.com.golpistasElectricistas.pocketGarage.utils.Constants;
 import bo.com.golpistasElectricistas.pocketGarage.utils.Validations;
 
 public class RepositoryMock implements RepositoryImpl {
-    protected List<User> getMockUsers(){
+    protected List<User> getMockUsers() {
         List<User> mockUsers = new ArrayList<>();
-        mockUsers.add(new User("https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcSIxyT0DAa5_kwzb-e-bpTvAXIyW0OispA76Q&usqp=CAU",1,"jordi@ugarte.com","ffffffff","Jordi","Ugarte","01/01/1999"));
-        mockUsers.add(new User("https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcSIxyT0DAa5_kwzb-e-bpTvAXIyW0OispA76Q&usqp=CAU",2,"ignacio@delrio.com","ffffffff","Ignacio","del Rio","01/01/1999"));
-        mockUsers.add(new User("https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcSIxyT0DAa5_kwzb-e-bpTvAXIyW0OispA76Q&usqp=CAU",3,"sergio@laguna.com","ffffffff","Sergio","Laguna","01/01/1999"));
+        mockUsers.add(new User("https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcSIxyT0DAa5_kwzb-e-bpTvAXIyW0OispA76Q&usqp=CAU", 1, "jordi@ugarte.com", "ffffffff", "Jordi", "Ugarte", "01/01/1999"));
+        mockUsers.add(new User("https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcSIxyT0DAa5_kwzb-e-bpTvAXIyW0OispA76Q&usqp=CAU", 2, "ignacio@delrio.com", "ffffffff", "Ignacio", "del Rio", "01/01/1999"));
+        mockUsers.add(new User("https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcSIxyT0DAa5_kwzb-e-bpTvAXIyW0OispA76Q&usqp=CAU", 3, "sergio@laguna.com", "ffffffff", "Sergio", "Laguna", "01/01/1999"));
         return mockUsers;
     }
 
@@ -42,9 +43,9 @@ public class RepositoryMock implements RepositoryImpl {
         images3.add("https://upload.wikimedia.org/wikipedia/commons/thumb/7/78/Lamborghini_Huracan_Evo_Genf_2019_1Y7A5452.jpg/1920px-Lamborghini_Huracan_Evo_Genf_2019_1Y7A5452.jpg");
         images3.add("https://upload.wikimedia.org/wikipedia/commons/thumb/7/78/Lamborghini_Huracan_Evo_Genf_2019_1Y7A5452.jpg/1920px-Lamborghini_Huracan_Evo_Genf_2019_1Y7A5452.jpg");
 
-        mockArticles.add(new Article(1,"Toyota Hilux", "Hilux 2016 con 4 anos de uso", "Ucha bro f", images1,1000000, 6942000));
-        mockArticles.add(new Article(2,"Ford Ranger", "Ranger medio cagada", "Ucha bro f", images2,1000000, 4206900));
-        mockArticles.add(new Article(3,"Lamborghini Aventador", "Directo del Chapare", "Ucha bro f", images3,1000000, 11111111));
+        mockArticles.add(new Article(1, "Toyota Hilux", "Hilux 2016 con 4 anos de uso", "Ucha bro f", images1, 1000000, 6942000));
+        mockArticles.add(new Article(2, "Ford Ranger", "Ranger medio cagada", "Ucha bro f", images2, 1000000, 4206900));
+        mockArticles.add(new Article(3, "Lamborghini Aventador", "Directo del Chapare", "Ucha bro f", images3, 1000000, 11111111));
         return mockArticles;
     }
 
@@ -82,18 +83,43 @@ public class RepositoryMock implements RepositoryImpl {
     }
 
     @Override
-    public LiveData<Base<User>> register(String photo, int ci, String email, String pass, String name, String lastName, String date) {
+    public LiveData<Base<User>> register(String photo, String ci, String email, String pass, String name, String lastName, String date) {
         MutableLiveData<Base<User>> result = new MutableLiveData<>();
-        for (User user: getMockUsers()){
-            if (ci == user.getCi()){
-                result.postValue(new Base<>(1,null));
-            }
-            if (email.equals(user.getEmail())){
-                result.postValue(new Base<>(1,null));
-            }
+
+        if (ci.isEmpty() || email.isEmpty() || pass.isEmpty() || name.isEmpty() || lastName.isEmpty() || date.isEmpty()) {
+            result.postValue(new Base(Constants.EMPTY_VALUE_ERROR, null));
+            return result;
         }
-        User user = new User(photo, ci, email, pass, name, lastName, date);
-        result.postValue(new Base<>(user));
-        return result;
+        if (!Validations.emailIsValid(email)) {
+            result.postValue(new Base(Constants.INVALID_EMAIL_ERROR, null));
+            return result;
+        }
+        if (!Validations.nameIsValid(name)) {
+            result.postValue(new Base<>(Constants.INVALID_NAME_ERROR, null));
+            return result;
+        }
+        if (!Validations.nameIsValid(lastName)) {
+            result.postValue(new Base<>(Constants.INVALID_LAST_NAME_ERROR, null));
+            return result;
+        }
+        try {
+            int ciint = Integer.parseInt(ci);
+            for (User user : getMockUsers()) {
+                if (ciint == user.getCi()) {
+                    result.postValue(new Base<>(Constants.REPEATED_CI_ERROR, null));
+                    return result;
+                }
+                if (email.equals(user.getEmail())) {
+                    result.postValue(new Base<>(Constants.REPEATED_EMAIL_ERROR, null));
+                    return result;
+                }
+            }
+            User user = new User(photo, ciint, email, pass, name, lastName, date);
+            result.postValue(new Base<>(user));
+            return result;
+        } catch (final NumberFormatException e) {
+            result.postValue(new Base<>(Constants.INVALID_CI_ERROR, null));
+            return result;
+        }
     }
 }

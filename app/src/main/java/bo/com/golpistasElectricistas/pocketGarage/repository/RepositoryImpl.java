@@ -13,5 +13,9 @@ public interface RepositoryImpl {
 
     LiveData<Base<List<Article>>> getArticlesItems();
 
+    LiveData<Base<List<Article>>> getFavorites();
+
+    LiveData<Base<List<Article>>> getMyPublications();
+
     LiveData<Base<User>> register(String photo, String ci, String email, String pass, String name, String lastName, String date);
 }

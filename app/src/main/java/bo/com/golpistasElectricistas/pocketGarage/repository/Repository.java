@@ -1,5 +1,7 @@
 package bo.com.golpistasElectricistas.pocketGarage.repository;
 
+import android.app.Application;
+
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.Observer;
@@ -11,8 +13,15 @@ import bo.com.golpistasElectricistas.pocketGarage.model.Base;
 import bo.com.golpistasElectricistas.pocketGarage.model.User;
 import bo.com.golpistasElectricistas.pocketGarage.repository.api.ApiRepository;
 import bo.com.golpistasElectricistas.pocketGarage.repository.firebase.Firebase;
+import bo.com.golpistasElectricistas.pocketGarage.repository.local.Local;
 
 public class Repository implements RepositoryImpl {
+    private Local local;
+
+    public Repository(Application application) {
+        local = new Local(application);
+    }
+
     @Override
     public LiveData<Base<User>> login(String email, String password) {
         return Firebase.getInstance().login(email, password);
@@ -30,6 +39,32 @@ public class Repository implements RepositoryImpl {
             }
         });
         return result;
+    }
+
+    @Override
+    public LiveData<Base<List<Article>>> getFavorites() {
+        MutableLiveData<Base<List<Article>>> result = new MutableLiveData<>();
+        local.getFavorites().observeForever(new Observer<List<Article>>() {
+            @Override
+            public void onChanged(List<Article> articles) {
+                result.postValue(new Base<>(articles));
+            }
+        });
+        ApiRepository.getInstance().getArticles().observeForever(new Observer<Base<List<Article>>>() {
+            @Override
+            public void onChanged(Base<List<Article>> listBase) {
+                if (listBase.isSuccess()) {
+                    result.postValue(listBase);
+                    local.update(listBase.getData());
+                }
+            }
+        });
+        return result;
+    }
+
+    @Override
+    public LiveData<Base<List<Article>>> getMyPublications() {
+        return null;
     }
 
     @Override

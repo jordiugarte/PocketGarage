@@ -1,0 +1,27 @@
+package bo.com.golpistasElectricistas.pocketGarage.repository.local;
+
+import android.content.Context;
+
+import androidx.room.Database;
+import androidx.room.Room;
+import androidx.room.RoomDatabase;
+
+import bo.com.golpistasElectricistas.pocketGarage.model.Article;
+
+@Database(entities = {Article.class}, version = 1)
+public abstract class PocketGarageDatabase extends RoomDatabase {
+    private static volatile PocketGarageDatabase INSTANCE;
+
+    static public PocketGarageDatabase getDatabase(Context context) {
+        if (INSTANCE == null) {
+            synchronized (PocketGarageDatabase.class) {
+                if (INSTANCE == null) {
+                    INSTANCE = Room.databaseBuilder(context.getApplicationContext(), PocketGarageDatabase.class, "pocketgarage_database").build();
+                }
+            }
+        }
+        return INSTANCE;
+    }
+
+    public abstract ArticleDao articleDao();
+}

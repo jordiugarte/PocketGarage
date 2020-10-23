@@ -1,18 +1,37 @@
 package bo.com.golpistasElectricistas.pocketGarage.model;
 
+import androidx.room.ColumnInfo;
+import androidx.room.Entity;
+import androidx.room.Ignore;
+
 import java.util.List;
 
+@Entity(tableName = "article_table")
 public class Article {
-    private int articleId;
+
+    @ColumnInfo(name = "userId")
+    private int userId;
+
+    @Ignore
     private List<String> photos;
+
+    @ColumnInfo(name = "shortDescription")
     private String shortDescription;
+
+    @ColumnInfo(name = "description")
     private String description;
+
+    @ColumnInfo(name = "title")
     private String title;
+
+    @ColumnInfo(name = "timestamp")
     private long timestamp;
+
+    @ColumnInfo(name = "price")
     private double price;
 
-    public Article(int articleId, String title, String shortDescription, String description, List<String> photos, long timestamp, double price) {
-        this.articleId = articleId;
+    public Article(int userId, String title, String shortDescription, String description, List<String> photos, long timestamp, double price) {
+        this.userId = userId;
         this.photos = photos;
         this.shortDescription = shortDescription;
         this.description = description;
@@ -21,12 +40,12 @@ public class Article {
         this.price = price;
     }
 
-    public int getArticleId() {
-        return articleId;
+    public int getUserId() {
+        return userId;
     }
 
-    public void setArticleId(int articleId) {
-        this.articleId = articleId;
+    public void setUserId(int userId) {
+        this.userId = userId;
     }
 
     public List<String> getPhotos() {

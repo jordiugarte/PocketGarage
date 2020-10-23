@@ -10,14 +10,20 @@ import bo.com.golpistasElectricistas.pocketGarage.model.Article;
 import bo.com.golpistasElectricistas.pocketGarage.model.Base;
 
 public class Local {
-    public Local(Application application) {
+    private ArticleDao articleDao;
 
+    public Local(Application application) {
+        PocketGarageDatabase db = PocketGarageDatabase.getDatabase(application);
+        articleDao = db.articleDao();
     }
 
-    public LiveData<Base<List<Article>>> getFavorites() {
-        return null;
+    public LiveData<List<Article>> getFavorites() {
+        return articleDao.getAll();
     }
 
     public void update(List<Article> favorites) {
+        new Thread(() -> {
+            articleDao.insert(favorites);
+        }).start();
     }
 }

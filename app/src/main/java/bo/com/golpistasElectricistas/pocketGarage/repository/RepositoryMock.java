@@ -83,6 +83,16 @@ public class RepositoryMock implements RepositoryImpl {
     }
 
     @Override
+    public LiveData<Base<List<Article>>> getFavorites() {
+        return null;
+    }
+
+    @Override
+    public LiveData<Base<List<Article>>> getMyPublications() {
+        return null;
+    }
+
+    @Override
     public LiveData<Base<User>> register(String photo, String ci, String email, String pass, String name, String lastName, String date) {
         MutableLiveData<Base<User>> result = new MutableLiveData<>();
 

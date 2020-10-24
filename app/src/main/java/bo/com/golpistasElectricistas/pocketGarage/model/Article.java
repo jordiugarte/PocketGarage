@@ -1,18 +1,22 @@
 package bo.com.golpistasElectricistas.pocketGarage.model;
 
+import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.Ignore;
+import androidx.room.PrimaryKey;
 
 import java.util.List;
 
 @Entity(tableName = "article_table")
 public class Article {
 
+    @PrimaryKey
+    @NonNull
     @ColumnInfo(name = "userId")
     private int userId;
 
-    @Ignore
+    @ColumnInfo(name = "photos")
     private List<String> photos;
 
     @ColumnInfo(name = "shortDescription")

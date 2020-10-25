@@ -1,19 +1,26 @@
 package bo.com.golpistasElectricistas.pocketGarage.repository;
 
 import android.app.Application;
+import android.util.Log;
+import android.widget.Toast;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.Observer;
 
+import com.google.gson.Gson;
+
+import java.util.ArrayList;
 import java.util.List;
 
 import bo.com.golpistasElectricistas.pocketGarage.model.Article;
 import bo.com.golpistasElectricistas.pocketGarage.model.Base;
+import bo.com.golpistasElectricistas.pocketGarage.model.Post;
 import bo.com.golpistasElectricistas.pocketGarage.model.User;
 import bo.com.golpistasElectricistas.pocketGarage.repository.api.ApiRepository;
 import bo.com.golpistasElectricistas.pocketGarage.repository.firebase.Firebase;
 import bo.com.golpistasElectricistas.pocketGarage.repository.local.Local;
+import bo.com.golpistasElectricistas.pocketGarage.utils.ErrorMapper;
 
 public class Repository implements RepositoryImpl {
     private Local local;
@@ -42,6 +49,11 @@ public class Repository implements RepositoryImpl {
     }
 
     @Override
+    public Article getArticleItem(int id) {
+        return getArticlesItems().getValue().getData().get(id);
+    }
+
+    @Override
     public LiveData<Base<List<Article>>> getFavorites() {
         MutableLiveData<Base<List<Article>>> result = new MutableLiveData<>();
         local.getFavorites().observeForever(new Observer<List<Article>>() {
@@ -63,8 +75,28 @@ public class Repository implements RepositoryImpl {
     }
 
     @Override
-    public LiveData<Base<List<Article>>> getMyPublications() {
+    public LiveData<Base<List<Article>>> getMyArticles() {
         return null;
+    }
+
+    @Override
+    public LiveData<Base<List<Post>>> getPosts() {
+        MutableLiveData<Base<List<Post>>> result = new MutableLiveData<>();
+        ApiRepository.getInstance().getArticles().observeForever(new Observer<Base<List<Article>>>() {
+            @Override
+            public void onChanged(Base<List<Article>> listBase) {
+                if (listBase.isSuccess()) {
+                    List<Article> articles = listBase.getData();
+                    Base<List<Post>> posts = null;
+                    for (Article article : articles) {
+                        Post post = new Post(article.getArticleId(), article.getPhotos().get(0), article.getShortDescription(), article.getTitle(), article.getPrice());
+                        posts.getData().add(post);
+                    }
+                    result.postValue(posts);
+                }
+            }
+        });
+        return result;
     }
 
     @Override

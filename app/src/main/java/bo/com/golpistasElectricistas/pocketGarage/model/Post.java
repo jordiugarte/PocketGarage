@@ -1,37 +1,35 @@
 package bo.com.golpistasElectricistas.pocketGarage.model;
 
-import java.util.List;
-
 public class Post {
 
-    private int userId;
-    private String thmbnail;
+    private int articleId;
+    private String thumbnail;
     private String shortDescription;
     private String title;
     private double price;
 
-    public Post(int userId, String thmbnail, String shortDescription, String title, double price) {
-        this.userId = userId;
-        this.thmbnail = thmbnail;
+    public Post(int userId, String thumbnail, String shortDescription, String title, double price) {
+        this.articleId = userId;
+        this.thumbnail = thumbnail;
         this.shortDescription = shortDescription;
         this.title = title;
         this.price = price;
     }
 
-    public int getUserId() {
-        return userId;
+    public int getArticleId() {
+        return articleId;
     }
 
-    public void setUserId(int userId) {
-        this.userId = userId;
+    public void setArticleId(int articleId) {
+        this.articleId = articleId;
     }
 
-    public String getThmbnail() {
-        return thmbnail;
+    public String getThumbnail() {
+        return thumbnail;
     }
 
-    public void setThmbnail(String thmbnail) {
-        this.thmbnail = thmbnail;
+    public void setThumbnail(String thumbnail) {
+        this.thumbnail = thumbnail;
     }
 
     public String getShortDescription() {

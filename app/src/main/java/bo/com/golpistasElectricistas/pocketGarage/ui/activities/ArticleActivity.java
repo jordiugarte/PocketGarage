@@ -15,6 +15,7 @@ import com.synnapps.carouselview.CarouselView;
 import com.synnapps.carouselview.ImageListener;
 
 import bo.com.golpistasElectricistas.pocketGarage.R;
+import bo.com.golpistasElectricistas.pocketGarage.model.Article;
 
 public class ArticleActivity extends AppCompatActivity {
 
@@ -24,6 +25,8 @@ public class ArticleActivity extends AppCompatActivity {
 
     private TextView articleName, articleTitle, articlePrice, articleState, articleShortDescription, articleDescription;
     private CarouselView carouselView;
+
+    private Article thisArticle;
 
     String[] sampleImages = {
             "https://scontent.flpb2-2.fna.fbcdn.net/v/t1.0-9/121192448_3711992668812129_3055426446455598271_o.jpg?_nc_cat=106&_nc_sid=730e14&_nc_ohc=9xzNn9kpN_AAX-MJRXY&_nc_ht=scontent.flpb2-2.fna&oh=75800d9f014704494f4ede158f313c3b&oe=5FAAD43D",

@@ -13,6 +13,9 @@ public class Article {
 
     @PrimaryKey
     @NonNull
+    @ColumnInfo(name = "articleId")
+    private int articleId;
+
     @ColumnInfo(name = "userId")
     private int userId;
 
@@ -34,7 +37,8 @@ public class Article {
     @ColumnInfo(name = "price")
     private double price;
 
-    public Article(int userId, String title, String shortDescription, String description, List<String> photos, long timestamp, double price) {
+    public Article(int articleId, int userId, List<String> photos, String shortDescription, String description, String title, long timestamp, double price) {
+        this.articleId = articleId;
         this.userId = userId;
         this.photos = photos;
         this.shortDescription = shortDescription;
@@ -98,5 +102,13 @@ public class Article {
 
     public void setPrice(double price) {
         this.price = price;
+    }
+
+    public int getArticleId() {
+        return articleId;
+    }
+
+    public void setArticleId(int articleId) {
+        this.articleId = articleId;
     }
 }

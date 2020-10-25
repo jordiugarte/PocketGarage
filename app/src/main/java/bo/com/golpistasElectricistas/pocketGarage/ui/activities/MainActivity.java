@@ -16,7 +16,6 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.gson.Gson;
 import com.squareup.picasso.Picasso;
 import com.synnapps.carouselview.CarouselView;
@@ -26,13 +25,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 import bo.com.golpistasElectricistas.pocketGarage.R;
-import bo.com.golpistasElectricistas.pocketGarage.model.Article;
 import bo.com.golpistasElectricistas.pocketGarage.model.Base;
-import bo.com.golpistasElectricistas.pocketGarage.ui.adapters.ArticleAdapter;
+import bo.com.golpistasElectricistas.pocketGarage.model.Post;
+import bo.com.golpistasElectricistas.pocketGarage.ui.adapters.PostAdapter;
+import bo.com.golpistasElectricistas.pocketGarage.ui.callback.PostCallback;
+import bo.com.golpistasElectricistas.pocketGarage.utils.Constants;
 import bo.com.golpistasElectricistas.pocketGarage.utils.ErrorMapper;
 import bo.com.golpistasElectricistas.pocketGarage.viewModel.MainViewModel;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements PostCallback {
 
     private static final String LOG = LoginActivity.class.getName();
     private Context context;
@@ -41,9 +42,9 @@ public class MainActivity extends AppCompatActivity {
 
     private Intent newArticleActivity, myProfileActivity;
 
-    private List<Article> articles = new ArrayList<>();
+    private List<Post> posts = new ArrayList<>();
 
-    private ArticleAdapter adapter;
+    private PostAdapter adapter;
 
     String[] sampleImages = {
             "https://scontent.flpb2-2.fna.fbcdn.net/v/t1.0-9/121192448_3711992668812129_3055426446455598271_o.jpg?_nc_cat=106&_nc_sid=730e14&_nc_ohc=9xzNn9kpN_AAX-MJRXY&_nc_ht=scontent.flpb2-2.fna&oh=75800d9f014704494f4ede158f313c3b&oe=5FAAD43D",
@@ -63,7 +64,12 @@ public class MainActivity extends AppCompatActivity {
         viewModel = new ViewModelProvider(this).get(MainViewModel.class);
         initViews();
         initIntents();
+        initEvents();
         subscribeToData();
+    }
+
+    private void initEvents() {
+        adapter.setCallback(this);
     }
 
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -87,7 +93,7 @@ public class MainActivity extends AppCompatActivity {
         carouselView.setPageCount(sampleImages.length);
         carouselView.setImageListener(imageListener);
         articlesList = findViewById(R.id.articlesList);
-        adapter = new ArticleAdapter(articles, context);
+        adapter = new PostAdapter(posts, context);
         articlesList.setAdapter(adapter);
     }
 
@@ -108,24 +114,24 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void subscribeToData() {
-        viewModel.getArticles().observe(this, listBase -> {
+        /*viewModel.getPosts().observe(this, listBase -> {
             //onChanged(Base<List<Posts>> listBase)
             //T1, Tn: Firebase
             if (listBase.isSuccess()) {
-                articles = listBase.getData();
+                posts = listBase.getData();
             } else {
                 Toast.makeText(context, ErrorMapper.getError(context, listBase.getError()),
                         Toast.LENGTH_SHORT).show();
             }
-        });
-        viewModel.getArticles().observe(this, new Observer<Base<List<Article>>>() {
+        });*/
+        viewModel.getPosts().observe(this, new Observer<Base<List<Post>>>() {
             @Override
-            public void onChanged(Base<List<Article>> listBase) {
+            public void onChanged(Base<List<Post>> listBase) {
                 //T1: Local
                 //T2: API
                 if (listBase.isSuccess()) {
-                    articles = listBase.getData();
-                    adapter.updateItems(articles);
+                    posts = listBase.getData();
+                    adapter.updateItems(posts);
                     Log.e("getStartups", new Gson().toJson(listBase));
                 } else {
                     Toast.makeText(context, ErrorMapper.getError(context, listBase.getError()),
@@ -136,7 +142,14 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
-    public void onBackPressed(){
+    public void onBackPressed() {
         return;
+    }
+
+    @Override
+    public void onStartupClicked(Post post) {
+        Intent intent = new Intent(context, ArticleActivity.class);
+        intent.putExtra(Constants.KEY_STARTUP_SELECTED, new Gson().toJson(post));
+        startActivity(intent);
     }
 }

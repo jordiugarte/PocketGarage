@@ -6,16 +6,21 @@ import java.util.List;
 
 import bo.com.golpistasElectricistas.pocketGarage.model.Article;
 import bo.com.golpistasElectricistas.pocketGarage.model.Base;
+import bo.com.golpistasElectricistas.pocketGarage.model.Post;
 import bo.com.golpistasElectricistas.pocketGarage.model.User;
 
 public interface RepositoryImpl {
     LiveData<Base<User>> login(String email, String password);
 
-    LiveData<Base<List<Article>>> getArticlesItems();
+    public LiveData<Base<List<Article>>> getArticlesItems();
+
+    Article getArticleItem(int id);
 
     LiveData<Base<List<Article>>> getFavorites();
 
-    LiveData<Base<List<Article>>> getMyPublications();
+    LiveData<Base<List<Article>>> getMyArticles();
+
+    LiveData<Base<List<Post>>> getPosts();
 
     LiveData<Base<User>> register(String photo, String ci, String email, String pass, String name, String lastName, String date);
 }

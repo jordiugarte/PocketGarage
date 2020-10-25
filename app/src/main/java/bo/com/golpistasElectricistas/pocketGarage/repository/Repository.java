@@ -49,8 +49,10 @@ public class Repository implements RepositoryImpl {
     }
 
     @Override
-    public Article getArticleItem(int id) {
-        return getArticlesItems().getValue().getData().get(id);
+    public LiveData<Base<Article>> getArticleItem(int id) {
+        MutableLiveData<Base<Article>> result = new MutableLiveData<>();
+        result.postValue(new Base<>(getArticlesItems().getValue().getData().get(id)));
+        return result;
     }
 
     @Override
@@ -87,12 +89,12 @@ public class Repository implements RepositoryImpl {
             public void onChanged(Base<List<Article>> listBase) {
                 if (listBase.isSuccess()) {
                     List<Article> articles = listBase.getData();
-                    Base<List<Post>> posts = null;
+                    List<Post> posts = new ArrayList<>();
                     for (Article article : articles) {
                         Post post = new Post(article.getArticleId(), article.getPhotos().get(0), article.getShortDescription(), article.getTitle(), article.getPrice());
-                        posts.getData().add(post);
+                        posts.add(post);
                     }
-                    result.postValue(posts);
+                    result.postValue(new Base<>(posts));
                 }
             }
         });

@@ -12,9 +12,9 @@ import bo.com.golpistasElectricistas.pocketGarage.model.User;
 public interface RepositoryImpl {
     LiveData<Base<User>> login(String email, String password);
 
-    public LiveData<Base<List<Article>>> getArticlesItems();
+    LiveData<Base<List<Article>>> getArticlesItems();
 
-    Article getArticleItem(int id);
+    LiveData<Base<Article>> getArticleItem(int id);
 
     LiveData<Base<List<Article>>> getFavorites();
 

@@ -44,9 +44,9 @@ public class RepositoryMock implements RepositoryImpl {
         images3.add("https://upload.wikimedia.org/wikipedia/commons/thumb/7/78/Lamborghini_Huracan_Evo_Genf_2019_1Y7A5452.jpg/1920px-Lamborghini_Huracan_Evo_Genf_2019_1Y7A5452.jpg");
         images3.add("https://upload.wikimedia.org/wikipedia/commons/thumb/7/78/Lamborghini_Huracan_Evo_Genf_2019_1Y7A5452.jpg/1920px-Lamborghini_Huracan_Evo_Genf_2019_1Y7A5452.jpg");
 
-        mockArticles.add(new Article(1,1, images1, "Hilux 2016 con 4 anos de uso", "Ucha bro f", "Toyota Hilux", 1000000, 6942000));
+        mockArticles.add(new Article(1, 1, images1, "Hilux 2016 con 4 anos de uso", "Ucha bro f", "Toyota Hilux", 1000000, 6942000));
         mockArticles.add(new Article(2, 2, images2, "Ranger medio cagada", "Ucha bro f", "Ford Ranger", 1000000, 4206900));
-        mockArticles.add(new Article(3, 3,images3, "Directo del Chapare", "Ucha bro f", "Lamborghini Aventador", 1000000, 11111111));
+        mockArticles.add(new Article(3, 3, images3, "Directo del Chapare", "Ucha bro f", "Lamborghini Aventador", 1000000, 11111111));
         return mockArticles;
     }
 
@@ -80,7 +80,7 @@ public class RepositoryMock implements RepositoryImpl {
     }
 
     @Override
-    public Article getArticleItem(int id) {
+    public LiveData<Base<Article>> getArticleItem(int id) {
         return null;
     }
 

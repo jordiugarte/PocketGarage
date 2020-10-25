@@ -14,13 +14,13 @@ public interface RepositoryImpl {
 
     LiveData<Base<List<Article>>> getArticlesItems();
 
-    LiveData<Base<Article>> getArticleItem(int id);
+    Article getArticleItem(int id);
 
     LiveData<Base<List<Article>>> getFavorites();
 
     LiveData<Base<List<Article>>> getMyArticles();
 
-    LiveData<Base<List<Post>>> getPosts();
+    List<Post> getPosts();
 
     LiveData<Base<User>> register(String photo, String ci, String email, String pass, String name, String lastName, String date);
 }

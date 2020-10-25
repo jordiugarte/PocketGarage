@@ -80,7 +80,7 @@ public class RepositoryMock implements RepositoryImpl {
     }
 
     @Override
-    public LiveData<Base<Article>> getArticleItem(int id) {
+    public Article getArticleItem(int id) {
         return null;
     }
 
@@ -95,13 +95,13 @@ public class RepositoryMock implements RepositoryImpl {
     }
 
     @Override
-    public LiveData<Base<List<Post>>> getPosts() {
+    public List<Post> getPosts() {
         MutableLiveData<Base<List<Post>>> result = new MutableLiveData<>();
         for (Article article : getMockArticles()) {
             Post post = new Post(article.getArticleId(), article.getPhotos().get(0), article.getShortDescription(), article.getTitle(), article.getPrice());
             result.postValue(new Base(post));
         }
-        return result;
+        return null;
     }
 
     @Override

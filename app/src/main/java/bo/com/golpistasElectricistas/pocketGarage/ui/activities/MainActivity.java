@@ -3,6 +3,7 @@ package bo.com.golpistasElectricistas.pocketGarage.ui.activities;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Context;
@@ -14,6 +15,8 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
@@ -52,13 +55,13 @@ public class MainActivity extends AppCompatActivity implements PostCallback {
             "https://scontent.flpb2-1.fna.fbcdn.net/v/t1.0-9/106571277_1453836774811044_5992646281856668927_n.jpg?_nc_cat=110&_nc_sid=730e14&_nc_ohc=7b9a8hvn32EAX9scXvj&_nc_ht=scontent.flpb2-1.fna&oh=46c15bfbb5ab245ef6242e96dc37600b&oe=5FAC2C3C"
     };
 
+    private RelativeLayout parentLinearLayout;
     private CarouselView carouselView;
     private RecyclerView articlesList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Log.e(LOG, "onCreate");
         setContentView(R.layout.activity_main);
         context = getApplicationContext();
         viewModel = new ViewModelProvider(this).get(MainViewModel.class);
@@ -89,12 +92,14 @@ public class MainActivity extends AppCompatActivity implements PostCallback {
     }
 
     private void initViews() {
+        parentLinearLayout = findViewById(R.id.mainActivityLayout);
         carouselView = findViewById(R.id.carouselView);
         carouselView.setPageCount(sampleImages.length);
         carouselView.setImageListener(imageListener);
         articlesList = findViewById(R.id.articlesList);
         adapter = new PostAdapter(posts, context);
         articlesList.setAdapter(adapter);
+        articlesList.setLayoutManager(new LinearLayoutManager(context, RecyclerView.VERTICAL, false));
     }
 
     private void initIntents() {
@@ -114,30 +119,9 @@ public class MainActivity extends AppCompatActivity implements PostCallback {
     }
 
     private void subscribeToData() {
-        /*viewModel.getPosts().observe(this, listBase -> {
-            //onChanged(Base<List<Posts>> listBase)
-            //T1, Tn: Firebase
-            if (listBase.isSuccess()) {
-                posts = listBase.getData();
-            } else {
-                Toast.makeText(context, ErrorMapper.getError(context, listBase.getError()),
-                        Toast.LENGTH_SHORT).show();
-            }
-        });*/
-        viewModel.getPosts().observeForever(new Observer<Base<List<Post>>>() {
-            @Override
-            public void onChanged(Base<List<Post>> listBase) {
-                //T1: Local
-                //T2: API
-                if (listBase.isSuccess()) {
-                    posts = listBase.getData();
-                    adapter.updateItems(posts);
-                    Log.e("getArticles", new Gson().toJson(listBase));
-                } else {
-                    Log.e("fail", new Gson().toJson(listBase));
-                }
-            }
-        });
+        posts = viewModel.getPosts();
+        adapter.updateItems(posts);
+        Log.e(LOG, posts.size() + "");
     }
 
     @Override

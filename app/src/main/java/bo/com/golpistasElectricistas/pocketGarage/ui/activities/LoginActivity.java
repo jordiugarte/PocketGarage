@@ -23,8 +23,6 @@ import bo.com.golpistasElectricistas.pocketGarage.viewModel.LoginViewModel;
 
 public class LoginActivity extends AppCompatActivity {
 
-    private static final String LOG = LoginActivity.class.getName();
-
     private Context context;
     private Intent mainActivity, registerActivity;
     private EditText emailField;
@@ -35,7 +33,6 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Log.e(LOG, "onCreate");
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         getSupportActionBar().hide();
         setContentView(R.layout.activity_login);

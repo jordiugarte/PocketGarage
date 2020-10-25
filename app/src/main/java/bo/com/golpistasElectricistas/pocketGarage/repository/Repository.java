@@ -20,6 +20,7 @@ import bo.com.golpistasElectricistas.pocketGarage.model.User;
 import bo.com.golpistasElectricistas.pocketGarage.repository.api.ApiRepository;
 import bo.com.golpistasElectricistas.pocketGarage.repository.firebase.Firebase;
 import bo.com.golpistasElectricistas.pocketGarage.repository.local.Local;
+import bo.com.golpistasElectricistas.pocketGarage.ui.activities.MainActivity;
 import bo.com.golpistasElectricistas.pocketGarage.utils.ErrorMapper;
 
 public class Repository implements RepositoryImpl {
@@ -86,23 +87,23 @@ public class Repository implements RepositoryImpl {
     }
 
     @Override
-    public LiveData<Base<List<Post>>> getPosts() {
+    public List<Post> getPosts() {
+        List<Post> posts = new ArrayList<>();
         MutableLiveData<Base<List<Post>>> result = new MutableLiveData<>();
         ApiRepository.getInstance().getArticles().observeForever(new Observer<Base<List<Article>>>() {
             @Override
             public void onChanged(Base<List<Article>> listBase) {
                 if (listBase.isSuccess()) {
                     List<Article> articles = listBase.getData();
-                    Base<List<Post>> posts = null;
                     for (Article article : articles) {
                         Post post = new Post(article.getArticleId(), article.getPhotos().get(0), article.getShortDescription(), article.getTitle(), article.getPrice());
-                        posts.getData().add(post);
+                        posts.add(post);
+                        Log.e(MainActivity.class.getName(), post.getTitle());
                     }
-                    result.postValue(posts);
                 }
             }
         });
-        return result;
+        return posts;
     }
 
     @Override

@@ -4,13 +4,9 @@ import android.app.Application;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
-import androidx.lifecycle.LiveData;
-import androidx.lifecycle.MutableLiveData;
-import androidx.lifecycle.Observer;
 
 import java.util.List;
 
-import bo.com.golpistasElectricistas.pocketGarage.model.Base;
 import bo.com.golpistasElectricistas.pocketGarage.model.Post;
 import bo.com.golpistasElectricistas.pocketGarage.repository.Repository;
 import bo.com.golpistasElectricistas.pocketGarage.repository.RepositoryImpl;
@@ -23,21 +19,7 @@ public class MainViewModel extends AndroidViewModel {
         repository = new Repository(application);
     }
 
-    public LiveData<Base<List<Post>>> getPosts() {
+    public List<Post> getPosts() {
         return repository.getPosts();
     }
-
-    /*public LiveData<Base<List<Post>>> getPopularPosts() {
-        MutableLiveData<Base<List<Post>>> results = new MutableLiveData<>();
-        repository.getPopularPosts().observeForever(new Observer<Base<List<Post>>>() {
-            @Override
-            public void onChanged(Base<List<Post>> listBase) {
-                //Order the results
-                //Like +++ First
-                //TODO Map<Post(uuid), int>
-                results.postValue(listBase);
-            }
-        });
-        return results;
-    }*/
 }

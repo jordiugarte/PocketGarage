@@ -124,7 +124,7 @@ public class MainActivity extends AppCompatActivity implements PostCallback {
                         Toast.LENGTH_SHORT).show();
             }
         });*/
-        viewModel.getPosts().observe(this, new Observer<Base<List<Post>>>() {
+        viewModel.getPosts().observeForever(new Observer<Base<List<Post>>>() {
             @Override
             public void onChanged(Base<List<Post>> listBase) {
                 //T1: Local
@@ -132,10 +132,9 @@ public class MainActivity extends AppCompatActivity implements PostCallback {
                 if (listBase.isSuccess()) {
                     posts = listBase.getData();
                     adapter.updateItems(posts);
-                    Log.e("getStartups", new Gson().toJson(listBase));
+                    Log.e("getArticles", new Gson().toJson(listBase));
                 } else {
-                    Toast.makeText(context, ErrorMapper.getError(context, listBase.getError()),
-                            Toast.LENGTH_SHORT).show();
+                    Log.e("fail", new Gson().toJson(listBase));
                 }
             }
         });

@@ -11,7 +11,7 @@ import androidx.room.TypeConverters;
 import bo.com.golpistasElectricistas.pocketGarage.model.Article;
 import bo.com.golpistasElectricistas.pocketGarage.utils.ListConverter;
 
-@Database(entities = {Article.class}, version = 1)
+@Database(entities = {Article.class}, version = 2)
 @TypeConverters(ListConverter.class)
 public abstract class PocketGarageDatabase extends RoomDatabase {
     private static volatile PocketGarageDatabase INSTANCE;

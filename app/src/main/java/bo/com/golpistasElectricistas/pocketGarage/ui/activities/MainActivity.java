@@ -149,7 +149,7 @@ public class MainActivity extends AppCompatActivity implements PostCallback {
     @Override
     public void onStartupClicked(Post post) {
         Intent intent = new Intent(context, ArticleActivity.class);
-        intent.putExtra(Constants.KEY_STARTUP_SELECTED, new Gson().toJson(post));
+        intent.putExtra(Constants.KEY_STARTUP_SELECTED, post.getArticleId());
         startActivity(intent);
     }
 }

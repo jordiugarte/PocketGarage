@@ -50,7 +50,13 @@ public class Repository implements RepositoryImpl {
 
     @Override
     public Article getArticleItem(int id) {
-        return getArticlesItems().getValue().getData().get(id);
+        List<Article> articles = getArticlesItems().getValue().getData();
+        for (Article article : articles) {
+            if (article.getArticleId() == id) {
+                return article;
+            }
+        }
+        return null;
     }
 
     @Override
@@ -100,7 +106,8 @@ public class Repository implements RepositoryImpl {
     }
 
     @Override
-    public LiveData<Base<User>> register(String photo, String ci, String email, String pass, String name, String lastName, String date) {
+    public LiveData<Base<User>> register(String photo, String ci, String email, String
+            pass, String name, String lastName, String date) {
         return null;
     }
 }

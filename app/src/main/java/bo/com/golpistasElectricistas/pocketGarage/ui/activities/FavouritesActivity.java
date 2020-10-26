@@ -106,10 +106,8 @@ public class FavouritesActivity extends AppCompatActivity implements ArticleCall
         });
     }
 
-    @Override
-    public void onBackPressed() {
-        return;
-    }
+   // @Override
+    //public void onBackPressed() {return;}
 
     @Override
     public void onStartupClicked(Article article) {

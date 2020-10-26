@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:gravity="center_horizontal"
     android:orientation="vertical"
-    tools:context=".ui.activities.SellerProfileActivity">
+    tools:context="bo.com.golpistasElectricistas.pocketGarage.ui.activities.ArticleActivity">
 
     <LinearLayout
         android:id="@+id/articleTab"
@@ -138,6 +138,7 @@
         android:padding="10dp"
         android:text="Nombre de contacto"
         android:textAllCaps="true"
-        android:textColor="@color/colorWhite" />
+        android:textColor="@color/colorWhite"
+        android:onClick="goToSellerProfileActivity"/>
 
 </RelativeLayout>

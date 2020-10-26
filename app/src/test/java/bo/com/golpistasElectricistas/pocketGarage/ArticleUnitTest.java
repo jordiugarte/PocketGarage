@@ -15,7 +15,7 @@ public class ArticleUnitTest {
 
     @Before
     public void beforeEach() {
-        repository = new Repository();
+        //repository = new Repository();
     }
 
     @Rule

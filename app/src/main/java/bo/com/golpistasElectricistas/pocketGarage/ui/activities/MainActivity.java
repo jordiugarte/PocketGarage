@@ -15,7 +15,6 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
@@ -28,15 +27,18 @@ import java.util.ArrayList;
 import java.util.List;
 
 import bo.com.golpistasElectricistas.pocketGarage.R;
+import bo.com.golpistasElectricistas.pocketGarage.model.Article;
 import bo.com.golpistasElectricistas.pocketGarage.model.Base;
 import bo.com.golpistasElectricistas.pocketGarage.model.Post;
+import bo.com.golpistasElectricistas.pocketGarage.ui.adapters.ArticleAdapter;
 import bo.com.golpistasElectricistas.pocketGarage.ui.adapters.PostAdapter;
+import bo.com.golpistasElectricistas.pocketGarage.ui.callback.ArticleCallback;
 import bo.com.golpistasElectricistas.pocketGarage.ui.callback.PostCallback;
 import bo.com.golpistasElectricistas.pocketGarage.utils.Constants;
 import bo.com.golpistasElectricistas.pocketGarage.utils.ErrorMapper;
 import bo.com.golpistasElectricistas.pocketGarage.viewModel.MainViewModel;
 
-public class MainActivity extends AppCompatActivity implements PostCallback {
+public class MainActivity extends AppCompatActivity implements ArticleCallback {
 
     private static final String LOG = LoginActivity.class.getName();
     private Context context;
@@ -45,9 +47,9 @@ public class MainActivity extends AppCompatActivity implements PostCallback {
 
     private Intent newArticleActivity, myProfileActivity;
 
-    private List<Post> posts = new ArrayList<>();
+    private List<Article> articles = new ArrayList<>();
 
-    private PostAdapter adapter;
+    private ArticleAdapter adapter;
 
     String[] sampleImages = {
             "https://scontent.flpb2-2.fna.fbcdn.net/v/t1.0-9/121192448_3711992668812129_3055426446455598271_o.jpg?_nc_cat=106&_nc_sid=730e14&_nc_ohc=9xzNn9kpN_AAX-MJRXY&_nc_ht=scontent.flpb2-2.fna&oh=75800d9f014704494f4ede158f313c3b&oe=5FAAD43D",
@@ -97,7 +99,7 @@ public class MainActivity extends AppCompatActivity implements PostCallback {
         carouselView.setPageCount(sampleImages.length);
         carouselView.setImageListener(imageListener);
         articlesList = findViewById(R.id.articlesList);
-        adapter = new PostAdapter(posts, context);
+        adapter = new ArticleAdapter(articles, context);
         articlesList.setAdapter(adapter);
         articlesList.setLayoutManager(new LinearLayoutManager(context, RecyclerView.VERTICAL, false));
     }
@@ -119,8 +121,21 @@ public class MainActivity extends AppCompatActivity implements PostCallback {
     }
 
     private void subscribeToData() {
-        posts = viewModel.getPosts();
-        adapter.updateItems(posts);
+        viewModel.getArticles().observe(this, new Observer<Base<List<Article>>>() {
+            @Override
+            public void onChanged(Base<List<Article>> listBase) {
+                //T1: Local
+                //T2: API
+                if (listBase.isSuccess()) {
+                    articles = listBase.getData();
+                    adapter.updateItems(articles);
+                    Log.e("getStartups", new Gson().toJson(listBase));
+                } else {
+                    Toast.makeText(context, ErrorMapper.getError(context, listBase.getError()),
+                            Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
     }
 
     @Override
@@ -129,9 +144,10 @@ public class MainActivity extends AppCompatActivity implements PostCallback {
     }
 
     @Override
-    public void onStartupClicked(Post post) {
+    public void onStartupClicked(Article article) {
         Intent intent = new Intent(context, ArticleActivity.class);
-        intent.putExtra(Constants.KEY_STARTUP_SELECTED, post.getArticleId());
+        Gson gson = new Gson();
+        intent.putExtra(Constants.KEY_STARTUP_SELECTED, gson.toJson(article));
         startActivity(intent);
     }
 }

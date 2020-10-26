@@ -20,7 +20,5 @@ public interface RepositoryImpl {
 
     LiveData<Base<List<Article>>> getMyArticles();
 
-    List<Post> getPosts();
-
     LiveData<Base<User>> register(String photo, String ci, String email, String pass, String name, String lastName, String date);
 }

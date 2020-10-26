@@ -11,6 +11,7 @@ import android.view.Window;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.google.gson.Gson;
 import com.squareup.picasso.Picasso;
 import com.synnapps.carouselview.CarouselView;
 import com.synnapps.carouselview.ImageListener;
@@ -48,8 +49,9 @@ public class ArticleActivity extends AppCompatActivity {
 
     private void getData() {
         Bundle extras = getIntent().getExtras();
-        int articleId = extras.getInt(Constants.KEY_STARTUP_SELECTED);
-        thisArticle = articleViewModel.getArticle(articleId);
+        String serial = extras.getString(Constants.KEY_STARTUP_SELECTED);
+        Gson gson = new Gson();
+        thisArticle = gson.fromJson(serial, Article.class);
         articleName.setText(thisArticle.getDescription());
         articleTitle.setText(thisArticle.getTitle());
         articlePrice.setText(thisArticle.getPrice() + "Bs");

@@ -86,24 +86,6 @@ public class Repository implements RepositoryImpl {
     }
 
     @Override
-    public List<Post> getPosts() {
-        List<Post> posts = new ArrayList<>();
-        ApiRepository.getInstance().getArticles().observeForever(new Observer<Base<List<Article>>>() {
-            @Override
-            public void onChanged(Base<List<Article>> listBase) {
-                if (listBase.isSuccess()) {
-                    List<Article> articles = listBase.getData();
-                    for (Article article : articles) {
-                        Post post = new Post(article.getArticleId(), article.getPhotos().get(0), article.getShortDescription(), article.getTitle(), article.getPrice());
-                        posts.add(post);
-                    }
-                }
-            }
-        });
-        return posts;
-    }
-
-    @Override
     public LiveData<Base<User>> register(String photo, String ci, String email, String
             pass, String name, String lastName, String date) {
         return null;

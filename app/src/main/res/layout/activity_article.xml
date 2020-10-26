@@ -124,9 +124,9 @@
         android:textColor="@color/colorGray"
         android:textSize="@dimen/dimen_text"
         android:textStyle="bold" />
-<!--
+
     <Button
-        android:id="@+id/contactFab"
+        android:id="@+id/contactButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
@@ -135,10 +135,9 @@
         android:layout_marginBottom="16dp"
         android:background="@drawable/gradient1"
         android:drawableLeft="@drawable/ic_baseline_local_phone_24"
-        android:onClick="returnToPrevious"
         android:padding="10dp"
         android:text="Nombre de contacto"
         android:textAllCaps="true"
         android:textColor="@color/colorWhite" />
--->
+
 </RelativeLayout>

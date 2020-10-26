@@ -14,11 +14,8 @@ import java.util.List;
 
 import bo.com.golpistasElectricistas.pocketGarage.R;
 import bo.com.golpistasElectricistas.pocketGarage.model.Article;
-import bo.com.golpistasElectricistas.pocketGarage.model.Post;
 import bo.com.golpistasElectricistas.pocketGarage.ui.callback.ArticleCallback;
-import bo.com.golpistasElectricistas.pocketGarage.ui.callback.PostCallback;
 import bo.com.golpistasElectricistas.pocketGarage.ui.viewHolders.ArticleViewHolder;
-import bo.com.golpistasElectricistas.pocketGarage.ui.viewHolders.PostViewHolder;
 
 public class ArticleAdapter extends RecyclerView.Adapter<ArticleViewHolder> {
     private Context context;

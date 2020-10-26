@@ -6,7 +6,6 @@ import java.util.List;
 
 import bo.com.golpistasElectricistas.pocketGarage.model.Article;
 import bo.com.golpistasElectricistas.pocketGarage.model.Base;
-import bo.com.golpistasElectricistas.pocketGarage.model.Post;
 import bo.com.golpistasElectricistas.pocketGarage.model.User;
 
 public interface RepositoryImpl {

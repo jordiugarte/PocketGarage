@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -28,6 +29,7 @@ public class ArticleActivity extends AppCompatActivity {
     private Intent sellerProfileActivity;
 
     private TextView articleName, articleTitle, articlePrice, articleState, articleShortDescription, articleDescription;
+    private Button contactButton;
     private CarouselView carouselView;
 
     private Article thisArticle;
@@ -52,7 +54,7 @@ public class ArticleActivity extends AppCompatActivity {
         String serial = extras.getString(Constants.KEY_STARTUP_SELECTED);
         Gson gson = new Gson();
         thisArticle = gson.fromJson(serial, Article.class);
-        articleName.setText(thisArticle.getDescription());
+        articleName.setText(thisArticle.getTitle());
         articleTitle.setText(thisArticle.getTitle());
         articlePrice.setText(thisArticle.getPrice() + "Bs");
         if (thisArticle.isNewState()) {
@@ -71,6 +73,7 @@ public class ArticleActivity extends AppCompatActivity {
     }
 
     private void initViews() {
+        contactButton = findViewById(R.id.contactButton);
         articleName = findViewById(R.id.articleTitleTab);
         articleTitle = findViewById(R.id.articleTitle);
         articlePrice = findViewById(R.id.articlePrice);

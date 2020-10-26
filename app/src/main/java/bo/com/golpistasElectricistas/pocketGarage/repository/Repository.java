@@ -1,26 +1,19 @@
 package bo.com.golpistasElectricistas.pocketGarage.repository;
 
 import android.app.Application;
-import android.util.Log;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.Observer;
 
-import com.google.gson.Gson;
-
-import java.util.ArrayList;
 import java.util.List;
 
 import bo.com.golpistasElectricistas.pocketGarage.model.Article;
 import bo.com.golpistasElectricistas.pocketGarage.model.Base;
-import bo.com.golpistasElectricistas.pocketGarage.model.Post;
 import bo.com.golpistasElectricistas.pocketGarage.model.User;
 import bo.com.golpistasElectricistas.pocketGarage.repository.api.ApiRepository;
 import bo.com.golpistasElectricistas.pocketGarage.repository.firebase.Firebase;
 import bo.com.golpistasElectricistas.pocketGarage.repository.local.Local;
-import bo.com.golpistasElectricistas.pocketGarage.ui.activities.ArticleActivity;
-import bo.com.golpistasElectricistas.pocketGarage.ui.activities.MainActivity;
 
 public class Repository implements RepositoryImpl {
     private Local local;

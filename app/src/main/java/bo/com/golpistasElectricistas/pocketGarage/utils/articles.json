@@ -11,112 +11,52 @@
     "description": "Vendo de ocasion mi Toyota Hilux en La Paz.",
     "title": "Hilux Rojo",
     "timestamp": 1,
-    "prize": 1000,
+    "price": 70000,
     "newState": false
   },
   {
     "articleId": 2,
     "userId": 2,
     "photos": [
-      "http://i.autos.com.ar/fotos/2012/0619/Toyota-Hilux-SRV-2006-201206191049053.jpg",
-      "http://i.autos.com.ar/fotos/2012/0619/Toyota-Hilux-SRV-2006-201206191049276.jpg",
-      "https://assets.cdnelnuevodiario.com/cache/d1/fc/d1fc4c715eb09055d7e16e487cb4be4b.jpg"
+      "http://st.motortrendenespanol.com/uploads/sites/45/2016/10/2017_Toyota_Corolla_SE_005-660x440.jpg",
+      "http://st.motortrendenespanol.com/uploads/sites/45/2016/10/2017_Toyota_Corolla_SE_005-660x440.jpg",
+      "http://st.motortrendenespanol.com/uploads/sites/45/2016/10/2017_Toyota_Corolla_SE_005-660x440.jpg"
     ],
-    "shortDescription": "Toyota Hilux 2020 a medio uso",
-    "description": "Vendo de ocasion mi Toyota Hilux en La Paz.",
-    "title": "Hilux Rojo",
+    "shortDescription": "Toyota Corolla 2020",
+    "description": "Vendo de ocasion mi Toyota Corolla en La Paz.",
+    "title": "Corolla 2020",
     "timestamp": 1,
-    "prize": 1000,
+    "price": 40000,
     "newState": false
   },
   {
     "articleId": 3,
     "userId": 3,
     "photos": [
-      "http://i.autos.com.ar/fotos/2012/0619/Toyota-Hilux-SRV-2006-201206191049053.jpg",
-      "http://i.autos.com.ar/fotos/2012/0619/Toyota-Hilux-SRV-2006-201206191049276.jpg",
-      "https://assets.cdnelnuevodiario.com/cache/d1/fc/d1fc4c715eb09055d7e16e487cb4be4b.jpg"
+      "https://s2.medias-norauto.es/images_produits/neumatico_michelin_pilot_sport_2/900x900/neumatico-michelin-pilot-sport-ps2-265-40-r18-101-y-n4-xl--283534.jpg",
+      "https://s2.medias-norauto.es/images_produits/neumatico_michelin_pilot_sport_2/900x900/neumatico-michelin-pilot-sport-ps2-265-40-r18-101-y-n4-xl--283534.jpg",
+      "https://s2.medias-norauto.es/images_produits/neumatico_michelin_pilot_sport_2/900x900/neumatico-michelin-pilot-sport-ps2-265-40-r18-101-y-n4-xl--283534.jpg"
     ],
-    "shortDescription": "Toyota Hilux 2020 a medio uso",
-    "description": "Vendo de ocasion mi Toyota Hilux en La Paz.",
-    "title": "Hilux Rojo",
+    "shortDescription": "Neumaticos para sedanes",
+    "description": "Vendo de ocasion neumaticos para Hilux en La Paz.",
+    "title": "Neumaticos Michelin",
     "timestamp": 1,
-    "prize": 1000,
+    "price": 2000,
     "newState": false
   },
   {
     "articleId": 4,
     "userId": 4,
     "photos": [
-      "http://i.autos.com.ar/fotos/2012/0619/Toyota-Hilux-SRV-2006-201206191049053.jpg",
-      "http://i.autos.com.ar/fotos/2012/0619/Toyota-Hilux-SRV-2006-201206191049276.jpg",
-      "https://assets.cdnelnuevodiario.com/cache/d1/fc/d1fc4c715eb09055d7e16e487cb4be4b.jpg"
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/6/61/2018_Ford_Ranger_%28PX%29_XLT_4WD_4-door_utility_%282018-10-22%29_01.jpg/800px-2018_Ford_Ranger_%28PX%29_XLT_4WD_4-door_utility_%282018-10-22%29_01.jpg",
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/6/61/2018_Ford_Ranger_%28PX%29_XLT_4WD_4-door_utility_%282018-10-22%29_01.jpg/800px-2018_Ford_Ranger_%28PX%29_XLT_4WD_4-door_utility_%282018-10-22%29_01.jpg",
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/6/61/2018_Ford_Ranger_%28PX%29_XLT_4WD_4-door_utility_%282018-10-22%29_01.jpg/800px-2018_Ford_Ranger_%28PX%29_XLT_4WD_4-door_utility_%282018-10-22%29_01.jpg"
     ],
-    "shortDescription": "Toyota Hilux 2020 a medio uso",
-    "description": "Vendo de ocasion mi Toyota Hilux en La Paz.",
-    "title": "Hilux Rojo",
+    "shortDescription": "Ford Ranger 2018 a medio uso",
+    "description": "Vendo de ocasion mi Ford Ranger en La Paz.",
+    "title": "Ford Ranger",
     "timestamp": 1,
-    "prize": 1000,
-    "newState": false
-  },
-  {
-    "articleId": 5,
-    "userId": 5,
-    "photos": [
-      "http://i.autos.com.ar/fotos/2012/0619/Toyota-Hilux-SRV-2006-201206191049053.jpg",
-      "http://i.autos.com.ar/fotos/2012/0619/Toyota-Hilux-SRV-2006-201206191049276.jpg",
-      "https://assets.cdnelnuevodiario.com/cache/d1/fc/d1fc4c715eb09055d7e16e487cb4be4b.jpg"
-    ],
-    "shortDescription": "Toyota Hilux 2020 a medio uso",
-    "description": "Vendo de ocasion mi Toyota Hilux en La Paz.",
-    "title": "Hilux Rojo",
-    "timestamp": 1,
-    "prize": 1000,
-    "newState": false
-  },
-  {
-    "articleId": 6,
-    "userId": 6,
-    "photos": [
-      "http://i.autos.com.ar/fotos/2012/0619/Toyota-Hilux-SRV-2006-201206191049053.jpg",
-      "http://i.autos.com.ar/fotos/2012/0619/Toyota-Hilux-SRV-2006-201206191049276.jpg",
-      "https://assets.cdnelnuevodiario.com/cache/d1/fc/d1fc4c715eb09055d7e16e487cb4be4b.jpg"
-    ],
-    "shortDescription": "Toyota Hilux 2020 a medio uso",
-    "description": "Vendo de ocasion mi Toyota Hilux en La Paz.",
-    "title": "Hilux Rojo",
-    "timestamp": 1,
-    "prize": 1000,
-    "newState": false
-  },
-  {
-    "articleId": 7,
-    "userId": 7,
-    "photos": [
-      "http://i.autos.com.ar/fotos/2012/0619/Toyota-Hilux-SRV-2006-201206191049053.jpg",
-      "http://i.autos.com.ar/fotos/2012/0619/Toyota-Hilux-SRV-2006-201206191049276.jpg",
-      "https://assets.cdnelnuevodiario.com/cache/d1/fc/d1fc4c715eb09055d7e16e487cb4be4b.jpg"
-    ],
-    "shortDescription": "Toyota Hilux 2020 a medio uso",
-    "description": "Vendo de ocasion mi Toyota Hilux en La Paz.",
-    "title": "Hilux Rojo",
-    "timestamp": 1,
-    "prize": 1000,
-    "newState": false
-  },
-  {
-    "articleId": 8,
-    "userId": 8,
-    "photos": [
-      "http://i.autos.com.ar/fotos/2012/0619/Toyota-Hilux-SRV-2006-201206191049053.jpg",
-      "http://i.autos.com.ar/fotos/2012/0619/Toyota-Hilux-SRV-2006-201206191049276.jpg",
-      "https://assets.cdnelnuevodiario.com/cache/d1/fc/d1fc4c715eb09055d7e16e487cb4be4b.jpg"
-    ],
-    "shortDescription": "Toyota Hilux 2020 a medio uso",
-    "description": "Vendo de ocasion mi Toyota Hilux en La Paz.",
-    "title": "Hilux Rojo",
-    "timestamp": 1,
-    "prize": 1000,
-    "newState": false
+    "price": 1000,
+    "newState": true
   }
 ]

@@ -63,4 +63,8 @@
     <!-- Actions -->
     <string name="action_profile">Perfil</string>
     <string name="action_favourites">Favoritos</string>
+
+    <!-- Messages -->
+    <string name="msg_added_to_favourites">añadido a favoritos</string>
+    <string name="msg_removed_from_favourites">eliminado de favoritos</string>
 </resources>

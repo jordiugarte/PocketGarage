@@ -16,9 +16,10 @@
         <Button
             android:layout_width="30dp"
             android:layout_height="30dp"
+            android:layout_gravity="center"
             android:background="@drawable/ic_baseline_arrow_back_24"
             android:backgroundTint="@color/colorBlack"
-            android:layout_gravity="center"/>
+            android:onClick="returnToPrevious" />
 
         <TextView
             android:layout_width="match_parent"

@@ -11,7 +11,9 @@ import android.view.Window;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.google.android.material.snackbar.Snackbar;
 import com.google.gson.Gson;
 import com.squareup.picasso.Picasso;
 import com.synnapps.carouselview.CarouselView;
@@ -20,6 +22,7 @@ import com.synnapps.carouselview.ImageListener;
 import bo.com.golpistasElectricistas.pocketGarage.R;
 import bo.com.golpistasElectricistas.pocketGarage.model.Article;
 import bo.com.golpistasElectricistas.pocketGarage.utils.Constants;
+import bo.com.golpistasElectricistas.pocketGarage.utils.ErrorMapper;
 import bo.com.golpistasElectricistas.pocketGarage.viewModel.ArticleViewModel;
 
 public class ArticleActivity extends AppCompatActivity {
@@ -29,12 +32,14 @@ public class ArticleActivity extends AppCompatActivity {
     private Intent sellerProfileActivity;
 
     private TextView articleName, articleTitle, articlePrice, articleState, articleShortDescription, articleDescription;
-    private Button contactButton;
+    private Button contactButton, favouriteButton;
     private CarouselView carouselView;
 
     private Article thisArticle;
 
     private ArticleViewModel articleViewModel;
+
+    private boolean isFavourite;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,6 +79,7 @@ public class ArticleActivity extends AppCompatActivity {
 
     private void initViews() {
         contactButton = findViewById(R.id.contactButton);
+        favouriteButton = findViewById(R.id.favouriteButton);
         articleName = findViewById(R.id.articleTitleTab);
         articleTitle = findViewById(R.id.articleTitle);
         articlePrice = findViewById(R.id.articlePrice);
@@ -97,5 +103,17 @@ public class ArticleActivity extends AppCompatActivity {
 
     public void goToSellerProfileActivity(View view) {
         startActivity(sellerProfileActivity);
+    }
+
+    public void addToFavourites(View view) {
+        if (isFavourite) {
+            isFavourite = false;
+            favouriteButton.setBackgroundResource(R.drawable.ic_baseline_star_border_24);
+            Snackbar.make(view, thisArticle.getTitle() + " " + R.string.msg_removed_from_favourites, Snackbar.LENGTH_SHORT).show();
+        } else {
+            isFavourite = true;
+            favouriteButton.setBackgroundResource(R.drawable.ic_baseline_star_24);
+            Snackbar.make(view, thisArticle.getTitle() + " " + R.string.msg_added_to_favourites, Snackbar.LENGTH_SHORT).show();
+        }
     }
 }

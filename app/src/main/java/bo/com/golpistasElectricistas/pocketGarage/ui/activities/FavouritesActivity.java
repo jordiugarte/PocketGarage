@@ -115,4 +115,8 @@ public class FavouritesActivity extends AppCompatActivity implements ArticleCall
         articleActivity.putExtra(Constants.KEY_STARTUP_SELECTED, gson.toJson(article));
         startActivity(articleActivity);
     }
+
+    public void returnToPrevious(View view) {
+        finish();
+    }
 }

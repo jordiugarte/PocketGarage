@@ -32,6 +32,7 @@
             android:textColor="@color/colorBlack"
             android:textSize="@dimen/dimen_title"
             android:textStyle="bold" />
+
     </LinearLayout>
 
     <com.synnapps.carouselview.CarouselView
@@ -56,6 +57,18 @@
         android:textColor="@color/colorBlack"
         android:textSize="@dimen/dimen_big_title"
         android:textStyle="bold" />
+
+    <Button
+        android:id="@+id/favouriteButton"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_above="@id/aticlePriceLayout"
+        android:layout_alignParentEnd="true"
+        android:layout_marginRight="10dp"
+        android:layout_marginBottom="10dp"
+        android:background="@drawable/ic_baseline_star_24"
+        android:onClick="addToFavourites"
+        android:padding="5dp" />
 
     <RelativeLayout
         android:id="@+id/aticlePriceLayout"
@@ -136,7 +149,7 @@
         android:background="@drawable/gradient1"
         android:drawableLeft="@drawable/ic_baseline_local_phone_24"
         android:padding="10dp"
-        android:text="Nombre de contacto"
+        android:text="Jordi Ugarte"
         android:textAllCaps="true"
         android:textColor="@color/colorWhite"
         android:onClick="goToSellerProfileActivity"/>

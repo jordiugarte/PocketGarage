@@ -58,7 +58,9 @@
     <string name="title_seller">Vendedor</string>
     <string name="title_profile">Perfil</string>
     <string name="title_edit_profile">Editar perfil</string>
+    <string name="title_favourites">Favoritos</string>
 
     <!-- Actions -->
     <string name="action_profile">Perfil</string>
+    <string name="action_favourites">Favoritos</string>
 </resources>

@@ -42,7 +42,7 @@ public class MainActivity extends AppCompatActivity implements ArticleCallback {
 
     private MainViewModel viewModel;
 
-    private Intent newArticleActivity, myProfileActivity;
+    private Intent newArticleActivity, myProfileActivity, favouritesActivity, articleActivity;
 
     private List<Article> articles = new ArrayList<>();
 
@@ -85,6 +85,8 @@ public class MainActivity extends AppCompatActivity implements ArticleCallback {
             case R.id.action_profile:
                 startActivity(myProfileActivity);
                 return true;
+            case R.id.action_favourites:
+                startActivity(favouritesActivity);
             default:
                 return true;
         }
@@ -104,6 +106,8 @@ public class MainActivity extends AppCompatActivity implements ArticleCallback {
     private void initIntents() {
         newArticleActivity = new Intent(context, NewArticleActivity.class);
         myProfileActivity = new Intent(context, MyProfileActivity.class);
+        favouritesActivity = new Intent(context, FavouritesActivity.class);
+        articleActivity = new Intent(context, ArticleActivity.class);
     }
 
     ImageListener imageListener = new ImageListener() {
@@ -142,9 +146,8 @@ public class MainActivity extends AppCompatActivity implements ArticleCallback {
 
     @Override
     public void onStartupClicked(Article article) {
-        Intent intent = new Intent(context, ArticleActivity.class);
         Gson gson = new Gson();
-        intent.putExtra(Constants.KEY_STARTUP_SELECTED, gson.toJson(article));
-        startActivity(intent);
+        articleActivity.putExtra(Constants.KEY_STARTUP_SELECTED, gson.toJson(article));
+        startActivity(articleActivity);
     }
 }

@@ -2,6 +2,10 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:yourapp="http://schemas.android.com/apk/res-auto" >
     <!-- Search, should appear as action button -->
+    <item android:id="@+id/action_favourites"
+        android:icon="@drawable/ic_baseline_star_24"
+        android:title="@string/action_favourites"
+        yourapp:showAsAction="ifRoom"  />
     <item android:id="@+id/action_profile"
         android:icon="@drawable/ic_baseline_face_24"
         android:title="@string/action_profile"

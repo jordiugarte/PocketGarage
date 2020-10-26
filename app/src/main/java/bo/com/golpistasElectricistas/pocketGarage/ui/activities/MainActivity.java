@@ -121,7 +121,6 @@ public class MainActivity extends AppCompatActivity implements PostCallback {
     private void subscribeToData() {
         posts = viewModel.getPosts();
         adapter.updateItems(posts);
-        Log.e(LOG, posts.size() + "");
     }
 
     @Override

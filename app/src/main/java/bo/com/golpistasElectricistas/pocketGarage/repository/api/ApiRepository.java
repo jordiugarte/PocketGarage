@@ -13,7 +13,6 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class ApiRepository {
-    private static final String LOG = ApiRepository.class.getSimpleName();
 
     private static ApiRepository instance;
     private ArticulosApi articulosApi;

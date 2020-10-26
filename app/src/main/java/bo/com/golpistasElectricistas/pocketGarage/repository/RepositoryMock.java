@@ -25,31 +25,6 @@ public class RepositoryMock implements RepositoryImpl {
         return mockUsers;
     }
 
-    public List<Article> getMockArticles() {
-        List<Article> mockArticles = new ArrayList<>();
-
-        List<String> images1 = new ArrayList<String>();
-        List<String> images2 = new ArrayList<String>();
-        List<String> images3 = new ArrayList<String>();
-
-        images1.add("https://es.wikipedia.org/wiki/Toyota_Hilux#/media/Archivo:Hilux2016.jpg");
-        images1.add("https://es.wikipedia.org/wiki/Toyota_Hilux#/media/Archivo:Hilux2016.jpg");
-        images1.add("https://es.wikipedia.org/wiki/Toyota_Hilux#/media/Archivo:Hilux2016.jpg");
-
-        images2.add("https://upload.wikimedia.org/wikipedia/commons/6/61/2018_Ford_Ranger_%28PX%29_XLT_4WD_4-door_utility_%282018-10-22%29_01.jpg");
-        images2.add("https://upload.wikimedia.org/wikipedia/commons/6/61/2018_Ford_Ranger_%28PX%29_XLT_4WD_4-door_utility_%282018-10-22%29_01.jpg");
-        images2.add("https://upload.wikimedia.org/wikipedia/commons/6/61/2018_Ford_Ranger_%28PX%29_XLT_4WD_4-door_utility_%282018-10-22%29_01.jpg");
-
-        images3.add("https://upload.wikimedia.org/wikipedia/commons/thumb/7/78/Lamborghini_Huracan_Evo_Genf_2019_1Y7A5452.jpg/1920px-Lamborghini_Huracan_Evo_Genf_2019_1Y7A5452.jpg");
-        images3.add("https://upload.wikimedia.org/wikipedia/commons/thumb/7/78/Lamborghini_Huracan_Evo_Genf_2019_1Y7A5452.jpg/1920px-Lamborghini_Huracan_Evo_Genf_2019_1Y7A5452.jpg");
-        images3.add("https://upload.wikimedia.org/wikipedia/commons/thumb/7/78/Lamborghini_Huracan_Evo_Genf_2019_1Y7A5452.jpg/1920px-Lamborghini_Huracan_Evo_Genf_2019_1Y7A5452.jpg");
-
-        mockArticles.add(new Article(1, 1, images1, "Hilux 2016 con 4 anos de uso", "Ucha bro f", "Toyota Hilux", 1000000, 6942000));
-        mockArticles.add(new Article(2, 2, images2, "Ranger medio cagada", "Ucha bro f", "Ford Ranger", 1000000, 4206900));
-        mockArticles.add(new Article(3, 3, images3, "Directo del Chapare", "Ucha bro f", "Lamborghini Aventador", 1000000, 11111111));
-        return mockArticles;
-    }
-
     @Override
     public LiveData<Base<User>> login(String email, String password) {
         MutableLiveData<Base<User>> result = new MutableLiveData<>();
@@ -96,11 +71,6 @@ public class RepositoryMock implements RepositoryImpl {
 
     @Override
     public List<Post> getPosts() {
-        MutableLiveData<Base<List<Post>>> result = new MutableLiveData<>();
-        for (Article article : getMockArticles()) {
-            Post post = new Post(article.getArticleId(), article.getPhotos().get(0), article.getShortDescription(), article.getTitle(), article.getPrice());
-            result.postValue(new Base(post));
-        }
         return null;
     }
 

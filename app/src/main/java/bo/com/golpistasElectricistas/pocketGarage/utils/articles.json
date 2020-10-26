@@ -3,42 +3,120 @@
     "articleId": 1,
     "userId": 1,
     "photos": [
-      "https://es.wikipedia.org/wiki/Toyota_Hilux#/media/Archivo:Hilux2016.jpg",
-      "https://es.wikipedia.org/wiki/Toyota_Hilux#/media/Archivo:Hilux2016.jpg",
-      "https://es.wikipedia.org/wiki/Toyota_Hilux#/media/Archivo:Hilux2016.jpg"
+      "http://i.autos.com.ar/fotos/2012/0619/Toyota-Hilux-SRV-2006-201206191049053.jpg",
+      "http://i.autos.com.ar/fotos/2012/0619/Toyota-Hilux-SRV-2006-201206191049276.jpg",
+      "https://assets.cdnelnuevodiario.com/cache/d1/fc/d1fc4c715eb09055d7e16e487cb4be4b.jpg"
     ],
-    "shortDescription": "lindo auto verde",
-    "description": "es un mazda verde",
-    "title": "mazda verde",
+    "shortDescription": "Toyota Hilux 2020 a medio uso",
+    "description": "Vendo de ocasion mi Toyota Hilux en La Paz.",
+    "title": "Hilux Rojo",
     "timestamp": 1,
-    "prize": 1000
+    "prize": 1000,
+    "newState": false
   },
   {
     "articleId": 2,
     "userId": 2,
     "photos": [
-      "https://upload.wikimedia.org/wikipedia/commons/6/61/2018_Ford_Ranger_%28PX%29_XLT_4WD_4-door_utility_%282018-10-22%29_01.jpg",
-      "https://upload.wikimedia.org/wikipedia/commons/6/61/2018_Ford_Ranger_%28PX%29_XLT_4WD_4-door_utility_%282018-10-22%29_01.jpg",
-      "https://upload.wikimedia.org/wikipedia/commons/6/61/2018_Ford_Ranger_%28PX%29_XLT_4WD_4-door_utility_%282018-10-22%29_01.jpg"
+      "http://i.autos.com.ar/fotos/2012/0619/Toyota-Hilux-SRV-2006-201206191049053.jpg",
+      "http://i.autos.com.ar/fotos/2012/0619/Toyota-Hilux-SRV-2006-201206191049276.jpg",
+      "https://assets.cdnelnuevodiario.com/cache/d1/fc/d1fc4c715eb09055d7e16e487cb4be4b.jpg"
     ],
-    "shortDescription": "repuesto",
-    "description": "chino",
-    "title": "robado",
-    "timestamp": 2,
-    "prize": 200
+    "shortDescription": "Toyota Hilux 2020 a medio uso",
+    "description": "Vendo de ocasion mi Toyota Hilux en La Paz.",
+    "title": "Hilux Rojo",
+    "timestamp": 1,
+    "prize": 1000,
+    "newState": false
   },
   {
     "articleId": 3,
     "userId": 3,
     "photos": [
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/7/78/Lamborghini_Huracan_Evo_Genf_2019_1Y7A5452.jpg/1920px-Lamborghini_Huracan_Evo_Genf_2019_1Y7A5452.jpg",
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/7/78/Lamborghini_Huracan_Evo_Genf_2019_1Y7A5452.jpg/1920px-Lamborghini_Huracan_Evo_Genf_2019_1Y7A5452.jpg",
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/7/78/Lamborghini_Huracan_Evo_Genf_2019_1Y7A5452.jpg/1920px-Lamborghini_Huracan_Evo_Genf_2019_1Y7A5452.jpg"
+      "http://i.autos.com.ar/fotos/2012/0619/Toyota-Hilux-SRV-2006-201206191049053.jpg",
+      "http://i.autos.com.ar/fotos/2012/0619/Toyota-Hilux-SRV-2006-201206191049276.jpg",
+      "https://assets.cdnelnuevodiario.com/cache/d1/fc/d1fc4c715eb09055d7e16e487cb4be4b.jpg"
     ],
-    "shortDescription": "repuesto",
-    "description": "chino",
-    "title": "robado",
-    "timestamp": 2,
-    "prize": 200
+    "shortDescription": "Toyota Hilux 2020 a medio uso",
+    "description": "Vendo de ocasion mi Toyota Hilux en La Paz.",
+    "title": "Hilux Rojo",
+    "timestamp": 1,
+    "prize": 1000,
+    "newState": false
+  },
+  {
+    "articleId": 4,
+    "userId": 4,
+    "photos": [
+      "http://i.autos.com.ar/fotos/2012/0619/Toyota-Hilux-SRV-2006-201206191049053.jpg",
+      "http://i.autos.com.ar/fotos/2012/0619/Toyota-Hilux-SRV-2006-201206191049276.jpg",
+      "https://assets.cdnelnuevodiario.com/cache/d1/fc/d1fc4c715eb09055d7e16e487cb4be4b.jpg"
+    ],
+    "shortDescription": "Toyota Hilux 2020 a medio uso",
+    "description": "Vendo de ocasion mi Toyota Hilux en La Paz.",
+    "title": "Hilux Rojo",
+    "timestamp": 1,
+    "prize": 1000,
+    "newState": false
+  },
+  {
+    "articleId": 5,
+    "userId": 5,
+    "photos": [
+      "http://i.autos.com.ar/fotos/2012/0619/Toyota-Hilux-SRV-2006-201206191049053.jpg",
+      "http://i.autos.com.ar/fotos/2012/0619/Toyota-Hilux-SRV-2006-201206191049276.jpg",
+      "https://assets.cdnelnuevodiario.com/cache/d1/fc/d1fc4c715eb09055d7e16e487cb4be4b.jpg"
+    ],
+    "shortDescription": "Toyota Hilux 2020 a medio uso",
+    "description": "Vendo de ocasion mi Toyota Hilux en La Paz.",
+    "title": "Hilux Rojo",
+    "timestamp": 1,
+    "prize": 1000,
+    "newState": false
+  },
+  {
+    "articleId": 6,
+    "userId": 6,
+    "photos": [
+      "http://i.autos.com.ar/fotos/2012/0619/Toyota-Hilux-SRV-2006-201206191049053.jpg",
+      "http://i.autos.com.ar/fotos/2012/0619/Toyota-Hilux-SRV-2006-201206191049276.jpg",
+      "https://assets.cdnelnuevodiario.com/cache/d1/fc/d1fc4c715eb09055d7e16e487cb4be4b.jpg"
+    ],
+    "shortDescription": "Toyota Hilux 2020 a medio uso",
+    "description": "Vendo de ocasion mi Toyota Hilux en La Paz.",
+    "title": "Hilux Rojo",
+    "timestamp": 1,
+    "prize": 1000,
+    "newState": false
+  },
+  {
+    "articleId": 7,
+    "userId": 7,
+    "photos": [
+      "http://i.autos.com.ar/fotos/2012/0619/Toyota-Hilux-SRV-2006-201206191049053.jpg",
+      "http://i.autos.com.ar/fotos/2012/0619/Toyota-Hilux-SRV-2006-201206191049276.jpg",
+      "https://assets.cdnelnuevodiario.com/cache/d1/fc/d1fc4c715eb09055d7e16e487cb4be4b.jpg"
+    ],
+    "shortDescription": "Toyota Hilux 2020 a medio uso",
+    "description": "Vendo de ocasion mi Toyota Hilux en La Paz.",
+    "title": "Hilux Rojo",
+    "timestamp": 1,
+    "prize": 1000,
+    "newState": false
+  },
+  {
+    "articleId": 8,
+    "userId": 8,
+    "photos": [
+      "http://i.autos.com.ar/fotos/2012/0619/Toyota-Hilux-SRV-2006-201206191049053.jpg",
+      "http://i.autos.com.ar/fotos/2012/0619/Toyota-Hilux-SRV-2006-201206191049276.jpg",
+      "https://assets.cdnelnuevodiario.com/cache/d1/fc/d1fc4c715eb09055d7e16e487cb4be4b.jpg"
+    ],
+    "shortDescription": "Toyota Hilux 2020 a medio uso",
+    "description": "Vendo de ocasion mi Toyota Hilux en La Paz.",
+    "title": "Hilux Rojo",
+    "timestamp": 1,
+    "prize": 1000,
+    "newState": false
   }
 ]

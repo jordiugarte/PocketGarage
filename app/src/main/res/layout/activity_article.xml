@@ -23,7 +23,7 @@
             android:onClick="returnToPrevious"/>
 
         <TextView
-            android:id="@+id/articleTitle"
+            android:id="@+id/articleTitleTab"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="top"
@@ -47,7 +47,7 @@
         app:strokeWidth="1dp" />
 
     <TextView
-        android:id="@+id/articleName"
+        android:id="@+id/articleTitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/articleCarouselView"
@@ -61,12 +61,12 @@
         android:id="@+id/aticlePriceLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/articleName"
+        android:layout_below="@id/articleTitle"
         android:orientation="horizontal"
         android:padding="10dp">
 
         <TextView
-            android:id="@+id/aticlePrice"
+            android:id="@+id/articlePrice"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="69 Bs"
@@ -124,22 +124,21 @@
         android:textColor="@color/colorGray"
         android:textSize="@dimen/dimen_text"
         android:textStyle="bold" />
-
-    <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+<!--
+    <Button
         android:id="@+id/contactFab"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_gravity="bottom|right"
-        android:layout_margin="16dp"
+        android:layout_marginBottom="16dp"
         android:background="@drawable/gradient1"
-        android:contentDescription="Nombre de contacto"
         android:drawableLeft="@drawable/ic_baseline_local_phone_24"
+        android:onClick="returnToPrevious"
         android:padding="10dp"
         android:text="Nombre de contacto"
         android:textAllCaps="true"
-        android:textColor="@color/colorWhite"
-        android:onClick="goToSellerProfileActivity"/>
-
+        android:textColor="@color/colorWhite" />
+-->
 </RelativeLayout>

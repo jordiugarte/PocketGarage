@@ -37,7 +37,10 @@ public class Article {
     @ColumnInfo(name = "price")
     private double price;
 
-    public Article(int articleId, int userId, List<String> photos, String shortDescription, String description, String title, long timestamp, double price) {
+    @ColumnInfo(name = "state")
+    private boolean newState;
+
+    public Article(int articleId, int userId, List<String> photos, String shortDescription, String description, String title, long timestamp, double price, boolean newState) {
         this.articleId = articleId;
         this.userId = userId;
         this.photos = photos;
@@ -46,6 +49,7 @@ public class Article {
         this.title = title;
         this.timestamp = timestamp;
         this.price = price;
+        this.newState = newState;
     }
 
     public int getUserId() {
@@ -110,5 +114,13 @@ public class Article {
 
     public void setArticleId(int articleId) {
         this.articleId = articleId;
+    }
+
+    public boolean isNewState() {
+        return newState;
+    }
+
+    public void setNewState(boolean newState) {
+        this.newState = newState;
     }
 }

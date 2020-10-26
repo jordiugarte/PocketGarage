@@ -2,7 +2,6 @@ package bo.com.golpistasElectricistas.pocketGarage.repository;
 
 import android.app.Application;
 import android.util.Log;
-import android.widget.Toast;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
@@ -20,8 +19,8 @@ import bo.com.golpistasElectricistas.pocketGarage.model.User;
 import bo.com.golpistasElectricistas.pocketGarage.repository.api.ApiRepository;
 import bo.com.golpistasElectricistas.pocketGarage.repository.firebase.Firebase;
 import bo.com.golpistasElectricistas.pocketGarage.repository.local.Local;
+import bo.com.golpistasElectricistas.pocketGarage.ui.activities.ArticleActivity;
 import bo.com.golpistasElectricistas.pocketGarage.ui.activities.MainActivity;
-import bo.com.golpistasElectricistas.pocketGarage.utils.ErrorMapper;
 
 public class Repository implements RepositoryImpl {
     private Local local;
@@ -51,13 +50,13 @@ public class Repository implements RepositoryImpl {
 
     @Override
     public Article getArticleItem(int id) {
-        List<Article> articles = getArticlesItems().getValue().getData();
-        for (Article article : articles) {
+        Article result = null;
+        for (Article article : getArticlesItems().getValue().getData()) {
             if (article.getArticleId() == id) {
-                return article;
+                result = article;
             }
         }
-        return null;
+        return result;
     }
 
     @Override
@@ -89,7 +88,6 @@ public class Repository implements RepositoryImpl {
     @Override
     public List<Post> getPosts() {
         List<Post> posts = new ArrayList<>();
-        MutableLiveData<Base<List<Post>>> result = new MutableLiveData<>();
         ApiRepository.getInstance().getArticles().observeForever(new Observer<Base<List<Article>>>() {
             @Override
             public void onChanged(Base<List<Article>> listBase) {
@@ -98,7 +96,6 @@ public class Repository implements RepositoryImpl {
                     for (Article article : articles) {
                         Post post = new Post(article.getArticleId(), article.getPhotos().get(0), article.getShortDescription(), article.getTitle(), article.getPrice());
                         posts.add(post);
-                        Log.e(MainActivity.class.getName(), post.getTitle());
                     }
                 }
             }

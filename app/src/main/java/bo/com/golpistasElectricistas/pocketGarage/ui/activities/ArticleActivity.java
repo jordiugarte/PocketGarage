@@ -17,10 +17,8 @@ import com.synnapps.carouselview.ImageListener;
 
 import bo.com.golpistasElectricistas.pocketGarage.R;
 import bo.com.golpistasElectricistas.pocketGarage.model.Article;
-import bo.com.golpistasElectricistas.pocketGarage.model.Post;
 import bo.com.golpistasElectricistas.pocketGarage.utils.Constants;
 import bo.com.golpistasElectricistas.pocketGarage.viewModel.ArticleViewModel;
-import bo.com.golpistasElectricistas.pocketGarage.viewModel.MainViewModel;
 
 public class ArticleActivity extends AppCompatActivity {
 
@@ -51,19 +49,17 @@ public class ArticleActivity extends AppCompatActivity {
     private void getData() {
         Bundle extras = getIntent().getExtras();
         int articleId = extras.getInt(Constants.KEY_STARTUP_SELECTED);
-        try {
-            thisArticle = articleViewModel.getArticle(articleId);
-        } catch (Exception e) {
-
-        }
-
-        articleName.setText(thisArticle.getTitle());
+        thisArticle = articleViewModel.getArticle(articleId);
+        articleName.setText(thisArticle.getDescription());
         articleTitle.setText(thisArticle.getTitle());
         articlePrice.setText(thisArticle.getPrice() + "Bs");
-        //articleState.setText(thisArticle.getState());
+        if (thisArticle.isNewState()) {
+            articleState.setText("Nuevo");
+        } else {
+            articleState.setText("Usado");
+        }
         articleShortDescription.setText(thisArticle.getShortDescription());
         articleDescription.setText(thisArticle.getDescription());
-
         carouselView.setPageCount(thisArticle.getPhotos().size());
         carouselView.setImageListener(imageListener);
     }
@@ -73,9 +69,9 @@ public class ArticleActivity extends AppCompatActivity {
     }
 
     private void initViews() {
-        articleName = findViewById(R.id.articleName);
+        articleName = findViewById(R.id.articleTitleTab);
         articleTitle = findViewById(R.id.articleTitle);
-        articlePrice = findViewById(R.id.aticlePrice);
+        articlePrice = findViewById(R.id.articlePrice);
         articleState = findViewById(R.id.articleState);
         articleShortDescription = findViewById(R.id.shortDescriptionArticle);
         articleDescription = findViewById(R.id.descriptionArticle);

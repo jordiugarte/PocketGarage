@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "1084418329129",
+    "firebase_url": "https://pocket-garage-9ce4d.firebaseio.com",
+    "project_id": "pocket-garage-9ce4d",
+    "storage_bucket": "pocket-garage-9ce4d.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1084418329129:android:cdb4dc4e4fb7b5fb78aa38",
+        "android_client_info": {
+          "package_name": "bo.com.golpistasElectricistas.pocketGarage"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1084418329129-355g8jhi2u7d8dro0j814ntqcs3d8a5h.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCxkFw0BVRoT-a7DLjU7pcpCegk5oHDSbc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1084418329129-355g8jhi2u7d8dro0j814ntqcs3d8a5h.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

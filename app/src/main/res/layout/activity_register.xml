@@ -81,17 +81,7 @@
                 android:inputType="textEmailAddress"
                 android:padding="10dp"></EditText>
 
-            <EditText
-                android:id="@+id/phoneRegisterField"
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:layout_marginBottom="10dp"
-                android:background="@drawable/text_gradient"
-                android:hint="@string/phone_hint"
-                android:inputType="number"
-                android:padding="10dp"></EditText>
-
-            <EditText
+           <EditText
                 android:id="@+id/passwordRegisterField"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
@@ -118,6 +108,16 @@
                 android:layout_marginBottom="10dp"
                 android:background="@drawable/text_gradient"
                 android:hint="@string/ci_hint"
+                android:padding="10dp"></EditText>
+
+            <EditText
+                android:id="@+id/phoneRegisterField"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginBottom="10dp"
+                android:background="@drawable/text_gradient"
+                android:hint="@string/phone_hint"
+                android:inputType="number"
                 android:padding="10dp"></EditText>
 
             <EditText

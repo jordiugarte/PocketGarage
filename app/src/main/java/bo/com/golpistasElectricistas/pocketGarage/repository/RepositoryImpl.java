@@ -19,7 +19,11 @@ public interface RepositoryImpl {
 
     LiveData<Base<List<Article>>> getMyArticles();
 
-    LiveData<Base<User>> register(String photo, String ci, String email, String pass, String name, String lastName, String date, int phone);
+    LiveData<Base<User>> register(String photo, String ci, String email, String pass, String name, String lastName, String date, String phone);
 
     LiveData<Base<String>> addArticle(Article article);
+
+    LiveData<Base<User>> getCurrentUser();
+
+    void signOut();
 }

@@ -19,7 +19,7 @@ public class RegisterViewModel extends AndroidViewModel {
         repository = new RepositoryMock();
     }
 
-    public LiveData<Base<User>> register(String photo, String ci, String email, String pass, String name, String lastName, String date, int phone) {
+    public LiveData<Base<User>> register(String photo, String ci, String email, String pass, String name, String lastName, String date, String phone) {
         return repository.register(photo, ci, email, pass, name, lastName, date, phone);
     }
 }

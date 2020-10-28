@@ -67,10 +67,9 @@ public class RepositoryMock implements RepositoryImpl {
     }
 
     @Override
-    public LiveData<Base<User>> register(String photo, String ci, String email, String pass, String name, String lastName, String date, int phone) {
+    public LiveData<Base<User>> register(String photo, String ci, String email, String pass, String name, String lastName, String date, String phone) {
         MutableLiveData<Base<User>> result = new MutableLiveData<>();
-
-        if (ci.isEmpty() || email.isEmpty() || pass.isEmpty() || name.isEmpty() || lastName.isEmpty() || date.isEmpty()) {
+        if (ci.isEmpty() || email.isEmpty() || pass.isEmpty() || name.isEmpty() || lastName.isEmpty() || date.isEmpty() || phone.isEmpty()) {
             result.postValue(new Base(Constants.EMPTY_VALUE_ERROR, null));
             return result;
         }
@@ -88,6 +87,7 @@ public class RepositoryMock implements RepositoryImpl {
         }
         try {
             int ciint = Integer.parseInt(ci);
+            int phoneint = Integer.parseInt(phone);
             for (User user : getMockUsers()) {
                 if (ciint == user.getCi()) {
                     result.postValue(new Base<>(Constants.REPEATED_CI_ERROR, null));
@@ -98,7 +98,7 @@ public class RepositoryMock implements RepositoryImpl {
                     return result;
                 }
             }
-            User user = new User(photo, ciint, email, pass, name, lastName, date, phone);
+            User user = new User(photo, ciint, email, pass, name, lastName, date, phoneint);
             result.postValue(new Base<>(user));
             return result;
         } catch (final NumberFormatException e) {
@@ -108,7 +108,17 @@ public class RepositoryMock implements RepositoryImpl {
     }
 
     @Override
-    public LiveData<Base<Article>> addArticle(Article article) {
+    public LiveData<Base<String>> addArticle(Article article) {
         return null;
+    }
+
+    @Override
+    public LiveData<Base<User>> getCurrentUser() {
+        return null;
+    }
+
+    @Override
+    public void signOut() {
+
     }
 }

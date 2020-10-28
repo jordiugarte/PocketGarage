@@ -129,7 +129,7 @@ public class RegisterActivity extends AppCompatActivity {
         String date = dateText.getText().toString();
         String phone = phoneText.getText().toString();
         if (pass.equals(pass2)) {
-            viewModel.register(photo, ci, email, pass, name, lastName, date, Integer.parseInt(phone)).observeForever(new Observer<Base<User>>() {
+            viewModel.register(photo, ci, email, pass, name, lastName, date, phone).observeForever(new Observer<Base<User>>() {
                 @Override
                 public void onChanged(Base<User> userBase) {
                     if (userBase.isSuccess()) {

@@ -1,5 +1,7 @@
 package bo.com.golpistasElectricistas.pocketGarage.model;
 
+import androidx.room.Entity;
+
 public class User {
     private int ci;
     private String email;
@@ -8,8 +10,9 @@ public class User {
     private String lastName;
     private String photo;
     private String bornDate;
+    private int phone;
 
-    public User(String photo, int ci, String email, String password, String name, String lastName, String bornDate) {
+    public User(String photo, int ci, String email, String password, String name, String lastName, String bornDate, int phone) {
         this.photo = photo;
         this.ci = ci;
         this.email = email;
@@ -17,6 +20,7 @@ public class User {
         this.name = name;
         this.lastName = lastName;
         this.bornDate = bornDate;
+        this.phone = phone;
     }
 
     public int getCi() {
@@ -73,5 +77,13 @@ public class User {
 
     public void setBornDate(String bornDate) {
         this.bornDate = bornDate;
+    }
+
+    public int getPhone() {
+        return phone;
+    }
+
+    public void setPhone(int phone) {
+        this.phone = phone;
     }
 }

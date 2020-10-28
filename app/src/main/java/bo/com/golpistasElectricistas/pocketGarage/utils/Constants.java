@@ -20,4 +20,13 @@ public class Constants {
     public static final String RESOURCE_ARTICLES = "json%2Farticles.json";
     public static final String QUERY_PARAM_ALT = "media";
     public static final String KEY_STARTUP_SELECTED = "articleSelected";
+
+    //Categories
+    public static final int CARS_CATEGORY = 0;
+    public static final int BIKES_CATEGORY = 1;
+    public static final int LIGHTS_CATEGORY = 2;
+    public static final int ELECTRONICS_CATEGORY = 3;
+    public static final int WHEELS_CATEGORY = 4;
+    public static final int OTHERS_CATEGORY = 5;
+
 }

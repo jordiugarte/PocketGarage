@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+<string-array name="categoriesItems">
+    <item>@string/category_cars</item>
+    <item>@string/category_bikes</item>
+    <item>@string/category_electronics</item>
+    <item>@string/category_lights</item>
+    <item>@string/category_wheels</item>
+    <item>@string/category_others</item>
+</string-array>
+</resources>

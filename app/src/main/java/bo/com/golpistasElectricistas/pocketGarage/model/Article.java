@@ -40,7 +40,10 @@ public class Article {
     @ColumnInfo(name = "state")
     private boolean newState;
 
-    public Article(int articleId, int userId, List<String> photos, String shortDescription, String description, String title, long timestamp, double price, boolean newState) {
+    @ColumnInfo(name = "category")
+    private int category;
+
+    public Article(int articleId, int userId, List<String> photos, String shortDescription, String description, String title, long timestamp, double price, boolean newState, int category) {
         this.articleId = articleId;
         this.userId = userId;
         this.photos = photos;
@@ -50,7 +53,10 @@ public class Article {
         this.timestamp = timestamp;
         this.price = price;
         this.newState = newState;
+        this.category = category;
     }
+
+    public Article(){}
 
     public int getUserId() {
         return userId;
@@ -122,5 +128,13 @@ public class Article {
 
     public void setNewState(boolean newState) {
         this.newState = newState;
+    }
+
+    public int getCategory() {
+        return category;
+    }
+
+    public void setCategory(int category) {
+        this.category = category;
     }
 }

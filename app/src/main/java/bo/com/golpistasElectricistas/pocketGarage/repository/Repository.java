@@ -80,7 +80,12 @@ public class Repository implements RepositoryImpl {
 
     @Override
     public LiveData<Base<User>> register(String photo, String ci, String email, String
-            pass, String name, String lastName, String date) {
+            pass, String name, String lastName, String date, int phone) {
         return null;
+    }
+
+    @Override
+    public LiveData<Base<String>> addArticle(Article article) {
+        return Firebase.getInstance().addPostToStartup(article);
     }
 }

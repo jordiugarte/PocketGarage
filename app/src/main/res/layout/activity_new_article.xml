@@ -58,6 +58,16 @@
 
     </HorizontalScrollView>
 
+    <Spinner
+        android:id="@+id/categorySpinner"
+        android:layout_width="wrap_content"
+        android:layout_height="30dp"
+        android:layout_alignParentStart="true"
+        android:layout_below="@id/imageAdderScrollView"
+        android:layout_marginLeft="10dp"
+        android:entries="@array/categoriesItems"
+        />
+
     <Switch
         android:id="@+id/newSwitch"
         android:layout_width="wrap_content"

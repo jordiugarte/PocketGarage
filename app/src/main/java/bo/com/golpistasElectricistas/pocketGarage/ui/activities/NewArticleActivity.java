@@ -2,6 +2,7 @@ package bo.com.golpistasElectricistas.pocketGarage.ui.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
+import androidx.lifecycle.Observer;
 
 import android.content.Context;
 import android.content.Intent;
@@ -10,26 +11,40 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.text.Layout;
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.Spinner;
+import android.widget.Switch;
+import android.widget.Toast;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 import bo.com.golpistasElectricistas.pocketGarage.R;
+import bo.com.golpistasElectricistas.pocketGarage.model.Article;
+import bo.com.golpistasElectricistas.pocketGarage.model.Base;
+import bo.com.golpistasElectricistas.pocketGarage.viewModel.NewArticleViewModel;
 
 public class NewArticleActivity extends AppCompatActivity {
     private Context context;
 
     private List<ImageView> imageViews = new ArrayList<ImageView>();
-    private LinearLayout imagesRow;
 
+    private LinearLayout imagesRow;
     private List<Bitmap> imageBitmaps = new ArrayList<Bitmap>();
+    private EditText titleField, shortDescriptionField, descriptionField, priceField;
+    private Switch newSwitch;
+    private Spinner categorySpinner;
 
     private Intent mainActivity;
+
+    private NewArticleViewModel viewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,6 +63,12 @@ public class NewArticleActivity extends AppCompatActivity {
 
     private void initViews() {
         imagesRow = findViewById(R.id.imagesArticleRow);
+        titleField = findViewById(R.id.titleField);
+        shortDescriptionField = findViewById(R.id.shortDescriptionField);
+        descriptionField = findViewById(R.id.descriptionField);
+        priceField = findViewById(R.id.priceField);
+        newSwitch = findViewById(R.id.newSwitch);
+        categorySpinner = findViewById(R.id.categorySpinner);
     }
 
     public void addPhoto(View view) {
@@ -85,9 +106,31 @@ public class NewArticleActivity extends AppCompatActivity {
     }
 
     public void postArticle(View view) {
-        //TODO
-        startActivity(mainActivity);
-    }
+        Article article = new Article();
+        article.setTitle(titleField.getText().toString());
+        article.setShortDescription(shortDescriptionField.getText().toString());
+        article.setDescription(descriptionField.getText().toString());
+        article.setPrice(Double.parseDouble(priceField.getText().toString()));
+        article.setNewState(newSwitch.isChecked());
+        article.setCategory(categorySpinner.getSelectedItemPosition());
+        //article.setPhotos(imageViews);
+        article.setTimestamp(Calendar.getInstance().getTimeInMillis());
+
+        if (!article.getTitle().isEmpty() && !article.getShortDescription().isEmpty() &&
+                !article.getDescription().isEmpty() && article.getPrice() != 0 && article.getPhotos().isEmpty()) {
+            viewModel.createPost(article).observe(this, new Observer<Base<String>>() {
+                @Override
+                public void onChanged(Base<String> stringBase) {
+
+                }
+            });
+        } else {
+            Toast.makeText(context, context.getString(R.string.error_fill_values),
+                    Toast.LENGTH_SHORT).show();
+        }
+
+    startActivity(mainActivity);
+}
 
     public void returnToPrevious(View view) {
         finish();

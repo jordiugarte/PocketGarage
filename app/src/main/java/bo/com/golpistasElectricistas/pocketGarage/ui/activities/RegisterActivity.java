@@ -46,6 +46,7 @@ public class RegisterActivity extends AppCompatActivity {
     private EditText passwordConfirmText;
     private EditText ciText;
     private EditText dateText;
+    private EditText phoneText;
     private RegisterViewModel viewModel;
 
     @Override
@@ -70,6 +71,7 @@ public class RegisterActivity extends AppCompatActivity {
         passwordConfirmText = findViewById(R.id.repeatPasswordField);
         ciText = findViewById(R.id.ciField);
         dateText = findViewById(R.id.dateField);
+        phoneText = findViewById(R.id.phoneRegisterField);
     }
 
     public void choosePhoto(View view) {
@@ -125,8 +127,9 @@ public class RegisterActivity extends AppCompatActivity {
         String pass2 = passwordConfirmText.getText().toString();
         String ci = ciText.getText().toString();
         String date = dateText.getText().toString();
+        String phone = phoneText.getText().toString();
         if (pass.equals(pass2)) {
-            viewModel.register(photo, ci, email, pass, name, lastName, date).observeForever(new Observer<Base<User>>() {
+            viewModel.register(photo, ci, email, pass, name, lastName, date, Integer.parseInt(phone)).observeForever(new Observer<Base<User>>() {
                 @Override
                 public void onChanged(Base<User> userBase) {
                     if (userBase.isSuccess()) {

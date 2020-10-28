@@ -16,9 +16,9 @@ public class RepositoryMock implements RepositoryImpl {
 
     protected List<User> getMockUsers() {
         List<User> mockUsers = new ArrayList<>();
-        mockUsers.add(new User("https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcSIxyT0DAa5_kwzb-e-bpTvAXIyW0OispA76Q&usqp=CAU", 1, "jordi@ugarte.com", "ffffffff", "Jordi", "Ugarte", "01/01/1999"));
-        mockUsers.add(new User("https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcSIxyT0DAa5_kwzb-e-bpTvAXIyW0OispA76Q&usqp=CAU", 2, "ignacio@delrio.com", "ffffffff", "Ignacio", "del Rio", "01/01/1999"));
-        mockUsers.add(new User("https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcSIxyT0DAa5_kwzb-e-bpTvAXIyW0OispA76Q&usqp=CAU", 3, "sergio@laguna.com", "ffffffff", "Sergio", "Laguna", "01/01/1999"));
+        mockUsers.add(new User("https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcSIxyT0DAa5_kwzb-e-bpTvAXIyW0OispA76Q&usqp=CAU", 1, "jordi@ugarte.com", "ffffffff", "Jordi", "Ugarte", "01/01/1999", 7889825));
+        mockUsers.add(new User("https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcSIxyT0DAa5_kwzb-e-bpTvAXIyW0OispA76Q&usqp=CAU", 2, "ignacio@delrio.com", "ffffffff", "Ignacio", "del Rio", "01/01/1999", 77777777));
+        mockUsers.add(new User("https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcSIxyT0DAa5_kwzb-e-bpTvAXIyW0OispA76Q&usqp=CAU", 3, "sergio@laguna.com", "ffffffff", "Sergio", "Laguna", "01/01/1999", 77777777));
         return mockUsers;
     }
 
@@ -67,7 +67,7 @@ public class RepositoryMock implements RepositoryImpl {
     }
 
     @Override
-    public LiveData<Base<User>> register(String photo, String ci, String email, String pass, String name, String lastName, String date) {
+    public LiveData<Base<User>> register(String photo, String ci, String email, String pass, String name, String lastName, String date, int phone) {
         MutableLiveData<Base<User>> result = new MutableLiveData<>();
 
         if (ci.isEmpty() || email.isEmpty() || pass.isEmpty() || name.isEmpty() || lastName.isEmpty() || date.isEmpty()) {
@@ -98,12 +98,17 @@ public class RepositoryMock implements RepositoryImpl {
                     return result;
                 }
             }
-            User user = new User(photo, ciint, email, pass, name, lastName, date);
+            User user = new User(photo, ciint, email, pass, name, lastName, date, phone);
             result.postValue(new Base<>(user));
             return result;
         } catch (final NumberFormatException e) {
             result.postValue(new Base<>(Constants.INVALID_CI_ERROR, null));
             return result;
         }
+    }
+
+    @Override
+    public LiveData<Base<Article>> addArticle(Article article) {
+        return null;
     }
 }

@@ -5,7 +5,9 @@
     <string name="category_cars">Autos</string>
     <string name="category_bikes">Motos</string>
     <string name="category_wheels">Llantas</string>
-    <string name="category_accesories">Accesorios</string>
+    <string name="category_lights">Luces</string>
+    <string name="category_electronics">Electrónicos</string>
+    <string name="category_others">Otros</string>
 
     <!-- Hints -->
     <string name="email_hint">Correo electrónico</string>
@@ -15,6 +17,7 @@
     <string name="lastnames_hint">Apellidos</string>
     <string name="ci_hint">C.I.</string>
     <string name="borndate_hint">Fecha de nacimiento</string>
+    <string name="phone_hint">Número telefónico</string>
     <string name="title_article_hint">Título</string>
     <string name="short_description_article_hint">Descripción corta</string>
     <string name="description_hint">Descripción</string>
@@ -67,4 +70,5 @@
     <!-- Messages -->
     <string name="msg_added_to_favourites">añadido a favoritos</string>
     <string name="msg_removed_from_favourites">eliminado de favoritos</string>
+
 </resources>

@@ -125,7 +125,7 @@
                 android:background="@drawable/gradient4"
                 android:drawableLeft="@drawable/ic_baseline_settings_24"
                 android:padding="10dp"
-                android:text="@string/category_accesories"
+                android:text="@string/category_others"
                 android:textAllCaps="false"
                 android:textColor="@color/colorWhite" />
         </TableRow>

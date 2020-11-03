@@ -13,20 +13,21 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ui.activities.FavouritesActivity"></activity>
-        <activity android:name=".ui.activities.ArticleActivity" />
-        <activity android:name=".ui.activities.ProfileEditorActivity" />
-        <activity android:name=".ui.activities.MyProfileActivity" />
-        <activity android:name=".ui.activities.SellerProfileActivity" />
-        <activity android:name=".ui.activities.NewArticleActivity" />
-        <activity android:name=".ui.activities.RegisterActivity" />
-        <activity android:name=".ui.activities.LoginActivity">
+        <activity android:name=".ui.activities.SplashScreenActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".ui.activities.FavouritesActivity" />
+        <activity android:name=".ui.activities.ArticleActivity" />
+        <activity android:name=".ui.activities.ProfileEditorActivity" />
+        <activity android:name=".ui.activities.MyProfileActivity" />
+        <activity android:name=".ui.activities.SellerProfileActivity" />
+        <activity android:name=".ui.activities.NewArticleActivity" />
+        <activity android:name=".ui.activities.RegisterActivity" />
+        <activity android:name=".ui.activities.LoginActivity"/>
         <activity android:name=".ui.activities.MainActivity" />
     </application>
 

@@ -10,17 +10,20 @@ import bo.com.golpistasElectricistas.pocketGarage.model.Base;
 import bo.com.golpistasElectricistas.pocketGarage.model.User;
 import bo.com.golpistasElectricistas.pocketGarage.repository.Repository;
 import bo.com.golpistasElectricistas.pocketGarage.repository.RepositoryImpl;
-import bo.com.golpistasElectricistas.pocketGarage.repository.RepositoryMock;
 
-public class RegisterViewModel extends AndroidViewModel {
+public class SplashScreenViewModel extends AndroidViewModel {
     private RepositoryImpl repository;
 
-    public RegisterViewModel(@NonNull Application application) {
+    public SplashScreenViewModel(@NonNull Application application) {
         super(application);
         repository = new Repository(application);
     }
 
-    public LiveData<Base<User>> register(String photo, String ci, String email, String pass, String name, String lastName, String date, String phone) {
-        return repository.register(photo, ci, email, pass, name, lastName, date, phone);
+    public User getLoggedUser() {
+        return repository.getCurrentUser();
+    }
+
+    public LiveData<Base<User>> login(String email, String password) {
+        return repository.login(email, password);
     }
 }

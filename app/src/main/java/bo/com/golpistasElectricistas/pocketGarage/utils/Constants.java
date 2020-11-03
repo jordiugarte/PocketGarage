@@ -13,16 +13,23 @@ public class Constants {
     public static final int INVALID_CI_ERROR = 2002;
     public static final int REPEATED_CI_ERROR = 2003;
     public static final int REPEATED_EMAIL_ERROR = 2004;
+    public static final int ERROR_REGISTER_DB = 2005;
+    public static final int ERROR_REGISTER_EMAIL_ALREADY_EXISTS = 2006;
+    public static final int ERROR_REGISTER = 2007;
 
     public static final int SERVER_ERROR = 5000;
 
-    //Api
+    //  Api
     public static final String BASE_URL = "https://firebasestorage.googleapis.com/v0/b/pocket-garage-9ce4d.appspot.com/o/";
     public static final String RESOURCE_ARTICLES = "json%2Farticles.json";
     public static final String QUERY_PARAM_ALT = "media";
     public static final String KEY_STARTUP_SELECTED = "articleSelected";
 
-    //Categories
+    //  Firebase
+    public static final String FIREBASE_PATH_USERS = "/users";
+    public static final String FIREBASE_PATH_STARTUP = "/articles";
+
+    //  Categories
     public static final int CARS_CATEGORY = 0;
     public static final int BIKES_CATEGORY = 1;
     public static final int LIGHTS_CATEGORY = 2;
@@ -30,4 +37,7 @@ public class Constants {
     public static final int WHEELS_CATEGORY = 4;
     public static final int OTHERS_CATEGORY = 5;
 
+    //  Keys
+    public static final String KEY_SHARED_PREFS = "shared preferences";
+    public static final String KEY_CURRENT_USER = "current user";
 }

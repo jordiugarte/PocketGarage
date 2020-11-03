@@ -34,7 +34,7 @@ import bo.com.golpistasElectricistas.pocketGarage.viewModel.NewArticleViewModel;
 public class NewArticleActivity extends AppCompatActivity {
     private Context context;
 
-    private List<ImageView> imageViews = new ArrayList<ImageView>();
+    private List<Bitmap> imageViews = new ArrayList<Bitmap>();
 
     private LinearLayout imagesRow;
     private List<Bitmap> imageBitmaps = new ArrayList<Bitmap>();
@@ -45,6 +45,8 @@ public class NewArticleActivity extends AppCompatActivity {
     private Intent mainActivity;
 
     private NewArticleViewModel viewModel;
+
+    private static final String LOG = NewArticleActivity.class.getSimpleName();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -101,7 +103,7 @@ public class NewArticleActivity extends AppCompatActivity {
         imageView.getLayoutParams().height = 100;*/
         imageView.setBackground(ContextCompat.getDrawable(context, R.drawable.gradient4));
         imageView.setImageBitmap(bitmap);
-        imageViews.add(imageView);
+        imageViews.add(bitmap);
         return imageView;
     }
 
@@ -118,19 +120,22 @@ public class NewArticleActivity extends AppCompatActivity {
 
         if (!article.getTitle().isEmpty() && !article.getShortDescription().isEmpty() &&
                 !article.getDescription().isEmpty() && article.getPrice() != 0 && article.getPhotos().isEmpty()) {
-            viewModel.createPost(article).observe(this, new Observer<Base<String>>() {
+            viewModel.createPost(article).observe(this, new Observer<Base<Article>>() {
                 @Override
-                public void onChanged(Base<String> stringBase) {
-
+                public void onChanged(Base<Article> stringBase) {
+                    if (stringBase.isSuccess()) {
+                        Log.e(LOG, "createPost.isSuccess:" + stringBase.getData());
+                    } else {
+                        Log.e(LOG, "createPost.error", stringBase.getException());
+                    }
                 }
             });
+            startActivity(mainActivity);
         } else {
             Toast.makeText(context, context.getString(R.string.error_fill_values),
                     Toast.LENGTH_SHORT).show();
         }
-
-    startActivity(mainActivity);
-}
+    }
 
     public void returnToPrevious(View view) {
         finish();

@@ -1,4 +1,4 @@
-package bo.com.golpistasElectricistas.pocketGarage.repository.local;
+package bo.com.golpistasElectricistas.pocketGarage.repository.local.dao;
 
 import androidx.lifecycle.LiveData;
 import androidx.room.Dao;

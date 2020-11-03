@@ -21,7 +21,7 @@ public class NewArticleViewModel extends AndroidViewModel {
         repository = new Repository(application);
     }
 
-    public LiveData<Base<String>> createPost(Article article) {
+    public LiveData<Base<Article>> createPost(Article article) {
         return repository.addArticle(article);
     }
 }

@@ -21,9 +21,11 @@ public interface RepositoryImpl {
 
     LiveData<Base<User>> register(String photo, String ci, String email, String pass, String name, String lastName, String date, String phone);
 
-    LiveData<Base<String>> addArticle(Article article);
+    LiveData<Base<Article>> addArticle(Article article);
 
-    LiveData<Base<User>> getCurrentUser();
+    User getCurrentUser();
+
+    void setCurrentUser(User user);
 
     void signOut();
 }

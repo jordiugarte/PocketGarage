@@ -17,8 +17,10 @@ import bo.com.golpistasElectricistas.pocketGarage.repository.local.Local;
 
 public class Repository implements RepositoryImpl {
     private Local local;
+    private Application application;
 
     public Repository(Application application) {
+        this.application = application;
         local = new Local(application);
     }
 
@@ -85,13 +87,18 @@ public class Repository implements RepositoryImpl {
     }
 
     @Override
-    public LiveData<Base<String>> addArticle(Article article) {
+    public LiveData<Base<Article>> addArticle(Article article) {
         return Firebase.getInstance().addArticle(article);
     }
 
     @Override
-    public LiveData<Base<User>> getCurrentUser() {
-        return Firebase.getInstance().getCurrentUser();
+    public User getCurrentUser() {
+        return local.getCurrentUser();
+    }
+
+    @Override
+    public void setCurrentUser(User user) {
+        local.setCurrentUser(user);
     }
 
     @Override

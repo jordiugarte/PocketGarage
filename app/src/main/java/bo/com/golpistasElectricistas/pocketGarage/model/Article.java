@@ -56,7 +56,8 @@ public class Article {
         this.category = category;
     }
 
-    public Article(){}
+    public Article() {
+    }
 
     public int getUserId() {
         return userId;

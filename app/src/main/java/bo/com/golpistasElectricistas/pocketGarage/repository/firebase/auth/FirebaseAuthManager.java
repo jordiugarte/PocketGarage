@@ -56,7 +56,7 @@ public class FirebaseAuthManager {
                         } else {
                             if (task.getException() instanceof FirebaseAuthException) {
                                 if (((FirebaseAuthException) task.getException()).getErrorCode().equals("ERROR_EMAIL_ALREADY_IN_USE")) {
-                                    results.postValue(new Base<>(Constants.ERROR_REGISTER_EMAIL_ALREADY_EXISTS, task.getException()));
+                                    results.postValue(new Base<>(Constants.REPEATED_EMAIL_ERROR, task.getException()));
                                 } else {
                                     results.postValue(new Base<>(Constants.ERROR_REGISTER, task.getException()));
                                 }

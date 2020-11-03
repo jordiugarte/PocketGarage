@@ -27,6 +27,10 @@ public class ErrorMapper {
                 return  context.getString(R.string.repeated_ci_error);
             case Constants.REPEATED_EMAIL_ERROR:
                 return  context.getString(R.string.repeated_email_error);
+            case Constants.LOGIN_ERROR:
+                return  context.getString(R.string.error_incorrect_login);
+            case Constants.ERROR_REGISTER:
+                return  context.getString(R.string.error_incorrect_register);
             default:
                 return context.getString(R.string.unknown_error);
         }

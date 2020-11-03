@@ -73,7 +73,7 @@ public class Firebase {
         return null;
     }
 
-    private LiveData<Base<User>>    registerAndUpdateDb(LiveData<Base<User>> registerFunction, User user) {
+    private LiveData<Base<User>> registerAndUpdateDb(LiveData<Base<User>> registerFunction, User user) {
         MutableLiveData<Base<User>> results = new MutableLiveData<>();
         registerFunction.observeForever(new Observer<Base<User>>() {
             @Override

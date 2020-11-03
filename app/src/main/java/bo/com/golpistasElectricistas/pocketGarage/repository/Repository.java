@@ -14,6 +14,8 @@ import bo.com.golpistasElectricistas.pocketGarage.model.User;
 import bo.com.golpistasElectricistas.pocketGarage.repository.api.ApiRepository;
 import bo.com.golpistasElectricistas.pocketGarage.repository.firebase.Firebase;
 import bo.com.golpistasElectricistas.pocketGarage.repository.local.Local;
+import bo.com.golpistasElectricistas.pocketGarage.utils.Constants;
+import bo.com.golpistasElectricistas.pocketGarage.utils.Validations;
 
 public class Repository implements RepositoryImpl {
     private Local local;
@@ -26,6 +28,15 @@ public class Repository implements RepositoryImpl {
 
     @Override
     public LiveData<Base<User>> login(String email, String password) {
+        MutableLiveData<Base<User>> result = new MutableLiveData<>();
+        if (email.isEmpty() || password.isEmpty()) {
+            result.postValue(new Base(Constants.EMPTY_VALUE_ERROR, null));
+            return result;
+        }
+        if (!Validations.emailIsValid(email)) {
+            result.postValue(new Base(Constants.INVALID_EMAIL_ERROR, null));
+            return result;
+        }
         return Firebase.getInstance().login(email, password);
     }
 
@@ -83,6 +94,23 @@ public class Repository implements RepositoryImpl {
     @Override
     public LiveData<Base<User>> register(String photo, String ci, String email, String
             pass, String name, String lastName, String date, String phone) {
+        MutableLiveData<Base<User>> result = new MutableLiveData<>();
+        if (ci.isEmpty() || email.isEmpty() || pass.isEmpty() || name.isEmpty() || lastName.isEmpty() || date.isEmpty() || phone.isEmpty()) {
+            result.postValue(new Base(Constants.EMPTY_VALUE_ERROR, null));
+            return result;
+        }
+        if (!Validations.emailIsValid(email)) {
+            result.postValue(new Base(Constants.INVALID_EMAIL_ERROR, null));
+            return result;
+        }
+        if (!Validations.nameIsValid(name)) {
+            result.postValue(new Base<>(Constants.INVALID_NAME_ERROR, null));
+            return result;
+        }
+        if (!Validations.nameIsValid(lastName)) {
+            result.postValue(new Base<>(Constants.INVALID_LAST_NAME_ERROR, null));
+            return result;
+        }
         return null;
     }
 

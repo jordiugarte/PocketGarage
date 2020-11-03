@@ -3,7 +3,6 @@
 
     <!-- Categories -->
     <string name="category_cars">Autos</string>
-    <string name="category_bikes">Motos</string>
     <string name="category_wheels">Llantas</string>
     <string name="category_lights">Luces</string>
     <string name="category_electronics">Electrónicos</string>
@@ -31,6 +30,7 @@
     <string name="button_logout">Cerrar sesión</string>
     <string name="button_edit_profile">Editar perfil</string>
     <string name="button_save_changes">Guardar cambios</string>
+    <string name="button_change_language">Cambiar idioma</string>
 
     <!-- Errors -->
     <string name="error_fill_values">Please fill all the values</string>
@@ -71,5 +71,6 @@
     <!-- Messages -->
     <string name="msg_added_to_favourites">añadido a favoritos</string>
     <string name="msg_removed_from_favourites">eliminado de favoritos</string>
+    <string name="category_bikes">Autos</string>
 
 </resources>

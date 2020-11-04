@@ -116,26 +116,27 @@ public class RegisterActivity extends AppCompatActivity {
         String pass2 = passwordConfirmText.getText().toString();
         String ci = ciText.getText().toString();
         String date = dateText.getText().toString();
-        int phone = Integer.parseInt(phoneText.getText().toString());
-
-        User user = new User(ci, email, password, name, lastName, date, phone);
-
-        //TODO VALIDACIONES
-        if (password.equals(pass2)) {
-            viewModel.register(user, photo).observeForever(new Observer<Base<User>>() {
-                @Override
-                public void onChanged(Base<User> userBase) {
-                    if (userBase.isSuccess()) {
-                        Log.e("Creado con exito", userBase.getData().toString());
-                        Intent intent = new Intent(context, LoginActivity.class);
-                        startActivity(intent);
-                    } else {
-                        Snackbar.make(view, ErrorMapper.getError(context, userBase.getError()), Snackbar.LENGTH_SHORT).show();
+        try {
+            int phone = Integer.parseInt(phoneText.getText().toString());
+            User user = new User(ci, email, password, name, lastName, date, phone);
+            if (!password.isEmpty() && !pass2.isEmpty() && !phoneText.getText().toString().isEmpty() && password.equals(pass2)) {
+                viewModel.register(user, photo).observeForever(new Observer<Base<User>>() {
+                    @Override
+                    public void onChanged(Base<User> userBase) {
+                        if (userBase.isSuccess()) {
+                            Log.e("Creado con exito", userBase.getData().toString());
+                            Intent intent = new Intent(context, LoginActivity.class);
+                            startActivity(intent);
+                        } else {
+                            Snackbar.make(view, ErrorMapper.getError(context, userBase.getError()), Snackbar.LENGTH_SHORT).show();
+                        }
                     }
-                }
-            });
-        } else {
-            Snackbar.make(view, "Las contraseñas no coinciden.", Snackbar.LENGTH_SHORT).show();
+                });
+            } else {
+                Snackbar.make(view, "Las contraseñas no coinciden.", Snackbar.LENGTH_SHORT).show();
+            }
+        } catch (NumberFormatException e) {
+            Snackbar.make(view, "Teléfono inválido.", Snackbar.LENGTH_SHORT).show();
         }
     }
 }

@@ -13,8 +13,7 @@ public class User {
     private int phone;
     private double lastLogin;
 
-    public User(String photo, String ci, String email, String password, String name, String lastName, String bornDate, int phone, double lastLogin) {
-        this.photo = photo;
+    public User(String ci, String email, String password, String name, String lastName, String bornDate, int phone) {
         this.ci = ci;
         this.email = email;
         this.password = password;
@@ -22,7 +21,6 @@ public class User {
         this.lastName = lastName;
         this.bornDate = bornDate;
         this.phone = phone;
-        this.lastLogin = lastLogin;
     }
 
     public User() {

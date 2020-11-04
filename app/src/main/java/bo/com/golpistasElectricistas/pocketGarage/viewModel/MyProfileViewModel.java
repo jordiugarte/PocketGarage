@@ -7,21 +7,21 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 
+import bo.com.golpistasElectricistas.pocketGarage.model.Article;
 import bo.com.golpistasElectricistas.pocketGarage.model.Base;
-import bo.com.golpistasElectricistas.pocketGarage.model.User;
 import bo.com.golpistasElectricistas.pocketGarage.repository.Repository;
 import bo.com.golpistasElectricistas.pocketGarage.repository.RepositoryImpl;
-import bo.com.golpistasElectricistas.pocketGarage.repository.RepositoryMock;
 
-public class RegisterViewModel extends AndroidViewModel {
+public class MyProfileViewModel extends AndroidViewModel {
+
     private RepositoryImpl repository;
 
-    public RegisterViewModel(@NonNull Application application) {
+    public MyProfileViewModel(@NonNull Application application) {
         super(application);
         repository = new Repository(application);
     }
 
-    public LiveData<Base<User>> register(User user, Uri photo) {
-        return repository.register(user, photo);
+    public void signOut() {
+        repository.signOut();
     }
 }

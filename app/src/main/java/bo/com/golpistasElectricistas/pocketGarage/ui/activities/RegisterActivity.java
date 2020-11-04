@@ -26,11 +26,10 @@ import bo.com.golpistasElectricistas.pocketGarage.R;
 import bo.com.golpistasElectricistas.pocketGarage.model.Base;
 import bo.com.golpistasElectricistas.pocketGarage.model.User;
 import bo.com.golpistasElectricistas.pocketGarage.ui.fragments.DatePickerFragment;
+import bo.com.golpistasElectricistas.pocketGarage.utils.CompressImage;
 import bo.com.golpistasElectricistas.pocketGarage.utils.ErrorMapper;
 import bo.com.golpistasElectricistas.pocketGarage.viewModel.RegisterViewModel;
 import de.hdodenhof.circleimageview.CircleImageView;
-
-import static android.app.PendingIntent.getActivity;
 
 public class RegisterActivity extends AppCompatActivity {
 
@@ -48,6 +47,7 @@ public class RegisterActivity extends AppCompatActivity {
     private EditText dateText;
     private EditText phoneText;
     private RegisterViewModel viewModel;
+    private Uri photo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -92,24 +92,14 @@ public class RegisterActivity extends AppCompatActivity {
             } catch (IOException e) {
                 e.printStackTrace();
             }
-
-            //UploadPicture();
+            photo = CompressImage.compressImage(filePath, context);
         }
     }
-/*
-    public String getStringImage(Bitmap bitmap) {
-        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, byteArrayOutputStream);
-        byte[] imageByteArray = byteArrayOutputStream.toByteArray();
-        String encodedImage = Base64.encodeToString(imageByteArray, Base64.DEFAULT);
-        return encodedImage;
-    }*/
 
     public void showDatePickerDialog(View view) {
         DatePickerFragment newFragment = DatePickerFragment.newInstance(new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker datePicker, int year, int month, int day) {
-                // +1 because January is zero
                 final String selectedDate = day + " / " + (month + 1) + " / " + year;
                 dateText.setText(selectedDate);
             }
@@ -119,21 +109,23 @@ public class RegisterActivity extends AppCompatActivity {
     }
 
     public void register(View view) {
-        String photo = "https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcSIxyT0DAa5_kwzb-e-bpTvAXIyW0OispA76Q&usqp=CAU";
         String name = nameText.getText().toString();
         String lastName = lastNameText.getText().toString();
         String email = emailText.getText().toString();
-        String pass = passwordText.getText().toString();
+        String password = passwordText.getText().toString();
         String pass2 = passwordConfirmText.getText().toString();
         String ci = ciText.getText().toString();
         String date = dateText.getText().toString();
-        String phone = phoneText.getText().toString();
-        if (pass.equals(pass2)) {
-            viewModel.register(photo, ci, email, pass, name, lastName, date, phone).observeForever(new Observer<Base<User>>() {
+        int phone = Integer.parseInt(phoneText.getText().toString());
+
+        User user = new User(ci, email, password, name, lastName, date, phone);
+
+        //TODO VALIDACIONES
+        if (password.equals(pass2)) {
+            viewModel.register(user, photo).observeForever(new Observer<Base<User>>() {
                 @Override
                 public void onChanged(Base<User> userBase) {
                     if (userBase.isSuccess()) {
-                        //Snackbar.make(view, "Usuario creado exitosamente", Snackbar.LENGTH_SHORT).show();
                         Log.e("Creado con exito", userBase.getData().toString());
                         Intent intent = new Intent(context, LoginActivity.class);
                         startActivity(intent);

@@ -1,6 +1,7 @@
 package bo.com.golpistasElectricistas.pocketGarage.repository.firebase;
 
 import android.content.Context;
+import android.net.Uri;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
@@ -36,44 +37,19 @@ public class Firebase {
     }
 
     public LiveData<Base<User>> login(String email, String password) {
-        return registerAndUpdateDb(auth.login(email, password), null);
+        return registerAndUpdateDb(auth.login(email, password), null, null);
     }
 
-    public LiveData<Base<User>> register(User user) {
-        return registerAndUpdateDb(auth.registerUser(user), user);
+    public LiveData<Base<User>> register(User user, Uri photo) {
+        return registerAndUpdateDb(auth.registerUser(user), user, photo);
     }
 
     public LiveData<Base<Article>> addArticle(Article article) {
         MutableLiveData<Base<String>> results = new MutableLiveData<>();
-        //Step 1: Create record
-        /*db.addArticle(article).observeForever(idArticleBase -> {
-            if (idArticleBase.isSuccess()) {
-                //Step 2: Upload image
-                Article articleId = idArticleBase.getData();
-                storage.uploadArticleImages(uuidPost, image).observeForever(urlBase -> {
-                    if (urlBase.isSuccess()) {
-                        //Step 3: Update record
-                        String url = urlBase.getData();
-                        db.updateCoverPhoto(uuidStartup, uuidPost, url).observeForever(resultUpdateBase -> {
-                            if (resultUpdateBase.isSuccess()) {
-                                results.postValue(new Base<>(uuidPost));
-                            } else {
-                                results.postValue(new Base<>(resultUpdateBase.getErrorCode(), resultUpdateBase.getException()));
-                            }
-                        });
-                    } else {
-                        results.postValue(new Base<>(urlBase.getErrorCode(), urlBase.getException()));
-                    }
-                });
-            } else {
-                results.postValue(new Base<>(idArticleBase.getErrorCode(), idArticleBase.getException()));
-            }
-        });*/
-        //TODO
         return null;
     }
 
-    private LiveData<Base<User>> registerAndUpdateDb(LiveData<Base<User>> registerFunction, User user) {
+    private LiveData<Base<User>> registerAndUpdateDb(LiveData<Base<User>> registerFunction, User user, Uri image) {
         MutableLiveData<Base<User>> results = new MutableLiveData<>();
         registerFunction.observeForever(new Observer<Base<User>>() {
             @Override
@@ -85,15 +61,33 @@ public class Firebase {
                         registeredUser.setPhoto(user.getPhoto() != null ? user.getPhoto() : "");
                     }
 
-                    //Register in database
-                    db.updateUser(registeredUser).observeForever(new Observer<Base<User>>() {
-                        @Override
-                        public void onChanged(Base<User> userBase) {
-                            results.postValue(userBase);
-                        }
-                    });
+                    if (image != null) {
+                        storage.uploadUserImage(registeredUser.getCi(), image).observeForever(new Observer<Base<String>>() {
+                            @Override
+                            public void onChanged(Base<String> urlBase) {
+                                if (urlBase.isSuccess()) {
+                                    registeredUser.setPhoto(urlBase.getData());
+                                    //Register in database
+                                    db.updateUser(registeredUser).observeForever(new Observer<Base<User>>() {
+                                        @Override
+                                        public void onChanged(Base<User> userBase) {
+                                            results.postValue(userBase);
+                                        }
+                                    });
+                                } else {
+                                    results.postValue(new Base<>(urlBase.getError(), urlBase.getException()));
+                                }
+                            }
+                        });
+                    } else {
+                        db.updateUser(registeredUser).observeForever(new Observer<Base<User>>() {
+                            @Override
+                            public void onChanged(Base<User> userBase) {
+                                results.postValue(userBase);
+                            }
+                        });
+                    }
                 } else {
-                    //Return results
                     results.postValue(userBase);
                 }
             }

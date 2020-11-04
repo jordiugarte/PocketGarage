@@ -1,0 +1,290 @@
+Index: app/src/main/java/bo/com/golpistasElectricistas/pocketGarage/ui/activities/MyProfileActivity.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package bo.com.golpistasElectricistas.pocketGarage.ui.activities;\r\n\r\nimport androidx.appcompat.app.AppCompatActivity;\r\n\r\nimport android.content.Context;\r\nimport android.content.Intent;\r\nimport android.os.Bundle;\r\nimport android.view.View;\r\nimport android.view.Window;\r\nimport android.widget.ImageView;\r\nimport android.widget.TextView;\r\n\r\nimport bo.com.golpistasElectricistas.pocketGarage.R;\r\n\r\npublic class MyProfileActivity extends AppCompatActivity {\r\n\r\n    private Context context;\r\n\r\n    private ImageView profilePicture;\r\n    private TextView namesLabel, ageLabel, addressLabel, numberLabel, emailLabel;\r\n\r\n    private Intent profileEditorActivity, loginActivity;\r\n\r\n    @Override\r\n    protected void onCreate(Bundle savedInstanceState) {\r\n        super.onCreate(savedInstanceState);\r\n        requestWindowFeature(Window.FEATURE_NO_TITLE);\r\n        getSupportActionBar().hide();\r\n        setContentView(R.layout.activity_my_profile);\r\n        context = getApplicationContext();\r\n        initIntents();\r\n        initViews();\r\n    }\r\n\r\n    private void initIntents() {\r\n        profileEditorActivity = new Intent(context, ProfileEditorActivity.class);\r\n        loginActivity = new Intent(context, LoginActivity.class);\r\n    }\r\n\r\n    private void initViews() {\r\n        profilePicture = findViewById(R.id.profileImage);\r\n        namesLabel = findViewById(R.id.profileNames);\r\n        ageLabel = findViewById(R.id.profileAge);\r\n        addressLabel = findViewById(R.id.profileAddress);\r\n        numberLabel = findViewById(R.id.profileNumber);\r\n        emailLabel = findViewById(R.id.profileEmail);\r\n    }\r\n\r\n    public void returnToPrevious(View view) {\r\n        finish();\r\n    }\r\n\r\n    public void goToEditProfileActivity(View view) {\r\n        startActivity(profileEditorActivity);\r\n    }\r\n\r\n    public void logOut(View view) {\r\n        startActivity(loginActivity);\r\n        //TODO\r\n    }\r\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/java/bo/com/golpistasElectricistas/pocketGarage/ui/activities/MyProfileActivity.java	(revision 11953a3c8e5c0fcfc3381cf797b7482065296748)
++++ app/src/main/java/bo/com/golpistasElectricistas/pocketGarage/ui/activities/MyProfileActivity.java	(date 1604445545416)
+@@ -1,6 +1,7 @@
+ package bo.com.golpistasElectricistas.pocketGarage.ui.activities;
+ 
+ import androidx.appcompat.app.AppCompatActivity;
++import androidx.lifecycle.ViewModelProvider;
+ 
+ import android.content.Context;
+ import android.content.Intent;
+@@ -11,6 +12,10 @@
+ import android.widget.TextView;
+ 
+ import bo.com.golpistasElectricistas.pocketGarage.R;
++import bo.com.golpistasElectricistas.pocketGarage.model.User;
++import bo.com.golpistasElectricistas.pocketGarage.repository.local.Local;
++import bo.com.golpistasElectricistas.pocketGarage.viewModel.MyProfileViewModel;
++import bo.com.golpistasElectricistas.pocketGarage.viewModel.RegisterViewModel;
+ 
+ public class MyProfileActivity extends AppCompatActivity {
+ 
+@@ -21,6 +26,8 @@
+ 
+     private Intent profileEditorActivity, loginActivity;
+ 
++    private MyProfileViewModel viewModel;
++
+     @Override
+     protected void onCreate(Bundle savedInstanceState) {
+         super.onCreate(savedInstanceState);
+@@ -28,6 +35,7 @@
+         getSupportActionBar().hide();
+         setContentView(R.layout.activity_my_profile);
+         context = getApplicationContext();
++        viewModel = new ViewModelProvider(this).get(MyProfileViewModel.class);
+         initIntents();
+         initViews();
+     }
+@@ -54,8 +62,11 @@
+         startActivity(profileEditorActivity);
+     }
+ 
+-    public void logOut(View view) {
++    public void signOut(View view) {
++        new Local(getApplicationContext()).setCurrentUser(new User());
++        loginActivity.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
++        finish();
+         startActivity(loginActivity);
+-        //TODO
++        viewModel.signOut();
+     }
+ }
+\ No newline at end of file
+Index: app/src/main/res/layout/activity_my_profile.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"utf-8\"?>\r\n<LinearLayout xmlns:android=\"http://schemas.android.com/apk/res/android\"\r\n    xmlns:app=\"http://schemas.android.com/apk/res-auto\"\r\n    xmlns:tools=\"http://schemas.android.com/tools\"\r\n    android:layout_width=\"match_parent\"\r\n    android:layout_height=\"match_parent\"\r\n    android:gravity=\"center_horizontal\"\r\n    android:orientation=\"vertical\"\r\n    tools:context=\".ui.activities.SellerProfileActivity\">\r\n\r\n    <LinearLayout\r\n        android:layout_width=\"match_parent\"\r\n        android:layout_height=\"wrap_content\"\r\n        android:paddingLeft=\"10dp\">\r\n\r\n        <Button\r\n            android:layout_width=\"30dp\"\r\n            android:layout_height=\"30dp\"\r\n            android:layout_gravity=\"center\"\r\n            android:background=\"@drawable/ic_baseline_arrow_back_24\"\r\n            android:backgroundTint=\"@color/colorBlack\"\r\n            android:onClick=\"returnToPrevious\"/>\r\n\r\n        <TextView\r\n            android:layout_width=\"match_parent\"\r\n            android:layout_height=\"wrap_content\"\r\n            android:gravity=\"top\"\r\n            android:padding=\"10dp\"\r\n            android:text=\"@string/title_edit_profile\"\r\n            android:textColor=\"@color/colorBlack\"\r\n            android:textSize=\"@dimen/dimen_title\"\r\n            android:textStyle=\"bold\" />\r\n    </LinearLayout>\r\n\r\n    <de.hdodenhof.circleimageview.CircleImageView xmlns:app=\"http://schemas.android.com/apk/res-auto\"\r\n        android:id=\"@+id/profileImage\"\r\n        android:layout_width=\"160dp\"\r\n        android:layout_height=\"160dp\"\r\n        android:layout_marginTop=\"20dp\"\r\n        android:src=\"@color/colorWhite\"\r\n        app:civ_border_color=\"#FF000000\"\r\n        app:civ_border_width=\"1dp\" />\r\n\r\n    <TextView\r\n        android:id=\"@+id/profileNames\"\r\n        android:layout_width=\"match_parent\"\r\n        android:layout_height=\"wrap_content\"\r\n        android:gravity=\"center\"\r\n        android:padding=\"10dp\"\r\n        android:text=\"Nombres y apellidos\"\r\n        android:textSize=\"30sp\"\r\n        android:textStyle=\"bold\" />\r\n\r\n    <TextView\r\n        android:id=\"@+id/profileAge\"\r\n        android:layout_width=\"match_parent\"\r\n        android:layout_height=\"wrap_content\"\r\n        android:gravity=\"center\"\r\n        android:text=\"Edad: \"\r\n        android:textSize=\"20sp\"\r\n        android:textStyle=\"italic\" />\r\n\r\n    <TextView\r\n        android:id=\"@+id/profileAddress\"\r\n        android:layout_width=\"match_parent\"\r\n        android:layout_height=\"wrap_content\"\r\n        android:drawableLeft=\"@drawable/ic_baseline_location_on_24\"\r\n        android:drawableTint=\"@color/colorGray\"\r\n        android:gravity=\"left\"\r\n        android:padding=\"15dp\"\r\n        android:text=\"Direccion: \"\r\n        android:textSize=\"20sp\"\r\n        android:textStyle=\"normal\" />\r\n\r\n    <TextView\r\n        android:id=\"@+id/profileNumber\"\r\n        android:layout_width=\"match_parent\"\r\n        android:layout_height=\"wrap_content\"\r\n        android:drawableLeft=\"@drawable/ic_baseline_local_phone_24\"\r\n        android:drawableTint=\"@color/colorGray\"\r\n        android:gravity=\"left\"\r\n        android:padding=\"15dp\"\r\n        android:text=\"Numero: \"\r\n        android:textSize=\"20sp\"\r\n        android:textStyle=\"normal\" />\r\n\r\n\r\n    <TextView\r\n        android:id=\"@+id/profileEmail\"\r\n        android:layout_width=\"match_parent\"\r\n        android:layout_height=\"wrap_content\"\r\n        android:drawableLeft=\"@drawable/ic_baseline_alternate_email_24\"\r\n        android:drawableTint=\"@color/colorGray\"\r\n        android:gravity=\"left\"\r\n        android:padding=\"15dp\"\r\n        android:text=\"Correo: \"\r\n        android:textSize=\"20sp\"\r\n        android:textStyle=\"normal\" />\r\n\r\n    <RelativeLayout\r\n        android:layout_width=\"match_parent\"\r\n        android:layout_height=\"match_parent\"\r\n        android:gravity=\"center_horizontal\">\r\n\r\n        <LinearLayout\r\n            android:layout_width=\"match_parent\"\r\n            android:layout_height=\"wrap_content\"\r\n            android:padding=\"10dp\"\r\n            android:layout_alignParentBottom=\"true\">\r\n            <Button\r\n                android:id=\"@+id/editProfileButton\"\r\n                android:layout_width=\"match_parent\"\r\n                android:layout_weight=\"1\"\r\n                android:layout_height=\"wrap_content\"\r\n                android:background=\"@drawable/gradient4\"\r\n                android:text=\"@string/button_edit_profile\"\r\n                android:textColor=\"@color/colorWhite\"\r\n                android:textAllCaps=\"false\"\r\n                android:padding=\"10dp\"\r\n                android:layout_marginEnd=\"5dp\"\r\n                android:onClick=\"goToEditProfileActivity\"/>\r\n\r\n            <Button\r\n                android:id=\"@+id/logoutButton\"\r\n                android:layout_weight=\"1\"\r\n                android:layout_width=\"match_parent\"\r\n                android:layout_height=\"wrap_content\"\r\n                android:background=\"@drawable/gradient2\"\r\n                android:text=\"@string/button_logout\"\r\n                android:textColor=\"@color/colorWhite\"\r\n                android:textAllCaps=\"false\"\r\n                android:padding=\"10dp\"\r\n                android:layout_marginStart=\"5dp\"\r\n                android:onClick=\"logOut\"/>\r\n        </LinearLayout>\r\n\r\n    </RelativeLayout>\r\n\r\n</LinearLayout>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/res/layout/activity_my_profile.xml	(revision 11953a3c8e5c0fcfc3381cf797b7482065296748)
++++ app/src/main/res/layout/activity_my_profile.xml	(date 1604445181422)
+@@ -131,7 +131,7 @@
+                 android:textAllCaps="false"
+                 android:padding="10dp"
+                 android:layout_marginStart="5dp"
+-                android:onClick="logOut"/>
++                android:onClick="signOut"/>
+         </LinearLayout>
+ 
+     </RelativeLayout>
+Index: app/src/main/java/bo/com/golpistasElectricistas/pocketGarage/ui/activities/RegisterActivity.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package bo.com.golpistasElectricistas.pocketGarage.ui.activities;\r\n\r\nimport androidx.appcompat.app.AppCompatActivity;\r\nimport androidx.lifecycle.Observer;\r\nimport androidx.lifecycle.ViewModelProvider;\r\n\r\nimport android.app.DatePickerDialog;\r\nimport android.content.Context;\r\nimport android.content.Intent;\r\nimport android.graphics.Bitmap;\r\nimport android.net.Uri;\r\nimport android.os.Bundle;\r\nimport android.provider.MediaStore;\r\nimport android.util.Log;\r\nimport android.view.View;\r\nimport android.view.Window;\r\nimport android.widget.DatePicker;\r\nimport android.widget.EditText;\r\nimport android.widget.RelativeLayout;\r\n\r\nimport com.google.android.material.snackbar.Snackbar;\r\n\r\nimport java.io.IOException;\r\n\r\nimport bo.com.golpistasElectricistas.pocketGarage.R;\r\nimport bo.com.golpistasElectricistas.pocketGarage.model.Base;\r\nimport bo.com.golpistasElectricistas.pocketGarage.model.User;\r\nimport bo.com.golpistasElectricistas.pocketGarage.ui.fragments.DatePickerFragment;\r\nimport bo.com.golpistasElectricistas.pocketGarage.utils.ErrorMapper;\r\nimport bo.com.golpistasElectricistas.pocketGarage.viewModel.RegisterViewModel;\r\nimport de.hdodenhof.circleimageview.CircleImageView;\r\n\r\nimport static android.app.PendingIntent.getActivity;\r\n\r\npublic class RegisterActivity extends AppCompatActivity {\r\n\r\n    private static final String LOG = LoginActivity.class.getName();\r\n    private Context context;\r\n    private Bitmap bitmap;\r\n    private RelativeLayout parent;\r\n    private CircleImageView profilePicture;\r\n    private EditText nameText;\r\n    private EditText lastNameText;\r\n    private EditText emailText;\r\n    private EditText passwordText;\r\n    private EditText passwordConfirmText;\r\n    private EditText ciText;\r\n    private EditText dateText;\r\n    private EditText phoneText;\r\n    private RegisterViewModel viewModel;\r\n\r\n    @Override\r\n    protected void onCreate(Bundle savedInstanceState) {\r\n        super.onCreate(savedInstanceState);\r\n        Log.e(LOG, \"onCreate\");\r\n        requestWindowFeature(Window.FEATURE_NO_TITLE);\r\n        getSupportActionBar().hide();\r\n        setContentView(R.layout.activity_register);\r\n        initViews();\r\n        viewModel = new ViewModelProvider(this).get(RegisterViewModel.class);\r\n        context = getApplicationContext();\r\n    }\r\n\r\n    private void initViews() {\r\n        parent = findViewById(R.id.registerParent);\r\n        profilePicture = findViewById(R.id.profileRegisterImage);\r\n        nameText = findViewById(R.id.namesField);\r\n        lastNameText = findViewById(R.id.lastnamesField);\r\n        emailText = findViewById(R.id.emailRegisterField);\r\n        passwordText = findViewById(R.id.passwordRegisterField);\r\n        passwordConfirmText = findViewById(R.id.repeatPasswordField);\r\n        ciText = findViewById(R.id.ciField);\r\n        dateText = findViewById(R.id.dateField);\r\n        phoneText = findViewById(R.id.phoneRegisterField);\r\n    }\r\n\r\n    public void choosePhoto(View view) {\r\n        Intent intent = new Intent();\r\n        intent.setType(\"image/*\");\r\n        intent.setAction(Intent.ACTION_GET_CONTENT);\r\n        startActivityForResult(Intent.createChooser(intent, \"Select picture\"), 1);\r\n    }\r\n\r\n    @Override\r\n    protected void onActivityResult(int requestCode, int resultCode, Intent data) {\r\n        super.onActivityResult(requestCode, resultCode, data);\r\n        if (requestCode == 1 && resultCode == RESULT_OK && data != null && data.getData() != null) {\r\n            Uri filePath = data.getData();\r\n            try {\r\n                bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), filePath);\r\n                profilePicture.setImageBitmap(bitmap);\r\n            } catch (IOException e) {\r\n                e.printStackTrace();\r\n            }\r\n\r\n            //UploadPicture();\r\n        }\r\n    }\r\n/*\r\n    public String getStringImage(Bitmap bitmap) {\r\n        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();\r\n        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, byteArrayOutputStream);\r\n        byte[] imageByteArray = byteArrayOutputStream.toByteArray();\r\n        String encodedImage = Base64.encodeToString(imageByteArray, Base64.DEFAULT);\r\n        return encodedImage;\r\n    }*/\r\n\r\n    public void showDatePickerDialog(View view) {\r\n        DatePickerFragment newFragment = DatePickerFragment.newInstance(new DatePickerDialog.OnDateSetListener() {\r\n            @Override\r\n            public void onDateSet(DatePicker datePicker, int year, int month, int day) {\r\n                // +1 because January is zero\r\n                final String selectedDate = day + \" / \" + (month + 1) + \" / \" + year;\r\n                dateText.setText(selectedDate);\r\n            }\r\n        });\r\n\r\n        newFragment.show(getSupportFragmentManager(), \"datePicker\");\r\n    }\r\n\r\n    public void register(View view) {\r\n        String photo = \"https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcSIxyT0DAa5_kwzb-e-bpTvAXIyW0OispA76Q&usqp=CAU\";\r\n        String name = nameText.getText().toString();\r\n        String lastName = lastNameText.getText().toString();\r\n        String email = emailText.getText().toString();\r\n        String pass = passwordText.getText().toString();\r\n        String pass2 = passwordConfirmText.getText().toString();\r\n        String ci = ciText.getText().toString();\r\n        String date = dateText.getText().toString();\r\n        String phone = phoneText.getText().toString();\r\n        if (pass.equals(pass2)) {\r\n            viewModel.register(photo, ci, email, pass, name, lastName, date, phone).observeForever(new Observer<Base<User>>() {\r\n                @Override\r\n                public void onChanged(Base<User> userBase) {\r\n                    if (userBase.isSuccess()) {\r\n                        //Snackbar.make(view, \"Usuario creado exitosamente\", Snackbar.LENGTH_SHORT).show();\r\n                        Log.e(\"Creado con exito\", userBase.getData().toString());\r\n                        Intent intent = new Intent(context, LoginActivity.class);\r\n                        startActivity(intent);\r\n                    } else {\r\n                        Snackbar.make(view, ErrorMapper.getError(context, userBase.getError()), Snackbar.LENGTH_SHORT).show();\r\n                    }\r\n                }\r\n            });\r\n        } else {\r\n            Snackbar.make(view, \"Las contraseñas no coinciden.\", Snackbar.LENGTH_SHORT).show();\r\n        }\r\n    }\r\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/java/bo/com/golpistasElectricistas/pocketGarage/ui/activities/RegisterActivity.java	(revision 11953a3c8e5c0fcfc3381cf797b7482065296748)
++++ app/src/main/java/bo/com/golpistasElectricistas/pocketGarage/ui/activities/RegisterActivity.java	(date 1604443708279)
+@@ -1,14 +1,20 @@
+ package bo.com.golpistasElectricistas.pocketGarage.ui.activities;
+ 
++import androidx.annotation.NonNull;
++import androidx.annotation.RequiresApi;
+ import androidx.appcompat.app.AppCompatActivity;
++import androidx.core.content.ContextCompat;
+ import androidx.lifecycle.Observer;
+ import androidx.lifecycle.ViewModelProvider;
+ 
++import android.Manifest;
+ import android.app.DatePickerDialog;
+ import android.content.Context;
+ import android.content.Intent;
++import android.content.pm.PackageManager;
+ import android.graphics.Bitmap;
+ import android.net.Uri;
++import android.os.Build;
+ import android.os.Bundle;
+ import android.provider.MediaStore;
+ import android.util.Log;
+@@ -17,6 +23,7 @@
+ import android.widget.DatePicker;
+ import android.widget.EditText;
+ import android.widget.RelativeLayout;
++import android.widget.Toast;
+ 
+ import com.google.android.material.snackbar.Snackbar;
+ 
+@@ -26,6 +33,7 @@
+ import bo.com.golpistasElectricistas.pocketGarage.model.Base;
+ import bo.com.golpistasElectricistas.pocketGarage.model.User;
+ import bo.com.golpistasElectricistas.pocketGarage.ui.fragments.DatePickerFragment;
++import bo.com.golpistasElectricistas.pocketGarage.utils.CompressImage;
+ import bo.com.golpistasElectricistas.pocketGarage.utils.ErrorMapper;
+ import bo.com.golpistasElectricistas.pocketGarage.viewModel.RegisterViewModel;
+ import de.hdodenhof.circleimageview.CircleImageView;
+@@ -48,6 +56,7 @@
+     private EditText dateText;
+     private EditText phoneText;
+     private RegisterViewModel viewModel;
++    private Uri photo;
+ 
+     @Override
+     protected void onCreate(Bundle savedInstanceState) {
+@@ -92,24 +101,14 @@
+             } catch (IOException e) {
+                 e.printStackTrace();
+             }
+-
+-            //UploadPicture();
++            photo = CompressImage.compressImage(filePath, context);
+         }
+     }
+-/*
+-    public String getStringImage(Bitmap bitmap) {
+-        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+-        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, byteArrayOutputStream);
+-        byte[] imageByteArray = byteArrayOutputStream.toByteArray();
+-        String encodedImage = Base64.encodeToString(imageByteArray, Base64.DEFAULT);
+-        return encodedImage;
+-    }*/
+ 
+     public void showDatePickerDialog(View view) {
+         DatePickerFragment newFragment = DatePickerFragment.newInstance(new DatePickerDialog.OnDateSetListener() {
+             @Override
+             public void onDateSet(DatePicker datePicker, int year, int month, int day) {
+-                // +1 because January is zero
+                 final String selectedDate = day + " / " + (month + 1) + " / " + year;
+                 dateText.setText(selectedDate);
+             }
+@@ -119,21 +118,22 @@
+     }
+ 
+     public void register(View view) {
+-        String photo = "https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcSIxyT0DAa5_kwzb-e-bpTvAXIyW0OispA76Q&usqp=CAU";
+         String name = nameText.getText().toString();
+         String lastName = lastNameText.getText().toString();
+         String email = emailText.getText().toString();
+-        String pass = passwordText.getText().toString();
++        String password = passwordText.getText().toString();
+         String pass2 = passwordConfirmText.getText().toString();
+         String ci = ciText.getText().toString();
+         String date = dateText.getText().toString();
+-        String phone = phoneText.getText().toString();
+-        if (pass.equals(pass2)) {
+-            viewModel.register(photo, ci, email, pass, name, lastName, date, phone).observeForever(new Observer<Base<User>>() {
++        int phone = Integer.parseInt(phoneText.getText().toString());
++
++        User user = new User(ci, email, password, name, lastName, date, phone);
++
++        if (password.equals(pass2)) {
++            viewModel.register(user, photo).observeForever(new Observer<Base<User>>() {
+                 @Override
+                 public void onChanged(Base<User> userBase) {
+                     if (userBase.isSuccess()) {
+-                        //Snackbar.make(view, "Usuario creado exitosamente", Snackbar.LENGTH_SHORT).show();
+                         Log.e("Creado con exito", userBase.getData().toString());
+                         Intent intent = new Intent(context, LoginActivity.class);
+                         startActivity(intent);
+Index: app/src/main/res/values/strings.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><resources>\r\n    <string name=\"app_name\">Pocket Garage</string>\r\n\r\n    <!-- Categories -->\r\n    <string name=\"category_cars\">Autos</string>\r\n    <string name=\"category_bikes\">Motos</string>\r\n    <string name=\"category_wheels\">Llantas</string>\r\n    <string name=\"category_lights\">Luces</string>\r\n    <string name=\"category_electronics\">Electrónicos</string>\r\n    <string name=\"category_others\">Otros</string>\r\n\r\n    <!-- Hints -->\r\n    <string name=\"email_hint\">Correo electrónico</string>\r\n    <string name=\"password_hint\">Contraseña</string>\r\n    <string name=\"repeat_password_hint\">Repetir contraseña</string>\r\n    <string name=\"names_hint\">Nombres</string>\r\n    <string name=\"lastnames_hint\">Apellidos</string>\r\n    <string name=\"ci_hint\">C.I.</string>\r\n    <string name=\"borndate_hint\">Fecha de nacimiento</string>\r\n    <string name=\"phone_hint\">Número telefónico</string>\r\n    <string name=\"title_article_hint\">Título</string>\r\n    <string name=\"short_description_article_hint\">Descripción corta</string>\r\n    <string name=\"description_hint\">Descripción</string>\r\n    <string name=\"price_hint\">Precio (Bs)</string>\r\n\r\n    <!-- Buttons -->\r\n    <string name=\"button_login\">Iniciar sesión</string>\r\n    <string name=\"button_register\">Registrarse</string>\r\n    <string name=\"button_addArticle\">Publicar</string>\r\n    <string name=\"button_here\">aquí.</string>\r\n    <string name=\"button_logout\">Cerrar sesión</string>\r\n    <string name=\"button_edit_profile\">Editar perfil</string>\r\n    <string name=\"button_save_changes\">Guardar cambios</string>\r\n\r\n    <!-- Errors -->\r\n    <string name=\"error_fill_values\">Please fill all the values</string>\r\n    <string name=\"error_no_connection\">Please review your internet connection</string>\r\n    <string name=\"error_incorrect_login\">Email or Password incorrect</string>\r\n    <string name=\"error_valid_email\">Please enter a valid email</string>\r\n\r\n    <string name=\"unknown_error\">Error desconocido</string>\r\n    <string name=\"empty_value_error\">Llenar todos los campos requeridos</string>\r\n    <string name=\"invalid_email_error\">Ingrese un email válido</string>\r\n    <string name=\"incorrect_email_error\">Email incorrecto</string>\r\n    <string name=\"incorrect_password_error\">Contraseña incorrecta</string>\r\n\r\n    <string name=\"invalid_ci_error\">Ingrese un ci válido</string>\r\n    <string name=\"invalid_name_error\">Ingrese un nombre válido</string>\r\n    <string name=\"invalid_last_name_error\">Ingrese un apellido válido</string>\r\n    <string name=\"repeated_email_error\">Ya hay un usuario con ese email</string>\r\n    <string name=\"repeated_ci_error\">Ya hay un usuario con ese ci</string>\r\n\r\n    <!-- Titles -->\r\n    <string name=\"title_categories\">Categorías</string>\r\n    <string name=\"title_banner\">Artículos</string>\r\n    <string name=\"title_wanna_register\">¿No tienes una cuenta aún? Regístrate </string>\r\n    <string name=\"title_register\">Regístrate</string>\r\n    <string name=\"title_add_article\">Publica un artículo</string>\r\n    <string name=\"title_toggle_new\">Nuevo</string>\r\n    <string name=\"title_profile_picture\">Foto de perfil</string>\r\n    <string name=\"title_seller\">Vendedor</string>\r\n    <string name=\"title_profile\">Perfil</string>\r\n    <string name=\"title_edit_profile\">Editar perfil</string>\r\n    <string name=\"title_favourites\">Favoritos</string>\r\n\r\n    <!-- Actions -->\r\n    <string name=\"action_profile\">Perfil</string>\r\n    <string name=\"action_favourites\">Favoritos</string>\r\n\r\n    <!-- Messages -->\r\n    <string name=\"msg_added_to_favourites\">añadido a favoritos</string>\r\n    <string name=\"msg_removed_from_favourites\">eliminado de favoritos</string>\r\n\r\n</resources>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/res/values/strings.xml	(revision 11953a3c8e5c0fcfc3381cf797b7482065296748)
++++ app/src/main/res/values/strings.xml	(date 1604446535721)
+@@ -15,7 +15,7 @@
+     <string name="repeat_password_hint">Repetir contraseña</string>
+     <string name="names_hint">Nombres</string>
+     <string name="lastnames_hint">Apellidos</string>
+-    <string name="ci_hint">C.I.</string>
++    <string name="ci_hint">C.I.</string>`
+     <string name="borndate_hint">Fecha de nacimiento</string>
+     <string name="phone_hint">Número telefónico</string>
+     <string name="title_article_hint">Título</string>
+@@ -70,5 +70,10 @@
+     <!-- Messages -->
+     <string name="msg_added_to_favourites">añadido a favoritos</string>
+     <string name="msg_removed_from_favourites">eliminado de favoritos</string>
++    <string name="msg_quit">¿Estás seguro que quieres salir?</string>
++
++    <!-- Yes/no -->
++    <string name="yes">Sí</string>
++    <string name="no">No</string>
+ 
+ </resources>
+\ No newline at end of file
+Index: app/src/main/java/bo/com/golpistasElectricistas/pocketGarage/viewModel/RegisterViewModel.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package bo.com.golpistasElectricistas.pocketGarage.viewModel;\r\n\r\nimport android.app.Application;\r\n\r\nimport androidx.annotation.NonNull;\r\nimport androidx.lifecycle.AndroidViewModel;\r\nimport androidx.lifecycle.LiveData;\r\n\r\nimport bo.com.golpistasElectricistas.pocketGarage.model.Base;\r\nimport bo.com.golpistasElectricistas.pocketGarage.model.User;\r\nimport bo.com.golpistasElectricistas.pocketGarage.repository.Repository;\r\nimport bo.com.golpistasElectricistas.pocketGarage.repository.RepositoryImpl;\r\nimport bo.com.golpistasElectricistas.pocketGarage.repository.RepositoryMock;\r\n\r\npublic class RegisterViewModel extends AndroidViewModel {\r\n    private RepositoryImpl repository;\r\n\r\n    public RegisterViewModel(@NonNull Application application) {\r\n        super(application);\r\n        repository = new Repository(application);\r\n    }\r\n\r\n    public LiveData<Base<User>> register(String photo, String ci, String email, String pass, String name, String lastName, String date, String phone) {\r\n        return repository.register(photo, ci, email, pass, name, lastName, date, phone);\r\n    }\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/java/bo/com/golpistasElectricistas/pocketGarage/viewModel/RegisterViewModel.java	(revision 11953a3c8e5c0fcfc3381cf797b7482065296748)
++++ app/src/main/java/bo/com/golpistasElectricistas/pocketGarage/viewModel/RegisterViewModel.java	(date 1604443708379)
+@@ -1,6 +1,7 @@
+ package bo.com.golpistasElectricistas.pocketGarage.viewModel;
+ 
+ import android.app.Application;
++import android.net.Uri;
+ 
+ import androidx.annotation.NonNull;
+ import androidx.lifecycle.AndroidViewModel;
+@@ -20,7 +21,7 @@
+         repository = new Repository(application);
+     }
+ 
+-    public LiveData<Base<User>> register(String photo, String ci, String email, String pass, String name, String lastName, String date, String phone) {
+-        return repository.register(photo, ci, email, pass, name, lastName, date, phone);
++    public LiveData<Base<User>> register(User user, Uri photo) {
++        return repository.register(user, photo);
+     }
+ }
+Index: app/src/main/java/bo/com/golpistasElectricistas/pocketGarage/repository/Repository.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package bo.com.golpistasElectricistas.pocketGarage.repository;\r\n\r\nimport android.app.Application;\r\n\r\nimport androidx.lifecycle.LiveData;\r\nimport androidx.lifecycle.MutableLiveData;\r\nimport androidx.lifecycle.Observer;\r\n\r\nimport java.util.List;\r\n\r\nimport bo.com.golpistasElectricistas.pocketGarage.model.Article;\r\nimport bo.com.golpistasElectricistas.pocketGarage.model.Base;\r\nimport bo.com.golpistasElectricistas.pocketGarage.model.User;\r\nimport bo.com.golpistasElectricistas.pocketGarage.repository.api.ApiRepository;\r\nimport bo.com.golpistasElectricistas.pocketGarage.repository.firebase.Firebase;\r\nimport bo.com.golpistasElectricistas.pocketGarage.repository.local.Local;\r\n\r\npublic class Repository implements RepositoryImpl {\r\n    private Local local;\r\n    private Application application;\r\n\r\n    public Repository(Application application) {\r\n        this.application = application;\r\n        local = new Local(application);\r\n    }\r\n\r\n    @Override\r\n    public LiveData<Base<User>> login(String email, String password) {\r\n        return Firebase.getInstance().login(email, password);\r\n    }\r\n\r\n    @Override\r\n    public LiveData<Base<List<Article>>> getArticlesItems() {\r\n        MutableLiveData<Base<List<Article>>> result = new MutableLiveData<>();\r\n        ApiRepository.getInstance().getArticles().observeForever(new Observer<Base<List<Article>>>() {\r\n            @Override\r\n            public void onChanged(Base<List<Article>> listBase) {\r\n                if (listBase.isSuccess()) {\r\n                    result.postValue(listBase);\r\n                }\r\n            }\r\n        });\r\n        return result;\r\n    }\r\n\r\n    @Override\r\n    public Article getArticleItem(int id) {\r\n        Article result = null;\r\n        for (Article article : getArticlesItems().getValue().getData()) {\r\n            if (article.getArticleId() == id) {\r\n                result = article;\r\n            }\r\n        }\r\n        return result;\r\n    }\r\n\r\n    @Override\r\n    public LiveData<Base<List<Article>>> getFavorites() {\r\n        MutableLiveData<Base<List<Article>>> result = new MutableLiveData<>();\r\n        local.getFavorites().observeForever(new Observer<List<Article>>() {\r\n            @Override\r\n            public void onChanged(List<Article> articles) {\r\n                result.postValue(new Base<>(articles));\r\n            }\r\n        });\r\n        ApiRepository.getInstance().getArticles().observeForever(new Observer<Base<List<Article>>>() {\r\n            @Override\r\n            public void onChanged(Base<List<Article>> listBase) {\r\n                if (listBase.isSuccess()) {\r\n                    result.postValue(listBase);\r\n                    local.update(listBase.getData());\r\n                }\r\n            }\r\n        });\r\n        return result;\r\n    }\r\n\r\n    @Override\r\n    public LiveData<Base<List<Article>>> getMyArticles() {\r\n        return null;\r\n    }\r\n\r\n    @Override\r\n    public LiveData<Base<User>> register(String photo, String ci, String email, String\r\n            pass, String name, String lastName, String date, String phone) {\r\n        return null;\r\n    }\r\n\r\n    @Override\r\n    public LiveData<Base<Article>> addArticle(Article article) {\r\n        return Firebase.getInstance().addArticle(article);\r\n    }\r\n\r\n    @Override\r\n    public User getCurrentUser() {\r\n        return local.getCurrentUser();\r\n    }\r\n\r\n    @Override\r\n    public void setCurrentUser(User user) {\r\n        local.setCurrentUser(user);\r\n    }\r\n\r\n    @Override\r\n    public void signOut() {\r\n        Firebase.getInstance().signOut();\r\n    }\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/java/bo/com/golpistasElectricistas/pocketGarage/repository/Repository.java	(revision 11953a3c8e5c0fcfc3381cf797b7482065296748)
++++ app/src/main/java/bo/com/golpistasElectricistas/pocketGarage/repository/Repository.java	(date 1604444137713)
+@@ -1,6 +1,7 @@
+ package bo.com.golpistasElectricistas.pocketGarage.repository;
+ 
+ import android.app.Application;
++import android.net.Uri;
+ 
+ import androidx.lifecycle.LiveData;
+ import androidx.lifecycle.MutableLiveData;
+@@ -81,9 +82,8 @@
+     }
+ 
+     @Override
+-    public LiveData<Base<User>> register(String photo, String ci, String email, String
+-            pass, String name, String lastName, String date, String phone) {
+-        return null;
++    public LiveData<Base<User>> register(User user, Uri photo) {
++        return Firebase.getInstance().register(user, photo);
+     }
+ 
+     @Override
+Index: app/src/main/java/bo/com/golpistasElectricistas/pocketGarage/ui/activities/SplashScreenActivity.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package bo.com.golpistasElectricistas.pocketGarage.ui.activities;\r\n\r\nimport androidx.appcompat.app.AppCompatActivity;\r\nimport androidx.lifecycle.Observer;\r\n\r\nimport android.content.Intent;\r\nimport android.os.Bundle;\r\nimport android.view.Window;\r\n\r\nimport bo.com.golpistasElectricistas.pocketGarage.R;\r\nimport bo.com.golpistasElectricistas.pocketGarage.model.Base;\r\nimport bo.com.golpistasElectricistas.pocketGarage.model.User;\r\nimport bo.com.golpistasElectricistas.pocketGarage.repository.local.Local;\r\nimport bo.com.golpistasElectricistas.pocketGarage.viewModel.SplashScreenViewModel;\r\n\r\npublic class SplashScreenActivity extends AppCompatActivity {\r\n\r\n    private SplashScreenViewModel viewModel;\r\n    private Intent mainActivity, loginActivity;\r\n\r\n    @Override\r\n    protected void onCreate(Bundle savedInstanceState) {\r\n        super.onCreate(savedInstanceState);\r\n        requestWindowFeature(Window.FEATURE_NO_TITLE);\r\n        getSupportActionBar().hide();\r\n        setContentView(R.layout.activity_splash_screen);\r\n        viewModel = new SplashScreenViewModel(getApplication());\r\n        initIntents();\r\n\r\n        try {\r\n            String email = viewModel.getLoggedUser().getEmail();\r\n            String password = viewModel.getLoggedUser().getPassword();\r\n            viewModel.login(email, password).observeForever(new Observer<Base<User>>() {\r\n                @Override\r\n                public void onChanged(Base<User> userBase) {\r\n                    if (userBase.isSuccess()) {\r\n                        startActivity(mainActivity);\r\n                    } else {\r\n                        startActivity(loginActivity);\r\n                    }\r\n                }\r\n            });\r\n        } catch (Exception e) {\r\n            startActivity(loginActivity);\r\n        }\r\n    }\r\n\r\n    private void initIntents() {\r\n        mainActivity = new Intent(getApplicationContext(), MainActivity.class);\r\n        mainActivity.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);\r\n        loginActivity = new Intent(getApplicationContext(), LoginActivity.class);\r\n        loginActivity.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);\r\n    }\r\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/java/bo/com/golpistasElectricistas/pocketGarage/ui/activities/SplashScreenActivity.java	(revision 11953a3c8e5c0fcfc3381cf797b7482065296748)
++++ app/src/main/java/bo/com/golpistasElectricistas/pocketGarage/ui/activities/SplashScreenActivity.java	(date 1604382136980)
+@@ -10,7 +10,6 @@
+ import bo.com.golpistasElectricistas.pocketGarage.R;
+ import bo.com.golpistasElectricistas.pocketGarage.model.Base;
+ import bo.com.golpistasElectricistas.pocketGarage.model.User;
+-import bo.com.golpistasElectricistas.pocketGarage.repository.local.Local;
+ import bo.com.golpistasElectricistas.pocketGarage.viewModel.SplashScreenViewModel;
+ 
+ public class SplashScreenActivity extends AppCompatActivity {

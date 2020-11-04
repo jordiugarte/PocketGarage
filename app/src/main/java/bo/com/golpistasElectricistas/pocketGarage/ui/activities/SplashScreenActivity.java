@@ -10,7 +10,6 @@ import android.view.Window;
 import bo.com.golpistasElectricistas.pocketGarage.R;
 import bo.com.golpistasElectricistas.pocketGarage.model.Base;
 import bo.com.golpistasElectricistas.pocketGarage.model.User;
-import bo.com.golpistasElectricistas.pocketGarage.repository.local.Local;
 import bo.com.golpistasElectricistas.pocketGarage.viewModel.SplashScreenViewModel;
 
 public class SplashScreenActivity extends AppCompatActivity {

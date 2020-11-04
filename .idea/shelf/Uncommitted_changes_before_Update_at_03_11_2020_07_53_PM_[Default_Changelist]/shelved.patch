@@ -1,0 +1,411 @@
+Index: app/src/main/java/bo/com/golpistasElectricistas/pocketGarage/repository/firebase/Firebase.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package bo.com.golpistasElectricistas.pocketGarage.repository.firebase;\r\n\r\nimport android.content.Context;\r\n\r\nimport androidx.lifecycle.LiveData;\r\nimport androidx.lifecycle.MutableLiveData;\r\nimport androidx.lifecycle.Observer;\r\n\r\nimport java.util.Calendar;\r\n\r\nimport bo.com.golpistasElectricistas.pocketGarage.model.Article;\r\nimport bo.com.golpistasElectricistas.pocketGarage.model.Base;\r\nimport bo.com.golpistasElectricistas.pocketGarage.model.User;\r\nimport bo.com.golpistasElectricistas.pocketGarage.repository.firebase.auth.FirebaseAuthManager;\r\nimport bo.com.golpistasElectricistas.pocketGarage.repository.firebase.db.FirebaseDBManager;\r\nimport bo.com.golpistasElectricistas.pocketGarage.repository.firebase.storage.FirebaseStorageManager;\r\nimport bo.com.golpistasElectricistas.pocketGarage.repository.local.Local;\r\n\r\npublic class Firebase {\r\n    private static Firebase instance;\r\n    private FirebaseDBManager db;\r\n    private FirebaseStorageManager storage;\r\n    private FirebaseAuthManager auth;\r\n\r\n    public static Firebase getInstance() {\r\n        if (instance == null) {\r\n            instance = new Firebase();\r\n        }\r\n        return instance;\r\n    }\r\n\r\n    public Firebase() {\r\n        db = new FirebaseDBManager();\r\n        storage = new FirebaseStorageManager();\r\n        auth = new FirebaseAuthManager();\r\n    }\r\n\r\n    public LiveData<Base<User>> login(String email, String password) {\r\n        return registerAndUpdateDb(auth.login(email, password), null);\r\n    }\r\n\r\n    public LiveData<Base<User>> register(User user) {\r\n        return registerAndUpdateDb(auth.registerUser(user), user);\r\n    }\r\n\r\n    public LiveData<Base<Article>> addArticle(Article article) {\r\n        MutableLiveData<Base<String>> results = new MutableLiveData<>();\r\n        //Step 1: Create record\r\n        /*db.addArticle(article).observeForever(idArticleBase -> {\r\n            if (idArticleBase.isSuccess()) {\r\n                //Step 2: Upload image\r\n                Article articleId = idArticleBase.getData();\r\n                storage.uploadArticleImages(uuidPost, image).observeForever(urlBase -> {\r\n                    if (urlBase.isSuccess()) {\r\n                        //Step 3: Update record\r\n                        String url = urlBase.getData();\r\n                        db.updateCoverPhoto(uuidStartup, uuidPost, url).observeForever(resultUpdateBase -> {\r\n                            if (resultUpdateBase.isSuccess()) {\r\n                                results.postValue(new Base<>(uuidPost));\r\n                            } else {\r\n                                results.postValue(new Base<>(resultUpdateBase.getErrorCode(), resultUpdateBase.getException()));\r\n                            }\r\n                        });\r\n                    } else {\r\n                        results.postValue(new Base<>(urlBase.getErrorCode(), urlBase.getException()));\r\n                    }\r\n                });\r\n            } else {\r\n                results.postValue(new Base<>(idArticleBase.getErrorCode(), idArticleBase.getException()));\r\n            }\r\n        });*/\r\n        //TODO\r\n        return null;\r\n    }\r\n\r\n    private LiveData<Base<User>>    registerAndUpdateDb(LiveData<Base<User>> registerFunction, User user) {\r\n        MutableLiveData<Base<User>> results = new MutableLiveData<>();\r\n        registerFunction.observeForever(new Observer<Base<User>>() {\r\n            @Override\r\n            public void onChanged(Base<User> userBase) {\r\n                if (userBase.isSuccess()) {\r\n                    User registeredUser = userBase.getData();\r\n                    registeredUser.setLastLogin(Calendar.getInstance().getTimeInMillis());\r\n                    if (user != null && registeredUser.getPhoto().isEmpty()) {\r\n                        registeredUser.setPhoto(user.getPhoto() != null ? user.getPhoto() : \"\");\r\n                    }\r\n\r\n                    //Register in database\r\n                    db.updateUser(registeredUser).observeForever(new Observer<Base<User>>() {\r\n                        @Override\r\n                        public void onChanged(Base<User> userBase) {\r\n                            results.postValue(userBase);\r\n                        }\r\n                    });\r\n                } else {\r\n                    //Return results\r\n                    results.postValue(userBase);\r\n                }\r\n            }\r\n        });\r\n        return results;\r\n    }\r\n\r\n    public void signOut() {\r\n\r\n    }\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/java/bo/com/golpistasElectricistas/pocketGarage/repository/firebase/Firebase.java	(revision 11953a3c8e5c0fcfc3381cf797b7482065296748)
++++ app/src/main/java/bo/com/golpistasElectricistas/pocketGarage/repository/firebase/Firebase.java	(date 1604444730575)
+@@ -1,6 +1,7 @@
+ package bo.com.golpistasElectricistas.pocketGarage.repository.firebase;
+ 
+ import android.content.Context;
++import android.net.Uri;
+ 
+ import androidx.lifecycle.LiveData;
+ import androidx.lifecycle.MutableLiveData;
+@@ -36,44 +37,19 @@
+     }
+ 
+     public LiveData<Base<User>> login(String email, String password) {
+-        return registerAndUpdateDb(auth.login(email, password), null);
++        return registerAndUpdateDb(auth.login(email, password), null, null);
+     }
+ 
+-    public LiveData<Base<User>> register(User user) {
+-        return registerAndUpdateDb(auth.registerUser(user), user);
++    public LiveData<Base<User>> register(User user, Uri photo) {
++        return registerAndUpdateDb(auth.registerUser(user), user, photo);
+     }
+ 
+     public LiveData<Base<Article>> addArticle(Article article) {
+         MutableLiveData<Base<String>> results = new MutableLiveData<>();
+-        //Step 1: Create record
+-        /*db.addArticle(article).observeForever(idArticleBase -> {
+-            if (idArticleBase.isSuccess()) {
+-                //Step 2: Upload image
+-                Article articleId = idArticleBase.getData();
+-                storage.uploadArticleImages(uuidPost, image).observeForever(urlBase -> {
+-                    if (urlBase.isSuccess()) {
+-                        //Step 3: Update record
+-                        String url = urlBase.getData();
+-                        db.updateCoverPhoto(uuidStartup, uuidPost, url).observeForever(resultUpdateBase -> {
+-                            if (resultUpdateBase.isSuccess()) {
+-                                results.postValue(new Base<>(uuidPost));
+-                            } else {
+-                                results.postValue(new Base<>(resultUpdateBase.getErrorCode(), resultUpdateBase.getException()));
+-                            }
+-                        });
+-                    } else {
+-                        results.postValue(new Base<>(urlBase.getErrorCode(), urlBase.getException()));
+-                    }
+-                });
+-            } else {
+-                results.postValue(new Base<>(idArticleBase.getErrorCode(), idArticleBase.getException()));
+-            }
+-        });*/
+-        //TODO
+         return null;
+     }
+ 
+-    private LiveData<Base<User>>    registerAndUpdateDb(LiveData<Base<User>> registerFunction, User user) {
++    private LiveData<Base<User>> registerAndUpdateDb(LiveData<Base<User>> registerFunction, User user, Uri image) {
+         MutableLiveData<Base<User>> results = new MutableLiveData<>();
+         registerFunction.observeForever(new Observer<Base<User>>() {
+             @Override
+@@ -85,15 +61,32 @@
+                         registeredUser.setPhoto(user.getPhoto() != null ? user.getPhoto() : "");
+                     }
+ 
+-                    //Register in database
+-                    db.updateUser(registeredUser).observeForever(new Observer<Base<User>>() {
+-                        @Override
+-                        public void onChanged(Base<User> userBase) {
+-                            results.postValue(userBase);
+-                        }
+-                    });
++                    if (image != null) {
++                        storage.uploadUserImage(registeredUser.getCi(), image).observeForever(new Observer<Base<String>>() {
++                            @Override
++                            public void onChanged(Base<String> urlBase) {
++                                if (urlBase.isSuccess()) {
++                                    registeredUser.setPhoto(urlBase.getData());
++                                    db.updateUser(registeredUser).observeForever(new Observer<Base<User>>() {
++                                        @Override
++                                        public void onChanged(Base<User> userBase) {
++                                            results.postValue(userBase);
++                                        }
++                                    });
++                                } else {
++                                    results.postValue(new Base<>(urlBase.getError(), urlBase.getException()));
++                                }
++                            }
++                        });
++                    } else {
++                        db.updateUser(registeredUser).observeForever(new Observer<Base<User>>() {
++                            @Override
++                            public void onChanged(Base<User> userBase) {
++                                results.postValue(userBase);
++                            }
++                        });
++                    }
+                 } else {
+-                    //Return results
+                     results.postValue(userBase);
+                 }
+             }
+@@ -102,6 +95,8 @@
+     }
+ 
+     public void signOut() {
++        auth.signOut();
++    }
+ 
+-    }
++
+ }
+Index: app/src/main/java/bo/com/golpistasElectricistas/pocketGarage/repository/firebase/storage/FirebaseStorageManager.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package bo.com.golpistasElectricistas.pocketGarage.repository.firebase.storage;\r\n\r\nimport android.net.Uri;\r\n\r\nimport androidx.lifecycle.LiveData;\r\nimport androidx.lifecycle.MutableLiveData;\r\n\r\nimport com.google.firebase.storage.FirebaseStorage;\r\nimport com.google.firebase.storage.StorageReference;\r\n\r\nimport java.util.List;\r\n\r\nimport bo.com.golpistasElectricistas.pocketGarage.model.Base;\r\n\r\npublic class FirebaseStorageManager {\r\n    private StorageReference storage;\r\n\r\n    public FirebaseStorageManager() {\r\n        storage = FirebaseStorage.getInstance().getReference();\r\n    }\r\n\r\n    public LiveData<Base<String>> uploadArticleImages(int articleId, List<Uri> images) {\r\n        MutableLiveData<Base<String>> results = new MutableLiveData<>();\r\n        new Thread(() -> {\r\n            try {\r\n                Thread.sleep(10000);\r\n                results.postValue(new Base<>(\"https://saboryestilo.com.mx/wp-content/uploads/2020/05/parrilla-argentina-1-1200x720.jpg\"));\r\n            } catch (InterruptedException e) {\r\n                e.printStackTrace();\r\n            }\r\n        }).start();\r\n        return results;\r\n    }\r\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/java/bo/com/golpistasElectricistas/pocketGarage/repository/firebase/storage/FirebaseStorageManager.java	(revision 11953a3c8e5c0fcfc3381cf797b7482065296748)
++++ app/src/main/java/bo/com/golpistasElectricistas/pocketGarage/repository/firebase/storage/FirebaseStorageManager.java	(date 1604444276178)
+@@ -2,15 +2,21 @@
+ 
+ import android.net.Uri;
+ 
++import androidx.annotation.NonNull;
+ import androidx.lifecycle.LiveData;
+ import androidx.lifecycle.MutableLiveData;
+ 
++import com.google.android.gms.tasks.Continuation;
++import com.google.android.gms.tasks.OnCompleteListener;
++import com.google.android.gms.tasks.Task;
+ import com.google.firebase.storage.FirebaseStorage;
+ import com.google.firebase.storage.StorageReference;
++import com.google.firebase.storage.UploadTask;
+ 
+ import java.util.List;
+ 
+ import bo.com.golpistasElectricistas.pocketGarage.model.Base;
++import bo.com.golpistasElectricistas.pocketGarage.utils.Constants;
+ 
+ public class FirebaseStorageManager {
+     private StorageReference storage;
+@@ -31,4 +37,36 @@
+         }).start();
+         return results;
+     }
++
++    public LiveData<Base<String>> uploadUserImage(String idUser, Uri image) {
++        String path = "users/" + idUser + ".jpg";
++        return this.uploadImage(path, image);
++    }
++
++    private LiveData<Base<String>> uploadImage(String path, Uri image) {
++        MutableLiveData<Base<String>> results = new MutableLiveData<>();
++        StorageReference ref = storage.child(path);
++        UploadTask uploadTask = ref.putFile(image);
++        uploadTask.continueWithTask(new Continuation<UploadTask.TaskSnapshot, Task<Uri>>() {
++            @Override
++            public Task<Uri> then(@NonNull Task<UploadTask.TaskSnapshot> task) throws Exception {
++                if (!task.isSuccessful()) {
++                    throw task.getException();
++                }
++                // Continue with the task to get the download URL
++                return ref.getDownloadUrl();
++            }
++        }).addOnCompleteListener(new OnCompleteListener<Uri>() {
++            @Override
++            public void onComplete(@NonNull Task<Uri> task) {
++                if (task.isSuccessful()) {
++                    Uri downloadUri = task.getResult();
++                    results.postValue(new Base<>(downloadUri.toString()));
++                } else {
++                    results.postValue(new Base<>(Constants.ERROR_UPLOAD_IMAGE, task.getException()));
++                }
++            }
++        });
++        return results;
++    }
+ }
+\ No newline at end of file
+Index: app/src/main/java/bo/com/golpistasElectricistas/pocketGarage/viewModel/MyProfileViewModel.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/java/bo/com/golpistasElectricistas/pocketGarage/viewModel/MyProfileViewModel.java	(date 1604445181438)
++++ app/src/main/java/bo/com/golpistasElectricistas/pocketGarage/viewModel/MyProfileViewModel.java	(date 1604445181438)
+@@ -0,0 +1,22 @@
++package bo.com.golpistasElectricistas.pocketGarage.viewModel;
++
++import android.app.Application;
++
++import androidx.annotation.NonNull;
++import androidx.lifecycle.AndroidViewModel;
++
++import bo.com.golpistasElectricistas.pocketGarage.repository.Repository;
++import bo.com.golpistasElectricistas.pocketGarage.repository.RepositoryImpl;
++
++public class MyProfileViewModel extends AndroidViewModel {
++    private RepositoryImpl repository;
++
++    public MyProfileViewModel(@NonNull Application application) {
++        super(application);
++        repository = new Repository(application);
++    }
++
++    public void signOut() {
++        repository.signOut();
++    }
++}
+Index: app/src/main/java/bo/com/golpistasElectricistas/pocketGarage/model/User.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package bo.com.golpistasElectricistas.pocketGarage.model;\r\n\r\nimport androidx.room.Entity;\r\n\r\npublic class User {\r\n    private String ci;\r\n    private String email;\r\n    private String password;\r\n    private String name;\r\n    private String lastName;\r\n    private String photo;\r\n    private String bornDate;\r\n    private int phone;\r\n    private double lastLogin;\r\n\r\n    public User(String photo, String ci, String email, String password, String name, String lastName, String bornDate, int phone, double lastLogin) {\r\n        this.photo = photo;\r\n        this.ci = ci;\r\n        this.email = email;\r\n        this.password = password;\r\n        this.name = name;\r\n        this.lastName = lastName;\r\n        this.bornDate = bornDate;\r\n        this.phone = phone;\r\n        this.lastLogin = lastLogin;\r\n    }\r\n\r\n    public User() {\r\n    }\r\n\r\n    public User(String email) {\r\n        this.email = email;\r\n    }\r\n\r\n    public String getCi() {\r\n        return ci;\r\n    }\r\n\r\n    public void setCi(String ci) {\r\n        this.ci = ci;\r\n    }\r\n\r\n    public String getEmail() {\r\n        return email;\r\n    }\r\n\r\n    public void setEmail(String email) {\r\n        this.email = email;\r\n    }\r\n\r\n    public String getPassword() {\r\n        return password;\r\n    }\r\n\r\n    public void setPassword(String password) {\r\n        this.password = password;\r\n    }\r\n\r\n    public String getName() {\r\n        return name;\r\n    }\r\n\r\n    public void setName(String name) {\r\n        this.name = name;\r\n    }\r\n\r\n    public String getLastName() {\r\n        return lastName;\r\n    }\r\n\r\n    public void setLastName(String lastName) {\r\n        this.lastName = lastName;\r\n    }\r\n\r\n    public String getPhoto() {\r\n        return photo;\r\n    }\r\n\r\n    public void setPhoto(String photo) {\r\n        this.photo = photo;\r\n    }\r\n\r\n    public String getBornDate() {\r\n        return bornDate;\r\n    }\r\n\r\n    public void setBornDate(String bornDate) {\r\n        this.bornDate = bornDate;\r\n    }\r\n\r\n    public int getPhone() {\r\n        return phone;\r\n    }\r\n\r\n    public void setPhone(int phone) {\r\n        this.phone = phone;\r\n    }\r\n\r\n    public double getLastLogin() {\r\n        return lastLogin;\r\n    }\r\n\r\n    public void setLastLogin(double lastLogin) {\r\n        this.lastLogin = lastLogin;\r\n    }\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/java/bo/com/golpistasElectricistas/pocketGarage/model/User.java	(revision 11953a3c8e5c0fcfc3381cf797b7482065296748)
++++ app/src/main/java/bo/com/golpistasElectricistas/pocketGarage/model/User.java	(date 1604443708266)
+@@ -1,7 +1,5 @@
+ package bo.com.golpistasElectricistas.pocketGarage.model;
+ 
+-import androidx.room.Entity;
+-
+ public class User {
+     private String ci;
+     private String email;
+@@ -13,8 +11,7 @@
+     private int phone;
+     private double lastLogin;
+ 
+-    public User(String photo, String ci, String email, String password, String name, String lastName, String bornDate, int phone, double lastLogin) {
+-        this.photo = photo;
++    public User(String ci, String email, String password, String name, String lastName, String bornDate, int phone) {
+         this.ci = ci;
+         this.email = email;
+         this.password = password;
+@@ -22,7 +19,6 @@
+         this.lastName = lastName;
+         this.bornDate = bornDate;
+         this.phone = phone;
+-        this.lastLogin = lastLogin;
+     }
+ 
+     public User() {
+Index: app/src/main/java/bo/com/golpistasElectricistas/pocketGarage/utils/Constants.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package bo.com.golpistasElectricistas.pocketGarage.utils;\r\n\r\npublic class Constants {\r\n    public static final int EMPTY_VALUE_ERROR = 1000;\r\n    public static final int INVALID_EMAIL_ERROR = 1001;\r\n    public static final int INCORRECT_EMAIL_ERROR = 1002;\r\n    public static final int INCORRECT_PASSWORD_ERROR = 1003;\r\n    public static final int LOGIN_ERROR = 1004;\r\n    public static final int NO_CONNECTION_ERROR = 1005;\r\n\r\n    public static final int INVALID_NAME_ERROR = 2000;\r\n    public static final int INVALID_LAST_NAME_ERROR = 2001;\r\n    public static final int INVALID_CI_ERROR = 2002;\r\n    public static final int REPEATED_CI_ERROR = 2003;\r\n    public static final int REPEATED_EMAIL_ERROR = 2004;\r\n    public static final int ERROR_REGISTER_DB = 2005;\r\n    public static final int ERROR_REGISTER_EMAIL_ALREADY_EXISTS = 2006;\r\n    public static final int ERROR_REGISTER = 2007;\r\n\r\n    public static final int SERVER_ERROR = 5000;\r\n\r\n    //  Api\r\n    public static final String BASE_URL = \"https://firebasestorage.googleapis.com/v0/b/pocket-garage-9ce4d.appspot.com/o/\";\r\n    public static final String RESOURCE_ARTICLES = \"json%2Farticles.json\";\r\n    public static final String QUERY_PARAM_ALT = \"media\";\r\n    public static final String KEY_STARTUP_SELECTED = \"articleSelected\";\r\n\r\n    //  Firebase\r\n    public static final String FIREBASE_PATH_USERS = \"/users\";\r\n    public static final String FIREBASE_PATH_STARTUP = \"/articles\";\r\n\r\n    //  Categories\r\n    public static final int CARS_CATEGORY = 0;\r\n    public static final int BIKES_CATEGORY = 1;\r\n    public static final int LIGHTS_CATEGORY = 2;\r\n    public static final int ELECTRONICS_CATEGORY = 3;\r\n    public static final int WHEELS_CATEGORY = 4;\r\n    public static final int OTHERS_CATEGORY = 5;\r\n\r\n    //  Keys\r\n    public static final String KEY_SHARED_PREFS = \"shared preferences\";\r\n    public static final String KEY_CURRENT_USER = \"current user\";\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/java/bo/com/golpistasElectricistas/pocketGarage/utils/Constants.java	(revision 11953a3c8e5c0fcfc3381cf797b7482065296748)
++++ app/src/main/java/bo/com/golpistasElectricistas/pocketGarage/utils/Constants.java	(date 1604444276156)
+@@ -16,6 +16,7 @@
+     public static final int ERROR_REGISTER_DB = 2005;
+     public static final int ERROR_REGISTER_EMAIL_ALREADY_EXISTS = 2006;
+     public static final int ERROR_REGISTER = 2007;
++    public static final int ERROR_UPLOAD_IMAGE = 2008;
+ 
+     public static final int SERVER_ERROR = 5000;
+ 
+@@ -40,4 +41,8 @@
+     //  Keys
+     public static final String KEY_SHARED_PREFS = "shared preferences";
+     public static final String KEY_CURRENT_USER = "current user";
+-}
++
++
++    //  Misc
++    public static final String DIRECTORY_IMAGE = "pocketGarage-images";
++}
+\ No newline at end of file
+Index: app/src/main/java/bo/com/golpistasElectricistas/pocketGarage/repository/RepositoryMock.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package bo.com.golpistasElectricistas.pocketGarage.repository;\r\n\r\nimport androidx.lifecycle.LiveData;\r\nimport androidx.lifecycle.MutableLiveData;\r\n\r\nimport java.util.ArrayList;\r\nimport java.util.Calendar;\r\nimport java.util.List;\r\n\r\nimport bo.com.golpistasElectricistas.pocketGarage.model.Article;\r\nimport bo.com.golpistasElectricistas.pocketGarage.model.Base;\r\nimport bo.com.golpistasElectricistas.pocketGarage.model.User;\r\nimport bo.com.golpistasElectricistas.pocketGarage.utils.Constants;\r\nimport bo.com.golpistasElectricistas.pocketGarage.utils.Validations;\r\n\r\npublic class RepositoryMock implements RepositoryImpl {\r\n\r\n    protected List<User> getMockUsers() {\r\n        List<User> mockUsers = new ArrayList<>();\r\n        mockUsers.add(new User(\"https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcSIxyT0DAa5_kwzb-e-bpTvAXIyW0OispA76Q&usqp=CAU\", \"1\", \"jordi@ugarte.com\", \"ffffffff\", \"Jordi\", \"Ugarte\", \"01/01/1999\", 7889825, 10000));\r\n        mockUsers.add(new User(\"https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcSIxyT0DAa5_kwzb-e-bpTvAXIyW0OispA76Q&usqp=CAU\", \"2\", \"ignacio@delrio.com\", \"ffffffff\", \"Ignacio\", \"del Rio\", \"01/01/1999\", 77777777, 10000));\r\n        mockUsers.add(new User(\"https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcSIxyT0DAa5_kwzb-e-bpTvAXIyW0OispA76Q&usqp=CAU\", \"3\", \"sergio@laguna.com\", \"ffffffff\", \"Sergio\", \"Laguna\", \"01/01/1999\", 77777777, 10000));\r\n        return mockUsers;\r\n    }\r\n\r\n    @Override\r\n    public LiveData<Base<User>> login(String email, String password) {\r\n        MutableLiveData<Base<User>> result = new MutableLiveData<>();\r\n        if (email.isEmpty() || password.isEmpty()) {\r\n            result.postValue(new Base(Constants.EMPTY_VALUE_ERROR, null));\r\n            return result;\r\n        }\r\n        if (!Validations.emailIsValid(email)) {\r\n            result.postValue(new Base(Constants.INVALID_EMAIL_ERROR, null));\r\n            return result;\r\n        }\r\n        for (User user : getMockUsers()) {\r\n            if (user.getEmail().equals(email) && user.getPassword().equals(password)) {\r\n                result.postValue(new Base(user));\r\n                return result;\r\n            } else if (user.getEmail().equals(email)) {\r\n                result.postValue(new Base(Constants.INCORRECT_PASSWORD_ERROR, null));\r\n                return result;\r\n            }\r\n        }\r\n        result.postValue(new Base(Constants.INCORRECT_EMAIL_ERROR, null));\r\n        return result;\r\n    }\r\n\r\n    @Override\r\n    public LiveData<Base<List<Article>>> getArticlesItems() {\r\n        return null;\r\n    }\r\n\r\n    @Override\r\n    public Article getArticleItem(int id) {\r\n        return null;\r\n    }\r\n\r\n    @Override\r\n    public LiveData<Base<List<Article>>> getFavorites() {\r\n        return null;\r\n    }\r\n\r\n    @Override\r\n    public LiveData<Base<List<Article>>> getMyArticles() {\r\n        return null;\r\n    }\r\n\r\n    @Override\r\n    public LiveData<Base<User>> register(String photo, String ci, String email, String pass, String name, String lastName, String date, String phone) {\r\n        MutableLiveData<Base<User>> result = new MutableLiveData<>();\r\n        if (ci.isEmpty() || email.isEmpty() || pass.isEmpty() || name.isEmpty() || lastName.isEmpty() || date.isEmpty() || phone.isEmpty()) {\r\n            result.postValue(new Base(Constants.EMPTY_VALUE_ERROR, null));\r\n            return result;\r\n        }\r\n        if (!Validations.emailIsValid(email)) {\r\n            result.postValue(new Base(Constants.INVALID_EMAIL_ERROR, null));\r\n            return result;\r\n        }\r\n        if (!Validations.nameIsValid(name)) {\r\n            result.postValue(new Base<>(Constants.INVALID_NAME_ERROR, null));\r\n            return result;\r\n        }\r\n        if (!Validations.nameIsValid(lastName)) {\r\n            result.postValue(new Base<>(Constants.INVALID_LAST_NAME_ERROR, null));\r\n            return result;\r\n        }\r\n        try {\r\n            String ciint = ci;\r\n            int phoneint = Integer.parseInt(phone);\r\n            for (User user : getMockUsers()) {\r\n                if (ciint == user.getCi()) {\r\n                    result.postValue(new Base<>(Constants.REPEATED_CI_ERROR, null));\r\n                    return result;\r\n                }\r\n                if (email.equals(user.getEmail())) {\r\n                    result.postValue(new Base<>(Constants.REPEATED_EMAIL_ERROR, null));\r\n                    return result;\r\n                }\r\n            }\r\n            User user = new User(photo, ciint, email, pass, name, lastName, date, phoneint, 10000);\r\n            result.postValue(new Base<>(user));\r\n            return result;\r\n        } catch (final NumberFormatException e) {\r\n            result.postValue(new Base<>(Constants.INVALID_CI_ERROR, null));\r\n            return result;\r\n        }\r\n    }\r\n\r\n    @Override\r\n    public LiveData<Base<Article>> addArticle(Article article) {\r\n        return null;\r\n    }\r\n\r\n    @Override\r\n    public User getCurrentUser() {\r\n        return null;\r\n    }\r\n\r\n    @Override\r\n    public void setCurrentUser(User user) {\r\n\r\n    }\r\n\r\n    @Override\r\n    public void signOut() {\r\n\r\n    }\r\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/java/bo/com/golpistasElectricistas/pocketGarage/repository/RepositoryMock.java	(revision 11953a3c8e5c0fcfc3381cf797b7482065296748)
++++ app/src/main/java/bo/com/golpistasElectricistas/pocketGarage/repository/RepositoryMock.java	(date 1604444529064)
+@@ -1,5 +1,7 @@
+ package bo.com.golpistasElectricistas.pocketGarage.repository;
+ 
++import android.net.Uri;
++
+ import androidx.lifecycle.LiveData;
+ import androidx.lifecycle.MutableLiveData;
+ 
+@@ -17,9 +19,9 @@
+ 
+     protected List<User> getMockUsers() {
+         List<User> mockUsers = new ArrayList<>();
+-        mockUsers.add(new User("https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcSIxyT0DAa5_kwzb-e-bpTvAXIyW0OispA76Q&usqp=CAU", "1", "jordi@ugarte.com", "ffffffff", "Jordi", "Ugarte", "01/01/1999", 7889825, 10000));
+-        mockUsers.add(new User("https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcSIxyT0DAa5_kwzb-e-bpTvAXIyW0OispA76Q&usqp=CAU", "2", "ignacio@delrio.com", "ffffffff", "Ignacio", "del Rio", "01/01/1999", 77777777, 10000));
+-        mockUsers.add(new User("https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcSIxyT0DAa5_kwzb-e-bpTvAXIyW0OispA76Q&usqp=CAU", "3", "sergio@laguna.com", "ffffffff", "Sergio", "Laguna", "01/01/1999", 77777777, 10000));
++        //mockUsers.add(new User("https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcSIxyT0DAa5_kwzb-e-bpTvAXIyW0OispA76Q&usqp=CAU", "1", "jordi@ugarte.com", "ffffffff", "Jordi", "Ugarte", "01/01/1999", 7889825, 10000));
++        //mockUsers.add(new User("https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcSIxyT0DAa5_kwzb-e-bpTvAXIyW0OispA76Q&usqp=CAU", "2", "ignacio@delrio.com", "ffffffff", "Ignacio", "del Rio", "01/01/1999", 77777777, 10000));
++        //mockUsers.add(new User("https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcSIxyT0DAa5_kwzb-e-bpTvAXIyW0OispA76Q&usqp=CAU", "3", "sergio@laguna.com", "ffffffff", "Sergio", "Laguna", "01/01/1999", 77777777, 10000));
+         return mockUsers;
+     }
+ 
+@@ -68,8 +70,8 @@
+     }
+ 
+     @Override
+-    public LiveData<Base<User>> register(String photo, String ci, String email, String pass, String name, String lastName, String date, String phone) {
+-        MutableLiveData<Base<User>> result = new MutableLiveData<>();
++    public LiveData<Base<User>> register(User user, Uri photo) {
++        /*MutableLiveData<Base<User>> result = new MutableLiveData<>();
+         if (ci.isEmpty() || email.isEmpty() || pass.isEmpty() || name.isEmpty() || lastName.isEmpty() || date.isEmpty() || phone.isEmpty()) {
+             result.postValue(new Base(Constants.EMPTY_VALUE_ERROR, null));
+             return result;
+@@ -105,7 +107,8 @@
+         } catch (final NumberFormatException e) {
+             result.postValue(new Base<>(Constants.INVALID_CI_ERROR, null));
+             return result;
+-        }
++        }*/
++        return null;
+     }
+ 
+     @Override
+Index: app/src/main/java/bo/com/golpistasElectricistas/pocketGarage/repository/RepositoryImpl.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package bo.com.golpistasElectricistas.pocketGarage.repository;\r\n\r\nimport androidx.lifecycle.LiveData;\r\n\r\nimport java.util.List;\r\n\r\nimport bo.com.golpistasElectricistas.pocketGarage.model.Article;\r\nimport bo.com.golpistasElectricistas.pocketGarage.model.Base;\r\nimport bo.com.golpistasElectricistas.pocketGarage.model.User;\r\n\r\npublic interface RepositoryImpl {\r\n    LiveData<Base<User>> login(String email, String password);\r\n\r\n    LiveData<Base<List<Article>>> getArticlesItems();\r\n\r\n    Article getArticleItem(int id);\r\n\r\n    LiveData<Base<List<Article>>> getFavorites();\r\n\r\n    LiveData<Base<List<Article>>> getMyArticles();\r\n\r\n    LiveData<Base<User>> register(String photo, String ci, String email, String pass, String name, String lastName, String date, String phone);\r\n\r\n    LiveData<Base<Article>> addArticle(Article article);\r\n\r\n    User getCurrentUser();\r\n\r\n    void setCurrentUser(User user);\r\n\r\n    void signOut();\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/java/bo/com/golpistasElectricistas/pocketGarage/repository/RepositoryImpl.java	(revision 11953a3c8e5c0fcfc3381cf797b7482065296748)
++++ app/src/main/java/bo/com/golpistasElectricistas/pocketGarage/repository/RepositoryImpl.java	(date 1604443708390)
+@@ -1,5 +1,7 @@
+ package bo.com.golpistasElectricistas.pocketGarage.repository;
+ 
++import android.net.Uri;
++
+ import androidx.lifecycle.LiveData;
+ 
+ import java.util.List;
+@@ -19,7 +21,7 @@
+ 
+     LiveData<Base<List<Article>>> getMyArticles();
+ 
+-    LiveData<Base<User>> register(String photo, String ci, String email, String pass, String name, String lastName, String date, String phone);
++    LiveData<Base<User>> register(User user, Uri photo);
+ 
+     LiveData<Base<Article>> addArticle(Article article);
+ 
+Index: app/src/main/java/bo/com/golpistasElectricistas/pocketGarage/utils/CompressImage.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/java/bo/com/golpistasElectricistas/pocketGarage/utils/CompressImage.java	(date 1604443708350)
++++ app/src/main/java/bo/com/golpistasElectricistas/pocketGarage/utils/CompressImage.java	(date 1604443708350)
+@@ -0,0 +1,47 @@
++package bo.com.golpistasElectricistas.pocketGarage.utils;
++
++import android.content.Context;
++import android.graphics.Bitmap;
++import android.graphics.Matrix;
++import android.graphics.RectF;
++import android.net.Uri;
++import android.os.Environment;
++import android.provider.MediaStore;
++import android.util.Log;
++
++import java.io.File;
++import java.io.FileOutputStream;
++import java.io.IOException;
++import java.util.Calendar;
++
++public class CompressImage {
++    private static final String LOG = CompressImage.class.getName();
++
++    static public Uri compressImage(Uri image, Context context) {
++        FileOutputStream out;
++        String strPhotoName = "post_" + Calendar.getInstance().getTimeInMillis() + ".jpg";
++
++        try {
++            Bitmap bitmap = MediaStore.Images.Media.getBitmap(context.getContentResolver(), image);
++            File folder = new File(Environment.getExternalStorageDirectory(), Constants.DIRECTORY_IMAGE);
++            if (!folder.exists()) {
++                folder.mkdirs();
++            }
++            File file = new File(Environment.getExternalStorageDirectory(),
++                    Constants.DIRECTORY_IMAGE + File.separator + strPhotoName);
++            out = new FileOutputStream(file);
++            Matrix m = new Matrix();
++            m.setRectToRect(new RectF(0, 0, bitmap.getWidth(), bitmap.getHeight()),
++                    new RectF(0, 0, 1280, 720), Matrix.ScaleToFit.CENTER);
++            bitmap = Bitmap.createBitmap(bitmap, 0, 0, bitmap.getWidth(), bitmap.getHeight(), m, true);
++            bitmap.compress(Bitmap.CompressFormat.JPEG, 90, out);
++
++            out.flush();
++            out.close();
++            return Uri.fromFile(file);
++        } catch (IOException e) {
++            Log.e(LOG, "Error compressing image", e);
++            return image;
++        }
++    }
++}

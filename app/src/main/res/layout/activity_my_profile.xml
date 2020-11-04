@@ -105,44 +105,34 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:padding="10dp">
-
+            android:padding="10dp"
+            android:layout_alignParentBottom="true">
             <Button
                 android:id="@+id/editProfileButton"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="5dp"
                 android:layout_weight="1"
+                android:layout_height="wrap_content"
                 android:background="@drawable/gradient4"
-                android:onClick="goToEditProfileActivity"
-                android:padding="10dp"
                 android:text="@string/button_edit_profile"
+                android:textColor="@color/colorWhite"
                 android:textAllCaps="false"
-                android:textColor="@color/colorWhite" />
+                android:padding="10dp"
+                android:layout_marginEnd="5dp"
+                android:onClick="goToEditProfileActivity"/>
 
             <Button
                 android:id="@+id/logoutButton"
+                android:layout_weight="1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="5dp"
-                android:layout_weight="1"
                 android:background="@drawable/gradient2"
-                android:onClick="logOut"
-                android:padding="10dp"
                 android:text="@string/button_logout"
+                android:textColor="@color/colorWhite"
                 android:textAllCaps="false"
-                android:textColor="@color/colorWhite" />
+                android:padding="10dp"
+                android:layout_marginStart="5dp"
+                android:onClick="signOut"/>
         </LinearLayout>
-
-        <Button
-            android:id="@+id/changeLanguage"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:padding="10dp"
-            android:text="@string/button_change_language"
-            android:visibility="visible" />
 
     </RelativeLayout>
 

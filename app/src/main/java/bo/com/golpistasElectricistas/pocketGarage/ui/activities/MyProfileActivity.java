@@ -1,26 +1,26 @@
 package bo.com.golpistasElectricistas.pocketGarage.ui.activities;
 
 import androidx.appcompat.app.ActionBar;
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.ViewModelProvider;
 
 import android.app.Activity;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.os.Bundle;
-import android.os.LocaleList;
 import android.view.View;
 import android.view.Window;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.Locale;
 
 import bo.com.golpistasElectricistas.pocketGarage.R;
+import bo.com.golpistasElectricistas.pocketGarage.model.User;
+import bo.com.golpistasElectricistas.pocketGarage.repository.local.Local;
+import bo.com.golpistasElectricistas.pocketGarage.viewModel.MyProfileViewModel;
 
 public class MyProfileActivity extends AppCompatActivity {
 
@@ -31,6 +31,8 @@ public class MyProfileActivity extends AppCompatActivity {
 
     private Intent profileEditorActivity, loginActivity;
 
+    private MyProfileViewModel viewModel;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,6 +40,7 @@ public class MyProfileActivity extends AppCompatActivity {
         getSupportActionBar().hide();
         setContentView(R.layout.activity_my_profile);
         context = getApplicationContext();
+        viewModel = new ViewModelProvider(this).get(MyProfileViewModel.class);
         initIntents();
         initViews();
 
@@ -45,35 +48,6 @@ public class MyProfileActivity extends AppCompatActivity {
 
         ActionBar actionBar = getSupportActionBar();
         actionBar.setTitle(getResources().getString(R.string.app_name));
-        Button changeLanguage = findViewById(R.id.changeLanguage);
-        changeLanguage.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                showChangeDialog();
-            }
-        });
-    }
-
-    private void showChangeDialog() {
-        final String[] listItems= {"English", "Español"};
-        AlertDialog.Builder mBuilder = new AlertDialog.Builder(this);
-        mBuilder.setTitle("Choose language");
-        mBuilder.setSingleChoiceItems(listItems, -1, new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int i) {
-                if(i == 0){
-                    setLocale("en");
-                    recreate();
-                }
-               else if (i==1){
-                    setLocale("es");
-                    recreate();
-                }
-                dialog.dismiss();
-            }
-        });
-        AlertDialog mDialog = mBuilder.create();
-        mDialog.show();
     }
 
     private void setLocale(String lang) {
@@ -115,8 +89,11 @@ public class MyProfileActivity extends AppCompatActivity {
         startActivity(profileEditorActivity);
     }
 
-    public void logOut(View view) {
+    public void signOut(View view) {
+        new Local(getApplicationContext()).setCurrentUser(new User());
+        loginActivity.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        finish();
         startActivity(loginActivity);
-        //TODO
+        viewModel.signOut();
     }
 }

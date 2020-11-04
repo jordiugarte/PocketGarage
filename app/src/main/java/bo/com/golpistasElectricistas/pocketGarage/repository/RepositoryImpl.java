@@ -1,5 +1,7 @@
 package bo.com.golpistasElectricistas.pocketGarage.repository;
 
+import android.net.Uri;
+
 import androidx.lifecycle.LiveData;
 
 import java.util.List;
@@ -19,7 +21,7 @@ public interface RepositoryImpl {
 
     LiveData<Base<List<Article>>> getMyArticles();
 
-    LiveData<Base<User>> register(String photo, String ci, String email, String pass, String name, String lastName, String date, String phone);
+    LiveData<Base<User>> register(User user, Uri photo);
 
     LiveData<Base<Article>> addArticle(Article article);
 

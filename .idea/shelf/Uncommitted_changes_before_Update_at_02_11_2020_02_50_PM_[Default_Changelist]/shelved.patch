@@ -1,0 +1,191 @@
+Index: app/src/main/java/bo/com/golpistasElectricistas/pocketGarage/repository/firebase/Firebase.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package bo.com.golpistasElectricistas.pocketGarage.repository.firebase;\r\n\r\nimport androidx.lifecycle.LiveData;\r\n\r\nimport bo.com.golpistasElectricistas.pocketGarage.model.Article;\r\nimport bo.com.golpistasElectricistas.pocketGarage.model.Base;\r\nimport bo.com.golpistasElectricistas.pocketGarage.model.User;\r\n\r\npublic class Firebase {\r\n    private static Firebase instance;\r\n\r\n    public static Firebase getInstance() {\r\n        if (instance == null) {\r\n            instance = new Firebase();\r\n        }\r\n        return instance;\r\n    }\r\n\r\n    public LiveData<Base<User>> login(String email, String password) {\r\n        return null;\r\n    }\r\n\r\n    public LiveData<Base<String>> addPostToStartup(Article article) {\r\n        //return db.addPostToStartup(uuidStartup, post);\r\n        //TODO Step 2: add to storage\r\n        //TODO Step 3: update db\r\n        return null;\r\n    }\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/java/bo/com/golpistasElectricistas/pocketGarage/repository/firebase/Firebase.java	(revision bc36cd8db7535a2d7cb1fe51a20ecd2f7dd5d893)
++++ app/src/main/java/bo/com/golpistasElectricistas/pocketGarage/repository/firebase/Firebase.java	(date 1604342774229)
+@@ -20,7 +20,7 @@
+         return null;
+     }
+ 
+-    public LiveData<Base<String>> addPostToStartup(Article article) {
++    public LiveData<Base<Article>> addPostToStartup(Article article) {
+         //return db.addPostToStartup(uuidStartup, post);
+         //TODO Step 2: add to storage
+         //TODO Step 3: update db
+Index: app/src/main/java/bo/com/golpistasElectricistas/pocketGarage/viewModel/NewArticleViewModel.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package bo.com.golpistasElectricistas.pocketGarage.viewModel;\r\n\r\nimport android.app.Application;\r\nimport android.net.Uri;\r\n\r\nimport androidx.annotation.NonNull;\r\nimport androidx.lifecycle.AndroidViewModel;\r\nimport androidx.lifecycle.LiveData;\r\n\r\nimport bo.com.golpistasElectricistas.pocketGarage.model.Article;\r\nimport bo.com.golpistasElectricistas.pocketGarage.model.Base;\r\nimport bo.com.golpistasElectricistas.pocketGarage.repository.Repository;\r\nimport bo.com.golpistasElectricistas.pocketGarage.repository.RepositoryImpl;\r\n\r\npublic class NewArticleViewModel extends AndroidViewModel {\r\n\r\n    private RepositoryImpl repository;\r\n\r\n    public NewArticleViewModel(@NonNull Application application) {\r\n        super(application);\r\n        repository = new Repository(application);\r\n    }\r\n\r\n    public LiveData<Base<String>> createPost(Article article) {\r\n        return repository.addArticle(article);\r\n    }\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/java/bo/com/golpistasElectricistas/pocketGarage/viewModel/NewArticleViewModel.java	(revision bc36cd8db7535a2d7cb1fe51a20ecd2f7dd5d893)
++++ app/src/main/java/bo/com/golpistasElectricistas/pocketGarage/viewModel/NewArticleViewModel.java	(date 1604342891750)
+@@ -21,7 +21,7 @@
+         repository = new Repository(application);
+     }
+ 
+-    public LiveData<Base<String>> createPost(Article article) {
++    public LiveData<Base<Article>> createPost(Article article) {
+         return repository.addArticle(article);
+     }
+ }
+Index: app/src/main/java/bo/com/golpistasElectricistas/pocketGarage/repository/RepositoryImpl.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package bo.com.golpistasElectricistas.pocketGarage.repository;\r\n\r\nimport androidx.lifecycle.LiveData;\r\n\r\nimport java.util.List;\r\n\r\nimport bo.com.golpistasElectricistas.pocketGarage.model.Article;\r\nimport bo.com.golpistasElectricistas.pocketGarage.model.Base;\r\nimport bo.com.golpistasElectricistas.pocketGarage.model.User;\r\n\r\npublic interface RepositoryImpl {\r\n    LiveData<Base<User>> login(String email, String password);\r\n\r\n    LiveData<Base<List<Article>>> getArticlesItems();\r\n\r\n    Article getArticleItem(int id);\r\n\r\n    LiveData<Base<List<Article>>> getFavorites();\r\n\r\n    LiveData<Base<List<Article>>> getMyArticles();\r\n\r\n    LiveData<Base<User>> register(String photo, String ci, String email, String pass, String name, String lastName, String date, int phone);\r\n\r\n    LiveData<Base<String>> addArticle(Article article);\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/java/bo/com/golpistasElectricistas/pocketGarage/repository/RepositoryImpl.java	(revision bc36cd8db7535a2d7cb1fe51a20ecd2f7dd5d893)
++++ app/src/main/java/bo/com/golpistasElectricistas/pocketGarage/repository/RepositoryImpl.java	(date 1604342673009)
+@@ -21,5 +21,5 @@
+ 
+     LiveData<Base<User>> register(String photo, String ci, String email, String pass, String name, String lastName, String date, int phone);
+ 
+-    LiveData<Base<String>> addArticle(Article article);
++    LiveData<Base<Article>> addArticle(Article article);
+ }
+Index: app/src/main/java/bo/com/golpistasElectricistas/pocketGarage/repository/Repository.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package bo.com.golpistasElectricistas.pocketGarage.repository;\r\n\r\nimport android.app.Application;\r\n\r\nimport androidx.lifecycle.LiveData;\r\nimport androidx.lifecycle.MutableLiveData;\r\nimport androidx.lifecycle.Observer;\r\n\r\nimport java.util.List;\r\n\r\nimport bo.com.golpistasElectricistas.pocketGarage.model.Article;\r\nimport bo.com.golpistasElectricistas.pocketGarage.model.Base;\r\nimport bo.com.golpistasElectricistas.pocketGarage.model.User;\r\nimport bo.com.golpistasElectricistas.pocketGarage.repository.api.ApiRepository;\r\nimport bo.com.golpistasElectricistas.pocketGarage.repository.firebase.Firebase;\r\nimport bo.com.golpistasElectricistas.pocketGarage.repository.local.Local;\r\n\r\npublic class Repository implements RepositoryImpl {\r\n    private Local local;\r\n\r\n    public Repository(Application application) {\r\n        local = new Local(application);\r\n    }\r\n\r\n    @Override\r\n    public LiveData<Base<User>> login(String email, String password) {\r\n        return Firebase.getInstance().login(email, password);\r\n    }\r\n\r\n    @Override\r\n    public LiveData<Base<List<Article>>> getArticlesItems() {\r\n        MutableLiveData<Base<List<Article>>> result = new MutableLiveData<>();\r\n        ApiRepository.getInstance().getArticles().observeForever(new Observer<Base<List<Article>>>() {\r\n            @Override\r\n            public void onChanged(Base<List<Article>> listBase) {\r\n                if (listBase.isSuccess()) {\r\n                    result.postValue(listBase);\r\n                }\r\n            }\r\n        });\r\n        return result;\r\n    }\r\n\r\n    @Override\r\n    public Article getArticleItem(int id) {\r\n        Article result = null;\r\n        for (Article article : getArticlesItems().getValue().getData()) {\r\n            if (article.getArticleId() == id) {\r\n                result = article;\r\n            }\r\n        }\r\n        return result;\r\n    }\r\n\r\n    @Override\r\n    public LiveData<Base<List<Article>>> getFavorites() {\r\n        MutableLiveData<Base<List<Article>>> result = new MutableLiveData<>();\r\n        local.getFavorites().observeForever(new Observer<List<Article>>() {\r\n            @Override\r\n            public void onChanged(List<Article> articles) {\r\n                result.postValue(new Base<>(articles));\r\n            }\r\n        });\r\n        ApiRepository.getInstance().getArticles().observeForever(new Observer<Base<List<Article>>>() {\r\n            @Override\r\n            public void onChanged(Base<List<Article>> listBase) {\r\n                if (listBase.isSuccess()) {\r\n                    result.postValue(listBase);\r\n                    local.update(listBase.getData());\r\n                }\r\n            }\r\n        });\r\n        return result;\r\n    }\r\n\r\n    @Override\r\n    public LiveData<Base<List<Article>>> getMyArticles() {\r\n        return null;\r\n    }\r\n\r\n    @Override\r\n    public LiveData<Base<User>> register(String photo, String ci, String email, String\r\n            pass, String name, String lastName, String date, int phone) {\r\n        return null;\r\n    }\r\n\r\n    @Override\r\n    public LiveData<Base<String>> addArticle(Article article) {\r\n        return Firebase.getInstance().addPostToStartup(article);\r\n    }\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/java/bo/com/golpistasElectricistas/pocketGarage/repository/Repository.java	(revision bc36cd8db7535a2d7cb1fe51a20ecd2f7dd5d893)
++++ app/src/main/java/bo/com/golpistasElectricistas/pocketGarage/repository/Repository.java	(date 1604342774240)
+@@ -85,7 +85,7 @@
+     }
+ 
+     @Override
+-    public LiveData<Base<String>> addArticle(Article article) {
++    public LiveData<Base<Article>> addArticle(Article article) {
+         return Firebase.getInstance().addPostToStartup(article);
+     }
+ }
+Index: app/src/main/java/bo/com/golpistasElectricistas/pocketGarage/ui/activities/NewArticleActivity.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package bo.com.golpistasElectricistas.pocketGarage.ui.activities;\r\n\r\nimport androidx.appcompat.app.AppCompatActivity;\r\nimport androidx.core.content.ContextCompat;\r\nimport androidx.lifecycle.Observer;\r\n\r\nimport android.content.Context;\r\nimport android.content.Intent;\r\nimport android.graphics.Bitmap;\r\nimport android.net.Uri;\r\nimport android.os.Bundle;\r\nimport android.provider.MediaStore;\r\nimport android.text.Layout;\r\nimport android.util.Log;\r\nimport android.view.View;\r\nimport android.view.Window;\r\nimport android.widget.EditText;\r\nimport android.widget.ImageView;\r\nimport android.widget.LinearLayout;\r\nimport android.widget.Spinner;\r\nimport android.widget.Switch;\r\nimport android.widget.Toast;\r\n\r\nimport java.io.IOException;\r\nimport java.util.ArrayList;\r\nimport java.util.Calendar;\r\nimport java.util.List;\r\n\r\nimport bo.com.golpistasElectricistas.pocketGarage.R;\r\nimport bo.com.golpistasElectricistas.pocketGarage.model.Article;\r\nimport bo.com.golpistasElectricistas.pocketGarage.model.Base;\r\nimport bo.com.golpistasElectricistas.pocketGarage.viewModel.NewArticleViewModel;\r\n\r\npublic class NewArticleActivity extends AppCompatActivity {\r\n    private Context context;\r\n\r\n    private List<ImageView> imageViews = new ArrayList<ImageView>();\r\n\r\n    private LinearLayout imagesRow;\r\n    private List<Bitmap> imageBitmaps = new ArrayList<Bitmap>();\r\n    private EditText titleField, shortDescriptionField, descriptionField, priceField;\r\n    private Switch newSwitch;\r\n    private Spinner categorySpinner;\r\n\r\n    private Intent mainActivity;\r\n\r\n    private NewArticleViewModel viewModel;\r\n\r\n    @Override\r\n    protected void onCreate(Bundle savedInstanceState) {\r\n        super.onCreate(savedInstanceState);\r\n        requestWindowFeature(Window.FEATURE_NO_TITLE);\r\n        getSupportActionBar().hide();\r\n        setContentView(R.layout.activity_new_article);\r\n        context = getApplicationContext();\r\n        initViews();\r\n        initIntents();\r\n    }\r\n\r\n    private void initIntents() {\r\n        mainActivity = new Intent(context, MainActivity.class);\r\n    }\r\n\r\n    private void initViews() {\r\n        imagesRow = findViewById(R.id.imagesArticleRow);\r\n        titleField = findViewById(R.id.titleField);\r\n        shortDescriptionField = findViewById(R.id.shortDescriptionField);\r\n        descriptionField = findViewById(R.id.descriptionField);\r\n        priceField = findViewById(R.id.priceField);\r\n        newSwitch = findViewById(R.id.newSwitch);\r\n        categorySpinner = findViewById(R.id.categorySpinner);\r\n    }\r\n\r\n    public void addPhoto(View view) {\r\n        Intent intent = new Intent();\r\n        intent.setType(\"image/*\");\r\n        intent.setAction(Intent.ACTION_GET_CONTENT);\r\n        startActivityForResult(Intent.createChooser(intent, \"Add picture\"), 1);\r\n    }\r\n\r\n    @Override\r\n    protected void onActivityResult(int requestCode, int resultCode, Intent data) {\r\n        super.onActivityResult(requestCode, resultCode, data);\r\n        if (requestCode == 1 && resultCode == RESULT_OK && data != null && data.getData() != null) {\r\n            Uri filePath = data.getData();\r\n            try {\r\n                Bitmap newBitmap;\r\n                newBitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), filePath);\r\n                imageBitmaps.add(newBitmap);\r\n                imagesRow.addView(generateImageView(newBitmap));\r\n            } catch (IOException e) {\r\n                e.printStackTrace();\r\n            }\r\n        }\r\n    }\r\n\r\n    private ImageView generateImageView(Bitmap bitmap) {\r\n        ImageView imageView = new ImageView(this);\r\n        imageView.requestLayout();\r\n        /*imageView.getLayoutParams().width = 100;\r\n        imageView.getLayoutParams().height = 100;*/\r\n        imageView.setBackground(ContextCompat.getDrawable(context, R.drawable.gradient4));\r\n        imageView.setImageBitmap(bitmap);\r\n        imageViews.add(imageView);\r\n        return imageView;\r\n    }\r\n\r\n    public void postArticle(View view) {\r\n        Article article = new Article();\r\n        article.setTitle(titleField.getText().toString());\r\n        article.setShortDescription(shortDescriptionField.getText().toString());\r\n        article.setDescription(descriptionField.getText().toString());\r\n        article.setPrice(Double.parseDouble(priceField.getText().toString()));\r\n        article.setNewState(newSwitch.isChecked());\r\n        article.setCategory(categorySpinner.getSelectedItemPosition());\r\n        //article.setPhotos(imageViews);\r\n        article.setTimestamp(Calendar.getInstance().getTimeInMillis());\r\n\r\n        if (!article.getTitle().isEmpty() && !article.getShortDescription().isEmpty() &&\r\n                !article.getDescription().isEmpty() && article.getPrice() != 0 && article.getPhotos().isEmpty()) {\r\n            viewModel.createPost(article).observe(this, new Observer<Base<String>>() {\r\n                @Override\r\n                public void onChanged(Base<String> stringBase) {\r\n\r\n                }\r\n            });\r\n        } else {\r\n            Toast.makeText(context, context.getString(R.string.error_fill_values),\r\n                    Toast.LENGTH_SHORT).show();\r\n        }\r\n\r\n    startActivity(mainActivity);\r\n}\r\n\r\n    public void returnToPrevious(View view) {\r\n        finish();\r\n    }\r\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/java/bo/com/golpistasElectricistas/pocketGarage/ui/activities/NewArticleActivity.java	(revision bc36cd8db7535a2d7cb1fe51a20ecd2f7dd5d893)
++++ app/src/main/java/bo/com/golpistasElectricistas/pocketGarage/ui/activities/NewArticleActivity.java	(date 1604342922976)
+@@ -118,9 +118,9 @@
+ 
+         if (!article.getTitle().isEmpty() && !article.getShortDescription().isEmpty() &&
+                 !article.getDescription().isEmpty() && article.getPrice() != 0 && article.getPhotos().isEmpty()) {
+-            viewModel.createPost(article).observe(this, new Observer<Base<String>>() {
++            viewModel.createPost(article).observe(this, new Observer<Base<Article>>() {
+                 @Override
+-                public void onChanged(Base<String> stringBase) {
++                public void onChanged(Base<Article> stringBase) {
+ 
+                 }
+             });
+Index: .idea/shelf/Uncommitted_changes_before_Update_at_24_10_2020_12_54_PM__Default_Changelist_.xml
+===================================================================
+--- .idea/shelf/Uncommitted_changes_before_Update_at_24_10_2020_12_54_PM__Default_Changelist_.xml	(revision bc36cd8db7535a2d7cb1fe51a20ecd2f7dd5d893)
++++ .idea/shelf/Uncommitted_changes_before_Update_at_24_10_2020_12_54_PM__Default_Changelist_.xml	(revision bc36cd8db7535a2d7cb1fe51a20ecd2f7dd5d893)
+@@ -1,4 +0,0 @@
+-<changelist name="Uncommitted_changes_before_Update_at_24_10_2020_12_54_PM_[Default_Changelist]" date="1603558454169" recycled="true" deleted="true">
+-  <option name="PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_24_10_2020_12_54_PM_[Default_Changelist]/shelved.patch" />
+-  <option name="DESCRIPTION" value="Uncommitted changes before Update at 24/10/2020 12:54 PM [Default Changelist]" />
+-</changelist>
+\ No newline at end of file
+Index: .idea/shelf/Uncommitted_changes_before_Update_at_25_10_2020_01_43_PM__Default_Changelist_.xml
+===================================================================
+--- .idea/shelf/Uncommitted_changes_before_Update_at_25_10_2020_01_43_PM__Default_Changelist_.xml	(revision bc36cd8db7535a2d7cb1fe51a20ecd2f7dd5d893)
++++ .idea/shelf/Uncommitted_changes_before_Update_at_25_10_2020_01_43_PM__Default_Changelist_.xml	(revision bc36cd8db7535a2d7cb1fe51a20ecd2f7dd5d893)
+@@ -1,4 +0,0 @@
+-<changelist name="Uncommitted_changes_before_Update_at_25_10_2020_01_43_PM_[Default_Changelist]" date="1603647905089" recycled="true" deleted="true">
+-  <option name="PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_25_10_2020_01_43_PM_[Default_Changelist]/shelved.patch" />
+-  <option name="DESCRIPTION" value="Uncommitted changes before Update at 25/10/2020 01:43 PM [Default Changelist]" />
+-</changelist>
+\ No newline at end of file
+Index: .idea/shelf/Uncommitted_changes_before_Update_at_25_10_2020_01_43_PM_[Default_Changelist]/shelved.patch
+===================================================================
+--- .idea/shelf/Uncommitted_changes_before_Update_at_25_10_2020_01_43_PM_[Default_Changelist]/shelved.patch	(revision bc36cd8db7535a2d7cb1fe51a20ecd2f7dd5d893)
++++ .idea/shelf/Uncommitted_changes_before_Update_at_25_10_2020_01_43_PM_[Default_Changelist]/shelved.patch	(revision bc36cd8db7535a2d7cb1fe51a20ecd2f7dd5d893)
+@@ -1,18 +0,0 @@
+-Index: app/src/main/java/bo/com/golpistasElectricistas/pocketGarage/repository/Repository.java
+-IDEA additional info:
+-Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+-<+>package bo.com.golpistasElectricistas.pocketGarage.repository;\r\n\r\nimport android.app.Application;\r\nimport android.util.Log;\r\nimport android.widget.Toast;\r\n\r\nimport androidx.lifecycle.LiveData;\r\nimport androidx.lifecycle.MutableLiveData;\r\nimport androidx.lifecycle.Observer;\r\n\r\nimport com.google.gson.Gson;\r\n\r\nimport java.util.ArrayList;\r\nimport java.util.List;\r\n\r\nimport bo.com.golpistasElectricistas.pocketGarage.model.Article;\r\nimport bo.com.golpistasElectricistas.pocketGarage.model.Base;\r\nimport bo.com.golpistasElectricistas.pocketGarage.model.Post;\r\nimport bo.com.golpistasElectricistas.pocketGarage.model.User;\r\nimport bo.com.golpistasElectricistas.pocketGarage.repository.api.ApiRepository;\r\nimport bo.com.golpistasElectricistas.pocketGarage.repository.firebase.Firebase;\r\nimport bo.com.golpistasElectricistas.pocketGarage.repository.local.Local;\r\nimport bo.com.golpistasElectricistas.pocketGarage.utils.ErrorMapper;\r\n\r\npublic class Repository implements RepositoryImpl {\r\n    private Local local;\r\n\r\n    public Repository(Application application) {\r\n        local = new Local(application);\r\n    }\r\n\r\n    @Override\r\n    public LiveData<Base<User>> login(String email, String password) {\r\n        return Firebase.getInstance().login(email, password);\r\n    }\r\n\r\n    @Override\r\n    public LiveData<Base<List<Article>>> getArticlesItems() {\r\n        MutableLiveData<Base<List<Article>>> result = new MutableLiveData<>();\r\n        ApiRepository.getInstance().getArticles().observeForever(new Observer<Base<List<Article>>>() {\r\n            @Override\r\n            public void onChanged(Base<List<Article>> listBase) {\r\n                if (listBase.isSuccess()) {\r\n                    result.postValue(listBase);\r\n                }\r\n            }\r\n        });\r\n        return result;\r\n    }\r\n\r\n    @Override\r\n    public Article getArticleItem(int id) {\r\n        List<Article> articles = getArticlesItems().getValue().getData();\r\n        for (Article article : articles) {\r\n            if (article.getArticleId() == id) {\r\n                return article;\r\n            }\r\n        }\r\n        return null;\r\n    }\r\n\r\n    @Override\r\n    public LiveData<Base<List<Article>>> getFavorites() {\r\n        MutableLiveData<Base<List<Article>>> result = new MutableLiveData<>();\r\n        local.getFavorites().observeForever(new Observer<List<Article>>() {\r\n            @Override\r\n            public void onChanged(List<Article> articles) {\r\n                result.postValue(new Base<>(articles));\r\n            }\r\n        });\r\n        ApiRepository.getInstance().getArticles().observeForever(new Observer<Base<List<Article>>>() {\r\n            @Override\r\n            public void onChanged(Base<List<Article>> listBase) {\r\n                if (listBase.isSuccess()) {\r\n                    result.postValue(listBase);\r\n                    local.update(listBase.getData());\r\n                }\r\n            }\r\n        });\r\n        return result;\r\n    }\r\n\r\n    @Override\r\n    public LiveData<Base<List<Article>>> getMyArticles() {\r\n        return null;\r\n    }\r\n\r\n    @Override\r\n    public LiveData<Base<List<Post>>> getPosts() {\r\n        MutableLiveData<Base<List<Post>>> result = new MutableLiveData<>();\r\n        ApiRepository.getInstance().getArticles().observeForever(new Observer<Base<List<Article>>>() {\r\n            @Override\r\n            public void onChanged(Base<List<Article>> listBase) {\r\n                if (listBase.isSuccess()) {\r\n                    List<Article> articles = listBase.getData();\r\n                    Base<List<Post>> posts = null;\r\n                    for (Article article : articles) {\r\n                        Post post = new Post(article.getArticleId(), article.getPhotos().get(0), article.getShortDescription(), article.getTitle(), article.getPrice());\r\n                        posts.getData().add(post);\r\n                    }\r\n                    result.postValue(posts);\r\n                }\r\n            }\r\n        });\r\n        return result;\r\n    }\r\n\r\n    @Override\r\n    public LiveData<Base<User>> register(String photo, String ci, String email, String\r\n            pass, String name, String lastName, String date) {\r\n        return null;\r\n    }\r\n}\r\n
+-Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+-<+>UTF-8
+-===================================================================
+---- app/src/main/java/bo/com/golpistasElectricistas/pocketGarage/repository/Repository.java	(revision 0aad3e817fc4041db9fef51f8ced61cfa06fb58b)
+-+++ app/src/main/java/bo/com/golpistasElectricistas/pocketGarage/repository/Repository.java	(date 1603647815326)
+-@@ -93,7 +93,7 @@
+-             public void onChanged(Base<List<Article>> listBase) {
+-                 if (listBase.isSuccess()) {
+-                     List<Article> articles = listBase.getData();
+--                    Base<List<Post>> posts = null;
+-+                    Base<List<Post>> posts;
+-                     for (Article article : articles) {
+-                         Post post = new Post(article.getArticleId(), article.getPhotos().get(0), article.getShortDescription(), article.getTitle(), article.getPrice());
+-                         posts.getData().add(post);
+Index: .idea/shelf/Uncommitted_changes_before_Update_at_26_10_2020_07_45_AM__Default_Changelist_.xml
+===================================================================
+--- .idea/shelf/Uncommitted_changes_before_Update_at_26_10_2020_07_45_AM__Default_Changelist_.xml	(revision bc36cd8db7535a2d7cb1fe51a20ecd2f7dd5d893)
++++ .idea/shelf/Uncommitted_changes_before_Update_at_26_10_2020_07_45_AM__Default_Changelist_.xml	(revision bc36cd8db7535a2d7cb1fe51a20ecd2f7dd5d893)
+@@ -1,4 +0,0 @@
+-<changelist name="Uncommitted_changes_before_Update_at_26_10_2020_07_45_AM_[Default_Changelist]" date="1603712732744" recycled="true" deleted="true">
+-  <option name="PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_26_10_2020_07_45_AM_[Default_Changelist]/shelved.patch" />
+-  <option name="DESCRIPTION" value="Uncommitted changes before Update at 26/10/2020 07:45 AM [Default Changelist]" />
+-</changelist>
+\ No newline at end of file
+Index: .idea/shelf/Uncommitted_changes_before_Update_at_24_10_2020_12_54_PM_[Default_Changelist]/shelved.patch
+===================================================================
+--- .idea/shelf/Uncommitted_changes_before_Update_at_24_10_2020_12_54_PM_[Default_Changelist]/shelved.patch	(revision bc36cd8db7535a2d7cb1fe51a20ecd2f7dd5d893)
++++ .idea/shelf/Uncommitted_changes_before_Update_at_24_10_2020_12_54_PM_[Default_Changelist]/shelved.patch	(revision bc36cd8db7535a2d7cb1fe51a20ecd2f7dd5d893)
+@@ -1,18 +0,0 @@
+-Index: app/build.gradle
+-IDEA additional info:
+-Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+-<+>apply plugin: 'com.android.application'\r\n\r\nandroid {\r\n    compileSdkVersion 30\r\n    buildToolsVersion \"29.0.3\"\r\n\r\n    defaultConfig {\r\n        applicationId \"bo.com.golpistasElectricistas.pocketGarage\"\r\n        minSdkVersion 22\r\n        targetSdkVersion 30\r\n        versionCode 1\r\n        versionName \"1.0\"\r\n\r\n        testInstrumentationRunner \"androidx.test.runner.AndroidJUnitRunner\"\r\n    }\r\n\r\n    buildTypes {\r\n        release {\r\n            minifyEnabled false\r\n            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'\r\n        }\r\n    }\r\n    compileOptions {\r\n        sourceCompatibility JavaVersion.VERSION_1_8\r\n        targetCompatibility JavaVersion.VERSION_1_8\r\n    }\r\n}\r\n\r\ndependencies {\r\n    implementation fileTree(dir: \"libs\", include: [\"*.jar\"])\r\n    implementation 'androidx.core:core:1.2.0'\r\n    implementation 'androidx.lifecycle:lifecycle-extensions:2.2.0'\r\n    implementation 'androidx.lifecycle:lifecycle-viewmodel:2.2.0'\r\n    implementation 'androidx.appcompat:appcompat:1.1.0'\r\n    implementation 'androidx.constraintlayout:constraintlayout:1.1.3'\r\n    implementation 'androidx.viewpager2:viewpager2:1.0.0'\r\n    testImplementation 'android.arch.core:core-testing:1.0.0-alpha3'\r\n    testImplementation 'junit:junit:4.12'\r\n    androidTestImplementation 'androidx.test.ext:junit:1.1.1'\r\n    androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'\r\n\r\n    implementation 'com.squareup.retrofit2:retrofit:2.9.0'\r\n    implementation 'com.squareup.retrofit2:converter-gson:2.9.0'\r\n\r\n    implementation 'androidx.room:room-runtime:2.2.5'\r\n    annotationProcessor 'androidx.room:room-complier:2.2.5'\r\n    androidTestImplementation 'androidx.room:room-testing:2.2.5'\r\n\r\n    // Extras\r\n    implementation 'com.github.alirezat775:carousel-view:1.1.1'\r\n    implementation 'com.synnapps:carouselview:0.1.5'\r\n    implementation 'com.squareup.picasso:picasso:2.5.2'\r\n    implementation 'de.hdodenhof:circleimageview:3.1.0'\r\n    implementation 'com.google.code.gson:gson:2.8.6'\r\n    implementation 'com.google.android.material:material:1.2.1'\r\n\r\n}
+-Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+-<+>UTF-8
+-===================================================================
+---- app/build.gradle	(revision e05d5a6a1a69829314be8fc966edd6e37799eb21)
+-+++ app/build.gradle	(date 1603556105852)
+-@@ -43,7 +43,7 @@
+-     implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
+- 
+-     implementation 'androidx.room:room-runtime:2.2.5'
+--    annotationProcessor 'androidx.room:room-complier:2.2.5'
+-+    annotationProcessor 'androidx.room:room-compiler:2.2.5'
+-     androidTestImplementation 'androidx.room:room-testing:2.2.5'
+- 
+-     // Extras
+Index: .idea/shelf/Uncommitted_changes_before_Update_at_26_10_2020_07_45_AM_[Default_Changelist]/shelved.patch
+===================================================================
+--- .idea/shelf/Uncommitted_changes_before_Update_at_26_10_2020_07_45_AM_[Default_Changelist]/shelved.patch	(revision bc36cd8db7535a2d7cb1fe51a20ecd2f7dd5d893)
++++ .idea/shelf/Uncommitted_changes_before_Update_at_26_10_2020_07_45_AM_[Default_Changelist]/shelved.patch	(revision bc36cd8db7535a2d7cb1fe51a20ecd2f7dd5d893)
+@@ -1,19 +0,0 @@
+-Index: app/src/main/java/bo/com/golpistasElectricistas/pocketGarage/ui/activities/FavouritesActivity.java
+-IDEA additional info:
+-Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+-<+>package bo.com.golpistasElectricistas.pocketGarage.ui.activities;\r\n\r\nimport androidx.appcompat.app.AppCompatActivity;\r\nimport androidx.lifecycle.Observer;\r\nimport androidx.lifecycle.ViewModelProvider;\r\nimport androidx.recyclerview.widget.LinearLayoutManager;\r\nimport androidx.recyclerview.widget.RecyclerView;\r\n\r\nimport android.content.Context;\r\nimport android.content.Intent;\r\nimport android.os.Bundle;\r\nimport android.util.Log;\r\nimport android.view.Menu;\r\nimport android.view.MenuInflater;\r\nimport android.view.MenuItem;\r\nimport android.view.View;\r\nimport android.view.Window;\r\nimport android.widget.ImageView;\r\nimport android.widget.RelativeLayout;\r\nimport android.widget.Toast;\r\n\r\nimport com.google.gson.Gson;\r\nimport com.squareup.picasso.Picasso;\r\nimport com.synnapps.carouselview.CarouselView;\r\nimport com.synnapps.carouselview.ImageListener;\r\n\r\nimport java.util.ArrayList;\r\nimport java.util.List;\r\n\r\nimport bo.com.golpistasElectricistas.pocketGarage.R;\r\nimport bo.com.golpistasElectricistas.pocketGarage.model.Article;\r\nimport bo.com.golpistasElectricistas.pocketGarage.model.Base;\r\nimport bo.com.golpistasElectricistas.pocketGarage.ui.adapters.ArticleAdapter;\r\nimport bo.com.golpistasElectricistas.pocketGarage.ui.callback.ArticleCallback;\r\nimport bo.com.golpistasElectricistas.pocketGarage.utils.Constants;\r\nimport bo.com.golpistasElectricistas.pocketGarage.utils.ErrorMapper;\r\nimport bo.com.golpistasElectricistas.pocketGarage.viewModel.FavouritesViewModel;\r\nimport bo.com.golpistasElectricistas.pocketGarage.viewModel.MainViewModel;\r\n\r\npublic class FavouritesActivity extends AppCompatActivity implements ArticleCallback {\r\n\r\n    private Context context;\r\n\r\n    private FavouritesViewModel viewModel;\r\n\r\n    private Intent articleActivity;\r\n\r\n    private List<Article> favourites = new ArrayList<>();\r\n\r\n    private ArticleAdapter adapter;\r\n\r\n    private RelativeLayout parentLinearLayout;\r\n    private RecyclerView favouitesList;\r\n\r\n    @Override\r\n    protected void onCreate(Bundle savedInstanceState) {\r\n        super.onCreate(savedInstanceState);\r\n        requestWindowFeature(Window.FEATURE_NO_TITLE);\r\n        getSupportActionBar().hide();\r\n        setContentView(R.layout.activity_favourites);\r\n        context = getApplicationContext();\r\n        viewModel = new ViewModelProvider(this).get(FavouritesViewModel.class);\r\n        initViews();\r\n        initIntents();\r\n        initEvents();\r\n        subscribeToData();\r\n    }\r\n\r\n    private void initEvents() {\r\n        adapter.setCallback(this);\r\n    }\r\n\r\n    public boolean onCreateOptionsMenu(Menu menu) {\r\n        MenuInflater inflater = getMenuInflater();\r\n        inflater.inflate(R.menu.main_menu, menu);\r\n        return true;\r\n    }\r\n\r\n    private void initViews() {\r\n        parentLinearLayout = findViewById(R.id.favouritesLayout);\r\n        favouitesList = findViewById(R.id.favouritesRecyclerView);\r\n        adapter = new ArticleAdapter(favourites, context);\r\n        favouitesList.setAdapter(adapter);\r\n        favouitesList.setLayoutManager(new LinearLayoutManager(context, RecyclerView.VERTICAL, false));\r\n    }\r\n\r\n    private void initIntents() {\r\n        articleActivity = new Intent(context, ArticleActivity.class);\r\n    }\r\n\r\n    private void subscribeToData() {\r\n        viewModel.getFavorites().observe(this, new Observer<Base<List<Article>>>() {\r\n            @Override\r\n            public void onChanged(Base<List<Article>> listBase) {\r\n                //T1: Local\r\n                //T2: API\r\n                if (listBase.isSuccess()) {\r\n                    favourites = listBase.getData();\r\n                    adapter.updateItems(favourites);\r\n                    Log.e(\"getFavourites\", new Gson().toJson(listBase));\r\n                } else {\r\n                    Toast.makeText(context, ErrorMapper.getError(context, listBase.getError()),\r\n                            Toast.LENGTH_SHORT).show();\r\n                }\r\n            }\r\n        });\r\n    }\r\n\r\n    @Override\r\n    public void onBackPressed() {\r\n        return;\r\n    }\r\n\r\n    @Override\r\n    public void onStartupClicked(Article article) {\r\n        Gson gson = new Gson();\r\n        articleActivity.putExtra(Constants.KEY_STARTUP_SELECTED, gson.toJson(article));\r\n        startActivity(articleActivity);\r\n    }\r\n}
+-Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+-<+>UTF-8
+-===================================================================
+---- app/src/main/java/bo/com/golpistasElectricistas/pocketGarage/ui/activities/FavouritesActivity.java	(revision d943e24731a7509cd58b2e1ce3c7c730b311eeed)
+-+++ app/src/main/java/bo/com/golpistasElectricistas/pocketGarage/ui/activities/FavouritesActivity.java	(date 1603687711542)
+-@@ -117,4 +117,8 @@
+-         articleActivity.putExtra(Constants.KEY_STARTUP_SELECTED, gson.toJson(article));
+-         startActivity(articleActivity);
+-     }
+-+
+-+    public void returnToPrevious(View view) {
+-+        finish();
+-+    }
+- }
+-\ No newline at end of file

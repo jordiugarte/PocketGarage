@@ -16,6 +16,7 @@ public class Constants {
     public static final int ERROR_REGISTER_DB = 2005;
     public static final int ERROR_REGISTER_EMAIL_ALREADY_EXISTS = 2006;
     public static final int ERROR_REGISTER = 2007;
+    public static final int ERROR_UPLOAD_IMAGE = 2008;
 
     public static final int SERVER_ERROR = 5000;
 
@@ -40,4 +41,7 @@ public class Constants {
     //  Keys
     public static final String KEY_SHARED_PREFS = "shared preferences";
     public static final String KEY_CURRENT_USER = "current user";
+
+    //  Misc
+    public static final String DIRECTORY_IMAGE = "pocket-garage-images";
 }

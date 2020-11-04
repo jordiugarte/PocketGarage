@@ -10,7 +10,6 @@ import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
-import android.text.Layout;
 import android.util.Log;
 import android.view.View;
 import android.view.Window;
@@ -29,6 +28,7 @@ import java.util.List;
 import bo.com.golpistasElectricistas.pocketGarage.R;
 import bo.com.golpistasElectricistas.pocketGarage.model.Article;
 import bo.com.golpistasElectricistas.pocketGarage.model.Base;
+import bo.com.golpistasElectricistas.pocketGarage.utils.CompressImage;
 import bo.com.golpistasElectricistas.pocketGarage.viewModel.NewArticleViewModel;
 
 public class NewArticleActivity extends AppCompatActivity {
@@ -37,7 +37,7 @@ public class NewArticleActivity extends AppCompatActivity {
     private List<Bitmap> imageViews = new ArrayList<Bitmap>();
 
     private LinearLayout imagesRow;
-    private List<Bitmap> imageBitmaps = new ArrayList<Bitmap>();
+    private List<Uri> photos = new ArrayList<Uri>();
     private EditText titleField, shortDescriptionField, descriptionField, priceField;
     private Switch newSwitch;
     private Spinner categorySpinner;
@@ -88,7 +88,8 @@ public class NewArticleActivity extends AppCompatActivity {
             try {
                 Bitmap newBitmap;
                 newBitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), filePath);
-                imageBitmaps.add(newBitmap);
+                Uri photo = CompressImage.compressImage(filePath, context);
+                photos.add(photo);
                 imagesRow.addView(generateImageView(newBitmap));
             } catch (IOException e) {
                 e.printStackTrace();
@@ -120,11 +121,12 @@ public class NewArticleActivity extends AppCompatActivity {
 
         if (!article.getTitle().isEmpty() && !article.getShortDescription().isEmpty() &&
                 !article.getDescription().isEmpty() && article.getPrice() != 0 && article.getPhotos().isEmpty()) {
-            viewModel.createPost(article).observe(this, new Observer<Base<Article>>() {
+            viewModel.createPost(article, photos).observe(this, new Observer<Base<Article>>() {
                 @Override
                 public void onChanged(Base<Article> stringBase) {
                     if (stringBase.isSuccess()) {
                         Log.e(LOG, "createPost.isSuccess:" + stringBase.getData());
+                        startActivity(mainActivity);
                     } else {
                         Log.e(LOG, "createPost.error", stringBase.getException());
                     }

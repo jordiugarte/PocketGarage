@@ -23,7 +23,7 @@ public interface RepositoryImpl {
 
     LiveData<Base<User>> register(User user, Uri photo);
 
-    LiveData<Base<Article>> addArticle(Article article);
+    LiveData<Base<Article>> addArticle(Article article, List<Uri> photos);
 
     User getCurrentUser();
 

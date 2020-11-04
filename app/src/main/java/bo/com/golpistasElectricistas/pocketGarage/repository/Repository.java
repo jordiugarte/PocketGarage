@@ -115,8 +115,8 @@ public class Repository implements RepositoryImpl {
     }
 
     @Override
-    public LiveData<Base<Article>> addArticle(Article article) {
-        return Firebase.getInstance().addArticle(article);
+    public LiveData<Base<Article>> addArticle(Article article, List<Uri> photos) {
+        return Firebase.getInstance().addArticle(article, photos);
     }
 
     @Override

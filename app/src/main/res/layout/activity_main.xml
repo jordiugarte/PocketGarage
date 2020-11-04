@@ -81,7 +81,8 @@
                 android:padding="10dp"
                 android:text="@string/category_cars"
                 android:textAllCaps="false"
-                android:textColor="@color/colorWhite" />
+                android:textColor="@color/colorWhite"
+                android:onClick="openCarCategory"/>
 
             <Button
                 android:id="@+id/bikesButton"
@@ -94,7 +95,7 @@
                 android:padding="10dp"
                 android:text="@string/category_bikes"
                 android:textAllCaps="false"
-                android:textColor="@color/colorWhite" />
+                android:textColor="@color/colorWhite"/>
         </TableRow>
 
         <TableRow

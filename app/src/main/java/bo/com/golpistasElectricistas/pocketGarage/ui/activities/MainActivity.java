@@ -150,4 +150,9 @@ public class MainActivity extends AppCompatActivity implements ArticleCallback {
         articleActivity.putExtra(Constants.KEY_STARTUP_SELECTED, gson.toJson(article));
         startActivity(articleActivity);
     }
+
+    public void openCarCategory(View view){
+        Intent intent = new Intent(context,ListArticleActivity.class);
+        startActivity(intent);
+    }
 }

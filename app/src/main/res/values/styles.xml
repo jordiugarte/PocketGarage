@@ -22,4 +22,8 @@
         <item name="android:drawableLeft">@drawable/ic_baseline_keyboard_arrow_down_24</item>
     </style>
 
+   <!-- <style name ="MyTheme"
+        parent= "@style/Theme.AppCompat.DayNight.DarkActionBar">
+        <item name = "android:forceDarkAllowed">true</item>
+    </style>-->
 </resources>

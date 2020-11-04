@@ -1,0 +1,59 @@
+Index: app/src/main/java/bo/com/golpistasElectricistas/pocketGarage/ui/activities/MyProfileActivity.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package bo.com.golpistasElectricistas.pocketGarage.ui.activities;\r\n\r\nimport androidx.appcompat.app.ActionBar;\r\nimport androidx.appcompat.app.AlertDialog;\r\nimport androidx.appcompat.app.AppCompatActivity;\r\n\r\nimport android.app.Activity;\r\nimport android.content.Context;\r\nimport android.content.DialogInterface;\r\nimport android.content.Intent;\r\nimport android.content.SharedPreferences;\r\nimport android.content.res.Configuration;\r\nimport android.os.Bundle;\r\nimport android.os.LocaleList;\r\nimport android.view.View;\r\nimport android.view.Window;\r\nimport android.widget.Button;\r\nimport android.widget.ImageView;\r\nimport android.widget.TextView;\r\n\r\nimport java.util.Locale;\r\n\r\nimport bo.com.golpistasElectricistas.pocketGarage.R;\r\n\r\npublic class MyProfileActivity extends AppCompatActivity {\r\n\r\n    private Context context;\r\n\r\n    private ImageView profilePicture;\r\n    private TextView namesLabel, ageLabel, addressLabel, numberLabel, emailLabel;\r\n\r\n    private Intent profileEditorActivity, loginActivity;\r\n\r\n    @Override\r\n    protected void onCreate(Bundle savedInstanceState) {\r\n        super.onCreate(savedInstanceState);\r\n        requestWindowFeature(Window.FEATURE_NO_TITLE);\r\n        getSupportActionBar().hide();\r\n        setContentView(R.layout.activity_my_profile);\r\n        context = getApplicationContext();\r\n        initIntents();\r\n        initViews();\r\n\r\n        loadLocale();\r\n\r\n        ActionBar actionBar = getSupportActionBar();\r\n        actionBar.setTitle(getResources().getString(R.string.app_name));\r\n        Button changeLanguage = findViewById(R.id.changeLanguage);\r\n        changeLanguage.setOnClickListener(new View.OnClickListener() {\r\n            @Override\r\n            public void onClick(View v) {\r\n                showChangeDialog();\r\n            }\r\n        });\r\n    }\r\n\r\n    private void showChangeDialog() {\r\n        final String[] listItems= {\"English\", \"Español\"};\r\n        AlertDialog.Builder mBuilder = new AlertDialog.Builder(this);\r\n        mBuilder.setTitle(\"Choose language\");\r\n        mBuilder.setSingleChoiceItems(listItems, -1, new DialogInterface.OnClickListener() {\r\n            @Override\r\n            public void onClick(DialogInterface dialog, int i) {\r\n                if(i == 0){\r\n                    setLocale(\"en\");\r\n                    recreate();\r\n                }\r\n               else if (i==1){\r\n                    setLocale(\"es\");\r\n                    recreate();\r\n                }\r\n                dialog.dismiss();\r\n            }\r\n        });\r\n        AlertDialog mDialog = mBuilder.create();\r\n        mDialog.show();\r\n    }\r\n\r\n    private void setLocale(String lang) {\r\n        Locale locale = new Locale(lang);\r\n        Locale.setDefault(locale);\r\n        Configuration config = new Configuration();\r\n        config.locale = locale;\r\n        getBaseContext().getResources().updateConfiguration(config, getBaseContext().getResources().getDisplayMetrics());\r\n\r\n        SharedPreferences.Editor editor = getSharedPreferences(\"Settings\",MODE_PRIVATE).edit();\r\n        editor.putString(\"My_Lang\", lang);\r\n        editor.apply();\r\n    }\r\n    public void loadLocale(){\r\n        SharedPreferences prefs = getSharedPreferences(\"Settings\", Activity.MODE_PRIVATE);\r\n        String language= prefs.getString(\"My_Lang\", \"\");\r\n        setLocale(language);\r\n    }\r\n\r\n    private void initIntents() {\r\n        profileEditorActivity = new Intent(context, ProfileEditorActivity.class);\r\n        loginActivity = new Intent(context, LoginActivity.class);\r\n    }\r\n\r\n    private void initViews() {\r\n        profilePicture = findViewById(R.id.profileImage);\r\n        namesLabel = findViewById(R.id.profileNames);\r\n        ageLabel = findViewById(R.id.profileAge);\r\n        addressLabel = findViewById(R.id.profileAddress);\r\n        numberLabel = findViewById(R.id.profileNumber);\r\n        emailLabel = findViewById(R.id.profileEmail);\r\n    }\r\n\r\n    public void returnToPrevious(View view) {\r\n        finish();\r\n    }\r\n\r\n    public void goToEditProfileActivity(View view) {\r\n        startActivity(profileEditorActivity);\r\n    }\r\n\r\n    public void logOut(View view) {\r\n        startActivity(loginActivity);\r\n        //TODO\r\n    }\r\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/java/bo/com/golpistasElectricistas/pocketGarage/ui/activities/MyProfileActivity.java	(revision 759855162a190255da3d4c2cff9ff78b5fd977cc)
++++ app/src/main/java/bo/com/golpistasElectricistas/pocketGarage/ui/activities/MyProfileActivity.java	(date 1604448354984)
+@@ -41,7 +41,7 @@
+         initIntents();
+         initViews();
+ 
+-        loadLocale();
++      /*  loadLocale();
+ 
+         ActionBar actionBar = getSupportActionBar();
+         actionBar.setTitle(getResources().getString(R.string.app_name));
+@@ -51,10 +51,10 @@
+             public void onClick(View v) {
+                 showChangeDialog();
+             }
+-        });
++        });*/
+     }
+ 
+-    private void showChangeDialog() {
++    /*private void showChangeDialog() {
+         final String[] listItems= {"English", "Español"};
+         AlertDialog.Builder mBuilder = new AlertDialog.Builder(this);
+         mBuilder.setTitle("Choose language");
+@@ -91,7 +91,7 @@
+         SharedPreferences prefs = getSharedPreferences("Settings", Activity.MODE_PRIVATE);
+         String language= prefs.getString("My_Lang", "");
+         setLocale(language);
+-    }
++    }*/
+ 
+     private void initIntents() {
+         profileEditorActivity = new Intent(context, ProfileEditorActivity.class);
+Index: app/src/main/res/values/styles.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><resources>\r\n    <!-- Base application theme. -->\r\n    <style name=\"AppTheme\" parent=\"Theme.AppCompat.Light.DarkActionBar\">\r\n        <!-- Customize your theme here. -->\r\n        <item name=\"colorPrimary\">@color/colorPrimary</item>\r\n        <item name=\"colorPrimaryDark\">@color/colorPrimaryDark</item>\r\n        <item name=\"colorAccent\">@color/colorAccent</item>\r\n    </style>\r\n    <style name=\"TextStyle\" parent=\"@android:style/TextAppearance\">\r\n        <item name=\"android:textSize\">20sp</item>\r\n        <item name=\"android:textColor\">#aacbb4</item>\r\n    </style>\r\n\r\n    <style name=\"ButtonStyle\" parent=\"@android:style/TextAppearance\">\r\n        <item name=\"android:textSize\">15sp</item>\r\n        <item name=\"android:textColor\">#aacbb4</item>\r\n        <item name=\"android:textAllCaps\">false</item>\r\n    </style>\r\n\r\n    <style name=\"spinnerItemStyle\" parent=\"@android:style/Widget.Holo.DropDownItem.Spinner\">\r\n        <item name=\"android:textColor\">@color/colorWhite</item>\r\n        <item name=\"android:drawableLeft\">@drawable/ic_baseline_keyboard_arrow_down_24</item>\r\n    </style>\r\n\r\n</resources>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/res/values/styles.xml	(revision 759855162a190255da3d4c2cff9ff78b5fd977cc)
++++ app/src/main/res/values/styles.xml	(date 1604447106687)
+@@ -22,4 +22,8 @@
+         <item name="android:drawableLeft">@drawable/ic_baseline_keyboard_arrow_down_24</item>
+     </style>
+ 
++    <style name ="MyTheme"
++        parent= "@style/Theme.AppCompat.DayNight.DarkActionBar">
++        <item name = "android:forceDarkAllowed">true</item>
++    </style>
+ </resources>
+\ No newline at end of file

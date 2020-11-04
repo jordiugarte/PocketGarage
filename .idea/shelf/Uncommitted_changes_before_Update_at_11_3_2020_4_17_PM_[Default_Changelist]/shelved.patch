@@ -1,0 +1,66 @@
+Index: .idea/shelf/Uncommitted_changes_before_Update_at_25_10_2020_01_43_PM__Default_Changelist_.xml
+===================================================================
+--- .idea/shelf/Uncommitted_changes_before_Update_at_25_10_2020_01_43_PM__Default_Changelist_.xml	(revision d943e24731a7509cd58b2e1ce3c7c730b311eeed)
++++ .idea/shelf/Uncommitted_changes_before_Update_at_25_10_2020_01_43_PM__Default_Changelist_.xml	(revision d943e24731a7509cd58b2e1ce3c7c730b311eeed)
+@@ -1,4 +0,0 @@
+-<changelist name="Uncommitted_changes_before_Update_at_25_10_2020_01_43_PM_[Default_Changelist]" date="1603647905089" recycled="true" deleted="true">
+-  <option name="PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_25_10_2020_01_43_PM_[Default_Changelist]/shelved.patch" />
+-  <option name="DESCRIPTION" value="Uncommitted changes before Update at 25/10/2020 01:43 PM [Default Changelist]" />
+-</changelist>
+\ No newline at end of file
+Index: .idea/shelf/Uncommitted_changes_before_Update_at_25_10_2020_01_43_PM_[Default_Changelist]/shelved.patch
+===================================================================
+--- .idea/shelf/Uncommitted_changes_before_Update_at_25_10_2020_01_43_PM_[Default_Changelist]/shelved.patch	(revision d943e24731a7509cd58b2e1ce3c7c730b311eeed)
++++ .idea/shelf/Uncommitted_changes_before_Update_at_25_10_2020_01_43_PM_[Default_Changelist]/shelved.patch	(revision d943e24731a7509cd58b2e1ce3c7c730b311eeed)
+@@ -1,18 +0,0 @@
+-Index: app/src/main/java/bo/com/golpistasElectricistas/pocketGarage/repository/Repository.java
+-IDEA additional info:
+-Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+-<+>package bo.com.golpistasElectricistas.pocketGarage.repository;\r\n\r\nimport android.app.Application;\r\nimport android.util.Log;\r\nimport android.widget.Toast;\r\n\r\nimport androidx.lifecycle.LiveData;\r\nimport androidx.lifecycle.MutableLiveData;\r\nimport androidx.lifecycle.Observer;\r\n\r\nimport com.google.gson.Gson;\r\n\r\nimport java.util.ArrayList;\r\nimport java.util.List;\r\n\r\nimport bo.com.golpistasElectricistas.pocketGarage.model.Article;\r\nimport bo.com.golpistasElectricistas.pocketGarage.model.Base;\r\nimport bo.com.golpistasElectricistas.pocketGarage.model.Post;\r\nimport bo.com.golpistasElectricistas.pocketGarage.model.User;\r\nimport bo.com.golpistasElectricistas.pocketGarage.repository.api.ApiRepository;\r\nimport bo.com.golpistasElectricistas.pocketGarage.repository.firebase.Firebase;\r\nimport bo.com.golpistasElectricistas.pocketGarage.repository.local.Local;\r\nimport bo.com.golpistasElectricistas.pocketGarage.utils.ErrorMapper;\r\n\r\npublic class Repository implements RepositoryImpl {\r\n    private Local local;\r\n\r\n    public Repository(Application application) {\r\n        local = new Local(application);\r\n    }\r\n\r\n    @Override\r\n    public LiveData<Base<User>> login(String email, String password) {\r\n        return Firebase.getInstance().login(email, password);\r\n    }\r\n\r\n    @Override\r\n    public LiveData<Base<List<Article>>> getArticlesItems() {\r\n        MutableLiveData<Base<List<Article>>> result = new MutableLiveData<>();\r\n        ApiRepository.getInstance().getArticles().observeForever(new Observer<Base<List<Article>>>() {\r\n            @Override\r\n            public void onChanged(Base<List<Article>> listBase) {\r\n                if (listBase.isSuccess()) {\r\n                    result.postValue(listBase);\r\n                }\r\n            }\r\n        });\r\n        return result;\r\n    }\r\n\r\n    @Override\r\n    public Article getArticleItem(int id) {\r\n        List<Article> articles = getArticlesItems().getValue().getData();\r\n        for (Article article : articles) {\r\n            if (article.getArticleId() == id) {\r\n                return article;\r\n            }\r\n        }\r\n        return null;\r\n    }\r\n\r\n    @Override\r\n    public LiveData<Base<List<Article>>> getFavorites() {\r\n        MutableLiveData<Base<List<Article>>> result = new MutableLiveData<>();\r\n        local.getFavorites().observeForever(new Observer<List<Article>>() {\r\n            @Override\r\n            public void onChanged(List<Article> articles) {\r\n                result.postValue(new Base<>(articles));\r\n            }\r\n        });\r\n        ApiRepository.getInstance().getArticles().observeForever(new Observer<Base<List<Article>>>() {\r\n            @Override\r\n            public void onChanged(Base<List<Article>> listBase) {\r\n                if (listBase.isSuccess()) {\r\n                    result.postValue(listBase);\r\n                    local.update(listBase.getData());\r\n                }\r\n            }\r\n        });\r\n        return result;\r\n    }\r\n\r\n    @Override\r\n    public LiveData<Base<List<Article>>> getMyArticles() {\r\n        return null;\r\n    }\r\n\r\n    @Override\r\n    public LiveData<Base<List<Post>>> getPosts() {\r\n        MutableLiveData<Base<List<Post>>> result = new MutableLiveData<>();\r\n        ApiRepository.getInstance().getArticles().observeForever(new Observer<Base<List<Article>>>() {\r\n            @Override\r\n            public void onChanged(Base<List<Article>> listBase) {\r\n                if (listBase.isSuccess()) {\r\n                    List<Article> articles = listBase.getData();\r\n                    Base<List<Post>> posts = null;\r\n                    for (Article article : articles) {\r\n                        Post post = new Post(article.getArticleId(), article.getPhotos().get(0), article.getShortDescription(), article.getTitle(), article.getPrice());\r\n                        posts.getData().add(post);\r\n                    }\r\n                    result.postValue(posts);\r\n                }\r\n            }\r\n        });\r\n        return result;\r\n    }\r\n\r\n    @Override\r\n    public LiveData<Base<User>> register(String photo, String ci, String email, String\r\n            pass, String name, String lastName, String date) {\r\n        return null;\r\n    }\r\n}\r\n
+-Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+-<+>UTF-8
+-===================================================================
+---- app/src/main/java/bo/com/golpistasElectricistas/pocketGarage/repository/Repository.java	(revision 0aad3e817fc4041db9fef51f8ced61cfa06fb58b)
+-+++ app/src/main/java/bo/com/golpistasElectricistas/pocketGarage/repository/Repository.java	(date 1603647815326)
+-@@ -93,7 +93,7 @@
+-             public void onChanged(Base<List<Article>> listBase) {
+-                 if (listBase.isSuccess()) {
+-                     List<Article> articles = listBase.getData();
+--                    Base<List<Post>> posts = null;
+-+                    Base<List<Post>> posts;
+-                     for (Article article : articles) {
+-                         Post post = new Post(article.getArticleId(), article.getPhotos().get(0), article.getShortDescription(), article.getTitle(), article.getPrice());
+-                         posts.getData().add(post);
+Index: .idea/shelf/Uncommitted_changes_before_Update_at_24_10_2020_12_54_PM_[Default_Changelist]/shelved.patch
+===================================================================
+--- .idea/shelf/Uncommitted_changes_before_Update_at_24_10_2020_12_54_PM_[Default_Changelist]/shelved.patch	(revision d943e24731a7509cd58b2e1ce3c7c730b311eeed)
++++ .idea/shelf/Uncommitted_changes_before_Update_at_24_10_2020_12_54_PM_[Default_Changelist]/shelved.patch	(revision d943e24731a7509cd58b2e1ce3c7c730b311eeed)
+@@ -1,18 +0,0 @@
+-Index: app/build.gradle
+-IDEA additional info:
+-Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+-<+>apply plugin: 'com.android.application'\r\n\r\nandroid {\r\n    compileSdkVersion 30\r\n    buildToolsVersion \"29.0.3\"\r\n\r\n    defaultConfig {\r\n        applicationId \"bo.com.golpistasElectricistas.pocketGarage\"\r\n        minSdkVersion 22\r\n        targetSdkVersion 30\r\n        versionCode 1\r\n        versionName \"1.0\"\r\n\r\n        testInstrumentationRunner \"androidx.test.runner.AndroidJUnitRunner\"\r\n    }\r\n\r\n    buildTypes {\r\n        release {\r\n            minifyEnabled false\r\n            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'\r\n        }\r\n    }\r\n    compileOptions {\r\n        sourceCompatibility JavaVersion.VERSION_1_8\r\n        targetCompatibility JavaVersion.VERSION_1_8\r\n    }\r\n}\r\n\r\ndependencies {\r\n    implementation fileTree(dir: \"libs\", include: [\"*.jar\"])\r\n    implementation 'androidx.core:core:1.2.0'\r\n    implementation 'androidx.lifecycle:lifecycle-extensions:2.2.0'\r\n    implementation 'androidx.lifecycle:lifecycle-viewmodel:2.2.0'\r\n    implementation 'androidx.appcompat:appcompat:1.1.0'\r\n    implementation 'androidx.constraintlayout:constraintlayout:1.1.3'\r\n    implementation 'androidx.viewpager2:viewpager2:1.0.0'\r\n    testImplementation 'android.arch.core:core-testing:1.0.0-alpha3'\r\n    testImplementation 'junit:junit:4.12'\r\n    androidTestImplementation 'androidx.test.ext:junit:1.1.1'\r\n    androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'\r\n\r\n    implementation 'com.squareup.retrofit2:retrofit:2.9.0'\r\n    implementation 'com.squareup.retrofit2:converter-gson:2.9.0'\r\n\r\n    implementation 'androidx.room:room-runtime:2.2.5'\r\n    annotationProcessor 'androidx.room:room-complier:2.2.5'\r\n    androidTestImplementation 'androidx.room:room-testing:2.2.5'\r\n\r\n    // Extras\r\n    implementation 'com.github.alirezat775:carousel-view:1.1.1'\r\n    implementation 'com.synnapps:carouselview:0.1.5'\r\n    implementation 'com.squareup.picasso:picasso:2.5.2'\r\n    implementation 'de.hdodenhof:circleimageview:3.1.0'\r\n    implementation 'com.google.code.gson:gson:2.8.6'\r\n    implementation 'com.google.android.material:material:1.2.1'\r\n\r\n}
+-Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+-<+>UTF-8
+-===================================================================
+---- app/build.gradle	(revision e05d5a6a1a69829314be8fc966edd6e37799eb21)
+-+++ app/build.gradle	(date 1603556105852)
+-@@ -43,7 +43,7 @@
+-     implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
+- 
+-     implementation 'androidx.room:room-runtime:2.2.5'
+--    annotationProcessor 'androidx.room:room-complier:2.2.5'
+-+    annotationProcessor 'androidx.room:room-compiler:2.2.5'
+-     androidTestImplementation 'androidx.room:room-testing:2.2.5'
+- 
+-     // Extras
+Index: .idea/shelf/Uncommitted_changes_before_Update_at_24_10_2020_12_54_PM__Default_Changelist_.xml
+===================================================================
+--- .idea/shelf/Uncommitted_changes_before_Update_at_24_10_2020_12_54_PM__Default_Changelist_.xml	(revision d943e24731a7509cd58b2e1ce3c7c730b311eeed)
++++ .idea/shelf/Uncommitted_changes_before_Update_at_24_10_2020_12_54_PM__Default_Changelist_.xml	(revision d943e24731a7509cd58b2e1ce3c7c730b311eeed)
+@@ -1,4 +0,0 @@
+-<changelist name="Uncommitted_changes_before_Update_at_24_10_2020_12_54_PM_[Default_Changelist]" date="1603558454169" recycled="true" deleted="true">
+-  <option name="PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_24_10_2020_12_54_PM_[Default_Changelist]/shelved.patch" />
+-  <option name="DESCRIPTION" value="Uncommitted changes before Update at 24/10/2020 12:54 PM [Default Changelist]" />
+-</changelist>
+\ No newline at end of file

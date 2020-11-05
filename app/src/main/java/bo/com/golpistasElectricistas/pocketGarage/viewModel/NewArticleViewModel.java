@@ -7,6 +7,8 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 
+import java.util.List;
+
 import bo.com.golpistasElectricistas.pocketGarage.model.Article;
 import bo.com.golpistasElectricistas.pocketGarage.model.Base;
 import bo.com.golpistasElectricistas.pocketGarage.repository.Repository;
@@ -21,7 +23,7 @@ public class NewArticleViewModel extends AndroidViewModel {
         repository = new Repository(application);
     }
 
-    public LiveData<Base<Article>> createPost(Article article) {
-        return repository.addArticle(article);
+    public LiveData<Base<Article>> createPost(Article article, List<Uri> photos) {
+        return repository.addArticle(article, photos);
     }
 }

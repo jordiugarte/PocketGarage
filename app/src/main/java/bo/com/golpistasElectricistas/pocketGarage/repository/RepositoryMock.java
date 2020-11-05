@@ -113,7 +113,7 @@ public class RepositoryMock implements RepositoryImpl {
     }
 
     @Override
-    public LiveData<Base<Article>> addArticle(Article article) {
+    public LiveData<Base<Article>> addArticle(Article article, List<Uri> photos) {
         return null;
     }
 

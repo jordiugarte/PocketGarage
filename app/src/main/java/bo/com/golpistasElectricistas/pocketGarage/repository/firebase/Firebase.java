@@ -1,13 +1,14 @@
 package bo.com.golpistasElectricistas.pocketGarage.repository.firebase;
 
-import android.content.Context;
 import android.net.Uri;
+import android.util.Log;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.Observer;
 
 import java.util.Calendar;
+import java.util.List;
 
 import bo.com.golpistasElectricistas.pocketGarage.model.Article;
 import bo.com.golpistasElectricistas.pocketGarage.model.Base;
@@ -15,7 +16,6 @@ import bo.com.golpistasElectricistas.pocketGarage.model.User;
 import bo.com.golpistasElectricistas.pocketGarage.repository.firebase.auth.FirebaseAuthManager;
 import bo.com.golpistasElectricistas.pocketGarage.repository.firebase.db.FirebaseDBManager;
 import bo.com.golpistasElectricistas.pocketGarage.repository.firebase.storage.FirebaseStorageManager;
-import bo.com.golpistasElectricistas.pocketGarage.repository.local.Local;
 
 public class Firebase {
     private static Firebase instance;
@@ -44,10 +44,33 @@ public class Firebase {
         return registerAndUpdateDb(auth.registerUser(user), user, photo);
     }
 
-    public LiveData<Base<Article>> addArticle(Article article) {
-        MutableLiveData<Base<String>> results = new MutableLiveData<>();
-        return null;
+    public LiveData<Base<Article>> addArticle(Article article, List<Uri> photos) {
+        MutableLiveData<Base<Article>> results = new MutableLiveData<>();
+        db.addArticle(article, photos).observeForever(idArticleBase -> {
+            if (idArticleBase.isSuccess()) {
+                String idArticle = idArticleBase.getData();
+                storage.uploadArticleImages(article, photos).observeForever(urlBase -> {
+                    if (urlBase.isSuccess()) {
+                        String url = urlBase.getData();
+                        db.updateCoverPhoto(article, url).observeForever(resultUpdateBase -> {
+                            if (resultUpdateBase.isSuccess()) {
+                                results.postValue(new Base<>(article));
+                            } else {
+                                results.postValue(new Base<>(resultUpdateBase.getError(), resultUpdateBase.getException()));
+                            }
+                        });
+                    } else {
+                        results.postValue(new Base<>(urlBase.getError(), urlBase.getException()));
+                    }
+                });
+            } else {
+                results.postValue(new Base<>(idArticleBase.getError(), idArticleBase.getException()));
+            }
+        });
+
+        return results;
     }
+
 
     private LiveData<Base<User>> registerAndUpdateDb(LiveData<Base<User>> registerFunction, User user, Uri image) {
         MutableLiveData<Base<User>> results = new MutableLiveData<>();

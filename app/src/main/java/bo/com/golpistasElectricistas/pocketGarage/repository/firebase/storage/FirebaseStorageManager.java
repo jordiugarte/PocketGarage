@@ -15,6 +15,7 @@ import com.google.firebase.storage.UploadTask;
 
 import java.util.List;
 
+import bo.com.golpistasElectricistas.pocketGarage.model.Article;
 import bo.com.golpistasElectricistas.pocketGarage.model.Base;
 import bo.com.golpistasElectricistas.pocketGarage.utils.Constants;
 
@@ -41,6 +42,11 @@ public class FirebaseStorageManager {
     public LiveData<Base<String>> uploadUserImage(String uuidUser, Uri image) {
         String path = "users/" + uuidUser + ".jpg";
         return this.uploadImage(path, image);
+    }
+
+    public LiveData<Base<String>> uploadArticleImages(Article article, List<Uri> photos) {
+        String path = "images/" + article.getArticleId() + ".jpg";
+        return this.uploadImage(path, photos.get(0));
     }
 
     private LiveData<Base<String>> uploadImage(String path, Uri image) {

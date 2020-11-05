@@ -4,8 +4,12 @@ import android.app.Application;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
+import androidx.lifecycle.LiveData;
+
+import java.util.List;
 
 import bo.com.golpistasElectricistas.pocketGarage.model.Article;
+import bo.com.golpistasElectricistas.pocketGarage.model.Base;
 import bo.com.golpistasElectricistas.pocketGarage.repository.Repository;
 import bo.com.golpistasElectricistas.pocketGarage.repository.RepositoryImpl;
 
@@ -27,5 +31,9 @@ public class ArticleViewModel extends AndroidViewModel {
 
     public void deleteFavorite(Article article) {
         repository.deleteFavorite(article);
+    }
+
+    public LiveData<Base<List<Article>>> getFavorites() {
+        return repository.getFavorites();
     }
 }

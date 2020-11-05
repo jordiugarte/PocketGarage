@@ -75,7 +75,7 @@ public class Repository implements RepositoryImpl {
                 result.postValue(new Base<>(articles));
             }
         });
-        ApiRepository.getInstance().getArticles().observeForever(new Observer<Base<List<Article>>>() {
+        /*ApiRepository.getInstance().getArticles().observeForever(new Observer<Base<List<Article>>>() {
             @Override
             public void onChanged(Base<List<Article>> listBase) {
                 if (listBase.isSuccess()) {
@@ -83,7 +83,7 @@ public class Repository implements RepositoryImpl {
                     local.update(listBase.getData());
                 }
             }
-        });
+        });*/
         return result;
     }
 
@@ -132,5 +132,15 @@ public class Repository implements RepositoryImpl {
     @Override
     public void signOut() {
         Firebase.getInstance().signOut();
+    }
+
+    @Override
+    public void addFavorite(Article article) {
+        local.addFavorite(article);
+    }
+
+    @Override
+    public void deleteFavorite(Article article) {
+        local.deleteFavorite(article);
     }
 }

@@ -66,7 +66,7 @@
         android:layout_alignParentEnd="true"
         android:layout_marginRight="10dp"
         android:layout_marginBottom="10dp"
-        android:background="@drawable/ic_baseline_star_24"
+        android:background="@drawable/ic_baseline_star_border_24"
         android:onClick="addToFavourites"
         android:padding="5dp" />
 

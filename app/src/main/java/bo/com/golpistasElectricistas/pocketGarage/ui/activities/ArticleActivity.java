@@ -109,11 +109,13 @@ public class ArticleActivity extends AppCompatActivity {
         if (isFavourite) {
             isFavourite = false;
             favouriteButton.setBackgroundResource(R.drawable.ic_baseline_star_border_24);
-            Snackbar.make(view, thisArticle.getTitle() + " " + R.string.msg_removed_from_favourites, Snackbar.LENGTH_SHORT).show();
+            articleViewModel.deleteFavorite(thisArticle);
+            Snackbar.make(view, thisArticle.getTitle() + " delete", Snackbar.LENGTH_SHORT).show();
         } else {
             isFavourite = true;
             favouriteButton.setBackgroundResource(R.drawable.ic_baseline_star_24);
-            Snackbar.make(view, thisArticle.getTitle() + " " + R.string.msg_added_to_favourites, Snackbar.LENGTH_SHORT).show();
+            articleViewModel.addFavorite(thisArticle);
+            Snackbar.make(view, thisArticle.getTitle() + " add", Snackbar.LENGTH_SHORT).show();
         }
     }
 }

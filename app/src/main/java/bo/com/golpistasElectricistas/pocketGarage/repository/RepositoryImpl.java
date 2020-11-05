@@ -30,4 +30,8 @@ public interface RepositoryImpl {
     void setCurrentUser(User user);
 
     void signOut();
+
+    void addFavorite(Article article);
+
+    void deleteFavorite(Article article);
 }

@@ -40,4 +40,16 @@ public class Local {
             articleDao.insert(favorites);
         }).start();
     }
+
+    public void addFavorite(Article article) {
+        new Thread(() -> {
+            articleDao.addFavorite(article);
+        }).start();
+    }
+
+    public void deleteFavorite(Article article) {
+        new Thread(() -> {
+            articleDao.deleteFavorite(article);
+        }).start();
+    }
 }

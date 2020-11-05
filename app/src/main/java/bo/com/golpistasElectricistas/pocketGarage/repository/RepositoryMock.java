@@ -22,7 +22,8 @@ public class RepositoryMock implements RepositoryImpl {
         /*mockUsers.add(new User("https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcSIxyT0DAa5_kwzb-e-bpTvAXIyW0OispA76Q&usqp=CAU", "1", "jordi@ugarte.com", "ffffffff", "Jordi", "Ugarte", "01/01/1999", 7889825, 10000));
         mockUsers.add(new User("https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcSIxyT0DAa5_kwzb-e-bpTvAXIyW0OispA76Q&usqp=CAU", "2", "ignacio@delrio.com", "ffffffff", "Ignacio", "del Rio", "01/01/1999", 77777777, 10000));
         mockUsers.add(new User("https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcSIxyT0DAa5_kwzb-e-bpTvAXIyW0OispA76Q&usqp=CAU", "3", "sergio@laguna.com", "ffffffff", "Sergio", "Laguna", "01/01/1999", 77777777, 10000));
-        */return mockUsers;
+        */
+        return mockUsers;
     }
 
     @Override
@@ -128,6 +129,16 @@ public class RepositoryMock implements RepositoryImpl {
 
     @Override
     public void signOut() {
+
+    }
+
+    @Override
+    public void addFavorite(Article article) {
+
+    }
+
+    @Override
+    public void deleteFavorite(Article article) {
 
     }
 }

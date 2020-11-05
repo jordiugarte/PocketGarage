@@ -20,4 +20,12 @@ public class ArticleViewModel extends AndroidViewModel {
     public Article getArticle(int id) {
         return repository.getArticleItem(id);
     }
+
+    public void addFavorite(Article article) {
+        repository.addFavorite(article);
+    }
+
+    public void deleteFavorite(Article article) {
+        repository.deleteFavorite(article);
+    }
 }

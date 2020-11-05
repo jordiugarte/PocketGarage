@@ -1,5 +1,6 @@
 package bo.com.golpistasElectricistas.pocketGarage.ui.activities;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
@@ -10,16 +11,31 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.view.View;
 import android.view.Window;
+import android.widget.Adapter;
+import android.widget.ArrayAdapter;
 import android.widget.ImageView;
+import android.widget.ShareActionProvider;
 import android.widget.TextView;
+
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+import com.google.gson.Gson;
 
 import java.util.Locale;
 
 import bo.com.golpistasElectricistas.pocketGarage.R;
+import bo.com.golpistasElectricistas.pocketGarage.model.Article;
 import bo.com.golpistasElectricistas.pocketGarage.model.User;
+import bo.com.golpistasElectricistas.pocketGarage.repository.firebase.db.FirebaseDBManager;
 import bo.com.golpistasElectricistas.pocketGarage.repository.local.Local;
+import bo.com.golpistasElectricistas.pocketGarage.repository.local.SharedPreferencesService;
+import bo.com.golpistasElectricistas.pocketGarage.utils.Constants;
 import bo.com.golpistasElectricistas.pocketGarage.viewModel.MyProfileViewModel;
 
 public class MyProfileActivity extends AppCompatActivity {
@@ -33,21 +49,39 @@ public class MyProfileActivity extends AppCompatActivity {
 
     private MyProfileViewModel viewModel;
 
+    private String nombreCompleto;
+    private int cel;
+    private String email;
+
+    //string del path de la foto
+    private String photo;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         getSupportActionBar().hide();
+        getData();
         setContentView(R.layout.activity_my_profile);
         context = getApplicationContext();
         viewModel = new ViewModelProvider(this).get(MyProfileViewModel.class);
         initIntents();
         initViews();
 
+
         loadLocale();
 
         ActionBar actionBar = getSupportActionBar();
         actionBar.setTitle(getResources().getString(R.string.app_name));
+    }
+    private void getData(){
+        SharedPreferencesService preferences = new SharedPreferencesService(this);
+        nombreCompleto= preferences.getCurrentUser().getName() + " " + preferences.getCurrentUser().getLastName();
+        cel = preferences.getCurrentUser().getPhone();
+        email = preferences.getCurrentUser().getEmail();
+        //path
+        photo = preferences.getCurrentUser().getPhoto();
+
     }
 
     private void setLocale(String lang) {
@@ -74,11 +108,22 @@ public class MyProfileActivity extends AppCompatActivity {
 
     private void initViews() {
         profilePicture = findViewById(R.id.profileImage);
+
+        //Con uri
+        //profilePicture.setImageURI(uri);
+
         namesLabel = findViewById(R.id.profileNames);
+        namesLabel.setText(getNombreCompleto());
+
         ageLabel = findViewById(R.id.profileAge);
         addressLabel = findViewById(R.id.profileAddress);
+
         numberLabel = findViewById(R.id.profileNumber);
+        String cel2 = ""+cel;
+        numberLabel.setText(cel2);
+
         emailLabel = findViewById(R.id.profileEmail);
+        emailLabel.setText(email);
     }
 
     public void returnToPrevious(View view) {
@@ -95,5 +140,29 @@ public class MyProfileActivity extends AppCompatActivity {
         finish();
         startActivity(loginActivity);
         viewModel.signOut();
+    }
+
+    public String getNombreCompleto() {
+        return nombreCompleto;
+    }
+
+    public void setNombreCompleto(String nombreCompleto) {
+        this.nombreCompleto = nombreCompleto;
+    }
+
+    public int getCel() {
+        return cel;
+    }
+
+    public void setCel(int cel) {
+        this.cel = cel;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 }

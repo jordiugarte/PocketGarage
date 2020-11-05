@@ -71,5 +71,7 @@
     <!-- Messages -->
     <string name="msg_added_to_favourites">añadido a favoritos</string>
     <string name="msg_removed_from_favourites">eliminado de favoritos</string>
+    <string name="title_age">Edad:</string>
+    <string name="direction_hint">Direccion</string>
 
 </resources>

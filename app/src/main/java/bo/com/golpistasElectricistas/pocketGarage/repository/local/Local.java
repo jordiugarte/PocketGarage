@@ -1,6 +1,5 @@
 package bo.com.golpistasElectricistas.pocketGarage.repository.local;
 
-import android.app.Application;
 import android.content.Context;
 
 import androidx.lifecycle.LiveData;

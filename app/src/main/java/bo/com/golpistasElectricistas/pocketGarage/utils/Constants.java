@@ -29,7 +29,7 @@ public class Constants {
     //  Firebase
     public static final String FIREBASE_PATH_USERS = "/users";
     public static final String FIREBASE_PATH_ARTICLE = "/articles";
-    public static final String FIREBASE_PATH_STORAGE = "gs://pocket-garage-9ce4d.appspot.com";
+    public static final String FIREBASE_PATH_STORAGE = "https://firebasestorage.googleapis.com/v0/b/pocket-garage-9ce4d.appspot.com/o";
     public static final String FIREBASE_PATH_STORAGE_IMAGES = FIREBASE_PATH_STORAGE + "/images";
 
     //  Categories
@@ -44,6 +44,7 @@ public class Constants {
     //  Keys
     public static final String KEY_SHARED_PREFS = "shared preferences";
     public static final String KEY_CURRENT_USER = "current user";
+    public static final String KEY_ARTICLES_QUANTITY = "articles quantity";
 
     //  Misc
     public static final String DIRECTORY_IMAGE = "pocket-garage-images";

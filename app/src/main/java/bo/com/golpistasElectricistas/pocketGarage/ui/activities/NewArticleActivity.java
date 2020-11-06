@@ -18,6 +18,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.Switch;
+import android.widget.Toast;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -32,6 +33,7 @@ import bo.com.golpistasElectricistas.pocketGarage.utils.CompressImage;
 import bo.com.golpistasElectricistas.pocketGarage.viewModel.NewArticleViewModel;
 
 import static bo.com.golpistasElectricistas.pocketGarage.utils.Constants.FIREBASE_PATH_STORAGE_IMAGES;
+import static bo.com.golpistasElectricistas.pocketGarage.utils.Constants.KEY_ARTICLES_QUANTITY;
 
 public class NewArticleActivity extends AppCompatActivity {
     private Context context;
@@ -50,6 +52,8 @@ public class NewArticleActivity extends AppCompatActivity {
 
     private static final String LOG = NewArticleActivity.class.getSimpleName();
 
+    private int articlesQuantity;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -60,6 +64,7 @@ public class NewArticleActivity extends AppCompatActivity {
         viewModel = new NewArticleViewModel(getApplication());
         initViews();
         initIntents();
+        articlesQuantity = getIntent().getIntExtra(KEY_ARTICLES_QUANTITY, 0);
     }
 
     private void initIntents() {
@@ -112,35 +117,36 @@ public class NewArticleActivity extends AppCompatActivity {
     }
 
     public void postArticle(View view) {
-        Article article = new Article();
-        article.setTitle(titleField.getText().toString());
-        article.setUserId(new Local(context).getCurrentUser().getCi());
-        article.setShortDescription(shortDescriptionField.getText().toString());
-        article.setDescription(descriptionField.getText().toString());
-        article.setPhotos(convertList(photos));
-        article.setPrice(Double.parseDouble(priceField.getText().toString()));
-        article.setNewState(newSwitch.isChecked());
-        article.setCategory(categorySpinner.getSelectedItemPosition());
-        article.setTimestamp(Calendar.getInstance().getTimeInMillis());
-
-        //if (!article.getTitle().isEmpty() && !article.getShortDescription().isEmpty() &&
-        //      !article.getDescription().isEmpty() && article.getPrice() != 0 && article.getPhotos().isEmpty()) {
-        viewModel.addArticle(article, photos).observe(this, new Observer<Base<Article>>() {
-            @Override
-            public void onChanged(Base<Article> stringBase) {
-                if (stringBase.isSuccess()) {
-                    Log.e(LOG, "createPost.isSuccess:" + stringBase.getData());
-                    startActivity(mainActivity);
-                } else {
-                    Log.e(LOG, "createPost.error", stringBase.getException());
+        if (!titleField.getText().toString().isEmpty() && !shortDescriptionField.getText().toString().isEmpty() &&
+                !descriptionField.getText().toString().isEmpty() && !priceField.getText().toString().isEmpty() && !photos.isEmpty()) {
+            Article article = new Article();
+            article.setTitle(titleField.getText().toString());
+            article.setUserId(new Local(context).getCurrentUser().getCi());
+            article.setShortDescription(shortDescriptionField.getText().toString());
+            article.setDescription(descriptionField.getText().toString());
+            article.setPhotos(convertList(photos));
+            article.setPrice(Double.parseDouble(priceField.getText().toString()));
+            article.setNewState(newSwitch.isChecked());
+            article.setCategory(categorySpinner.getSelectedItemPosition());
+            article.setTimestamp(Calendar.getInstance().getTimeInMillis());
+            article.setArticleId(articlesQuantity);
+            viewModel.addArticle(article, photos).observe(this, new Observer<Base<Article>>() {
+                @Override
+                public void onChanged(Base<Article> stringBase) {
+                    if (stringBase.isSuccess()) {
+                        Log.e(LOG, "createPost.isSuccess:" + stringBase.getData());
+                        startActivity(mainActivity);
+                    } else {
+                        Log.e(LOG, "createPost.error", stringBase.getException());
+                    }
                 }
-            }
-        });
-        startActivity(mainActivity);
-    } /*else {
+            });
+            startActivity(mainActivity);
+        } else {
             Toast.makeText(context, context.getString(R.string.error_fill_values),
                     Toast.LENGTH_SHORT).show();
-        }}*/
+        }
+    }
 
 
     public void returnToPrevious(View view) {
@@ -150,7 +156,7 @@ public class NewArticleActivity extends AppCompatActivity {
     private List<String> convertList(List<Uri> list) {
         List<String> result = new ArrayList<>();
         for (int i = 0; i < list.size(); i++) {
-            result.add(FIREBASE_PATH_STORAGE_IMAGES + "/" + i + ".jpg");
+            result.add(FIREBASE_PATH_STORAGE_IMAGES + "%2F" + articlesQuantity + "%2F" + i + ".jpg?alt=media");
         }
         return result;
     }

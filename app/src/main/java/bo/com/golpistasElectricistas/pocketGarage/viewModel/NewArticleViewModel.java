@@ -14,6 +14,8 @@ import bo.com.golpistasElectricistas.pocketGarage.model.Base;
 import bo.com.golpistasElectricistas.pocketGarage.repository.Repository;
 import bo.com.golpistasElectricistas.pocketGarage.repository.RepositoryImpl;
 
+import static bo.com.golpistasElectricistas.pocketGarage.utils.Constants.ALL_CATEGORIES;
+
 public class NewArticleViewModel extends AndroidViewModel {
 
     private RepositoryImpl repository;

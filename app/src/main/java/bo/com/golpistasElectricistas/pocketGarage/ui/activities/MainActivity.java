@@ -35,6 +35,8 @@ import bo.com.golpistasElectricistas.pocketGarage.utils.Constants;
 import bo.com.golpistasElectricistas.pocketGarage.utils.ErrorMapper;
 import bo.com.golpistasElectricistas.pocketGarage.viewModel.MainViewModel;
 
+import static bo.com.golpistasElectricistas.pocketGarage.utils.Constants.KEY_ARTICLES_QUANTITY;
+
 public class MainActivity extends AppCompatActivity implements ArticleCallback {
 
     private Context context;
@@ -121,6 +123,7 @@ public class MainActivity extends AppCompatActivity implements ArticleCallback {
     };
 
     public void addNewArticle(View view) {
+        newArticleActivity.putExtra(KEY_ARTICLES_QUANTITY, articles.size());
         startActivity(newArticleActivity);
     }
 

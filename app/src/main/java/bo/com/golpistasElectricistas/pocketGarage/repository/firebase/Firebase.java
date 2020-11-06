@@ -48,11 +48,10 @@ public class Firebase {
         MutableLiveData<Base<Article>> results = new MutableLiveData<>();
         db.addArticle(article, photos).observeForever(idArticleBase -> {
             if (idArticleBase.isSuccess()) {
-                String idArticle = idArticleBase.getData();
                 storage.uploadArticleImages(article, photos).observeForever(urlBase -> {
                     if (urlBase.isSuccess()) {
-                        String url = urlBase.getData();
-                        db.updateCoverPhoto(article, url).observeForever(resultUpdateBase -> {
+                        List<String> urls = urlBase.getData();
+                        db.updateArticlePhotos(article, urls).observeForever(resultUpdateBase -> {
                             if (resultUpdateBase.isSuccess()) {
                                 results.postValue(new Base<>(article));
                             } else {
@@ -119,6 +118,6 @@ public class Firebase {
     }
 
     public void signOut() {
-
+        auth.signOut();
     }
 }

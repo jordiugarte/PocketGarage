@@ -11,7 +11,7 @@ import bo.com.golpistasElectricistas.pocketGarage.model.Article;
 import bo.com.golpistasElectricistas.pocketGarage.repository.local.dao.ArticleDao;
 import bo.com.golpistasElectricistas.pocketGarage.utils.ListConverter;
 
-@Database(entities = {Article.class}, version = 4)
+@Database(entities = {Article.class}, version = 5)
 @TypeConverters(ListConverter.class)
 public abstract class PocketGarageDatabase extends RoomDatabase {
     private static volatile PocketGarageDatabase INSTANCE;

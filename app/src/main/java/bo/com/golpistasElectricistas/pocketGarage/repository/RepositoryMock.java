@@ -66,6 +66,11 @@ public class RepositoryMock implements RepositoryImpl {
     }
 
     @Override
+    public LiveData<Base<List<Article>>> getLastFiveArticles() {
+        return null;
+    }
+
+    @Override
     public LiveData<Base<List<Article>>> getMyArticles() {
         return null;
     }

@@ -58,5 +58,20 @@
     "timestamp": 1,
     "price": 1000,
     "newState": true
+  },
+  {
+    "articleId": 5,
+    "userId": 5,
+    "photos": [
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/6/61/2018_Ford_Ranger_%28PX%29_XLT_4WD_4-door_utility_%282018-10-22%29_01.jpg/800px-2018_Ford_Ranger_%28PX%29_XLT_4WD_4-door_utility_%282018-10-22%29_01.jpg",
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/6/61/2018_Ford_Ranger_%28PX%29_XLT_4WD_4-door_utility_%282018-10-22%29_01.jpg/800px-2018_Ford_Ranger_%28PX%29_XLT_4WD_4-door_utility_%282018-10-22%29_01.jpg",
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/6/61/2018_Ford_Ranger_%28PX%29_XLT_4WD_4-door_utility_%282018-10-22%29_01.jpg/800px-2018_Ford_Ranger_%28PX%29_XLT_4WD_4-door_utility_%282018-10-22%29_01.jpg"
+    ],
+    "shortDescription": "Ford Ranger 2018 a medio uso",
+    "description": "Vendo de ocasion mi Ford Ranger en La Paz.",
+    "title": "Ford Ranger",
+    "timestamp": 1,
+    "price": 1000,
+    "newState": false
   }
 ]

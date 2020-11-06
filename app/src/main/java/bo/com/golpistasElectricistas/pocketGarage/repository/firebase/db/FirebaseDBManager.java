@@ -27,7 +27,7 @@ public class FirebaseDBManager {
 
     public LiveData<Base<String>> addArticle(Article article, List<Uri> photos) {
         MutableLiveData<Base<String>> results = new MutableLiveData<>();
-        String path = Constants.FIREBASE_PATH_STARTUP + "/" + article.getArticleId();
+        String path = Constants.FIREBASE_PATH_ARTICLE;
         DatabaseReference reference = db.getReference(path).push();
         reference.setValue(article).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
@@ -77,9 +77,25 @@ public class FirebaseDBManager {
 
     public LiveData<Base<Boolean>> updateCoverPhoto(Article article, String url) {
         MutableLiveData<Base<Boolean>> results = new MutableLiveData<>();
-        String path = Constants.FIREBASE_PATH_STARTUP + "/" + article.getUserId() + "/" + article.getArticleId();
+        String path = Constants.FIREBASE_PATH_ARTICLE + "/" + article.getUserId() + "/" + article.getArticleId();
         path += "/coverPhoto";
         db.getReference(path).setValue(url).addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                if (task.isSuccessful()) {
+                    results.postValue(new Base<>(true));
+                } else {
+                    results.postValue(new Base<>(Constants.ERROR_REGISTER_DB, task.getException()));
+                }
+            }
+        });
+        return results;
+    }
+
+    public LiveData<Base<Boolean>> updateArticlePhotos(Article article, List<String> urls) {
+        MutableLiveData<Base<Boolean>> results = new MutableLiveData<>();
+        String path = Constants.FIREBASE_PATH_ARTICLE + "/" + "photos";
+        db.getReference(path).setValue(urls).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
                 if (task.isSuccessful()) {

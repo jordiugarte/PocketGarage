@@ -24,4 +24,8 @@ public class MainViewModel extends AndroidViewModel {
     public LiveData<Base<List<Article>>> getArticles() {
         return repository.getArticlesItems();
     }
+
+    public LiveData<Base<List<Article>>> getLastFiveArticles() {
+        return repository.getLastFiveArticles();
+    }
 }

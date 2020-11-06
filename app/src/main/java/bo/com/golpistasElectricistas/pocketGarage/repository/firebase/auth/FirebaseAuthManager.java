@@ -20,6 +20,8 @@ import bo.com.golpistasElectricistas.pocketGarage.repository.local.Local;
 import bo.com.golpistasElectricistas.pocketGarage.utils.Constants;
 import bo.com.golpistasElectricistas.pocketGarage.utils.FirebaseMapper;
 
+import static com.google.firebase.FirebaseError.ERROR_EMAIL_ALREADY_IN_USE;
+
 public class FirebaseAuthManager {
     private FirebaseAuth auth;
 
@@ -50,12 +52,11 @@ public class FirebaseAuthManager {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
-                            // Sign in success, update UI with the signed-in user's information
                             FirebaseUser firebaseUser = auth.getCurrentUser();
                             results.postValue(new Base<>(FirebaseMapper.userFromFirebase(firebaseUser)));
                         } else {
                             if (task.getException() instanceof FirebaseAuthException) {
-                                if (((FirebaseAuthException) task.getException()).getErrorCode().equals("ERROR_EMAIL_ALREADY_IN_USE")) {
+                                if (((FirebaseAuthException) task.getException()).getErrorCode().equals(ERROR_EMAIL_ALREADY_IN_USE)) {
                                     results.postValue(new Base<>(Constants.REPEATED_EMAIL_ERROR, task.getException()));
                                 } else {
                                     results.postValue(new Base<>(Constants.ERROR_REGISTER, task.getException()));

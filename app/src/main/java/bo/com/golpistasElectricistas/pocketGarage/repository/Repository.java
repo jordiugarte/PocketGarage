@@ -88,6 +88,26 @@ public class Repository implements RepositoryImpl {
     }
 
     @Override
+    public LiveData<Base<List<Article>>> getLastFiveArticles() {
+        MutableLiveData<Base<List<Article>>> result = new MutableLiveData<>();
+        ApiRepository.getInstance().getArticles().observeForever(new Observer<Base<List<Article>>>() {
+            @Override
+            public void onChanged(Base<List<Article>> listBase) {
+                if (listBase.isSuccess()) {
+                    Base<List<Article>> lastFive = null;
+                    lastFive.getData().add(listBase.getData().get(0));
+                    lastFive.getData().add(listBase.getData().get(1));
+                    lastFive.getData().add(listBase.getData().get(2));
+                    lastFive.getData().add(listBase.getData().get(3));
+                    lastFive.getData().add(listBase.getData().get(4));
+                    result.postValue(lastFive);
+                }
+            }
+        });
+        return result;
+    }
+
+    @Override
     public LiveData<Base<List<Article>>> getMyArticles() {
         return null;
     }
@@ -110,8 +130,9 @@ public class Repository implements RepositoryImpl {
         if (!Validations.nameIsValid(user.getLastName())) {
             result.postValue(new Base<>(Constants.INVALID_LAST_NAME_ERROR, null));
             return result;
+        } else {
+            return Firebase.getInstance().register(user, photo);
         }
-        return Firebase.getInstance().register(user, photo);
     }
 
     @Override

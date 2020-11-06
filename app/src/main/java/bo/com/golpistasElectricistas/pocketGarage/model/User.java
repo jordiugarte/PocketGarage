@@ -1,7 +1,5 @@
 package bo.com.golpistasElectricistas.pocketGarage.model;
 
-import androidx.room.Entity;
-
 public class User {
     private String ci;
     private String email;

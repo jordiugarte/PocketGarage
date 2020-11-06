@@ -18,7 +18,6 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.Switch;
-import android.widget.Toast;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -34,10 +33,10 @@ import bo.com.golpistasElectricistas.pocketGarage.viewModel.NewArticleViewModel;
 public class NewArticleActivity extends AppCompatActivity {
     private Context context;
 
-    private List<Bitmap> imageViews = new ArrayList<Bitmap>();
+    private List<Bitmap> imageViews = new ArrayList<>();
 
     private LinearLayout imagesRow;
-    private List<Uri> photos = new ArrayList<Uri>();
+    private List<Uri> photos = new ArrayList<>();
     private EditText titleField, shortDescriptionField, descriptionField, priceField;
     private Switch newSwitch;
     private Spinner categorySpinner;
@@ -55,6 +54,7 @@ public class NewArticleActivity extends AppCompatActivity {
         getSupportActionBar().hide();
         setContentView(R.layout.activity_new_article);
         context = getApplicationContext();
+        viewModel = new NewArticleViewModel(getApplication());
         initViews();
         initIntents();
     }
@@ -116,28 +116,27 @@ public class NewArticleActivity extends AppCompatActivity {
         article.setPrice(Double.parseDouble(priceField.getText().toString()));
         article.setNewState(newSwitch.isChecked());
         article.setCategory(categorySpinner.getSelectedItemPosition());
-        //article.setPhotos(imageViews);
         article.setTimestamp(Calendar.getInstance().getTimeInMillis());
 
-        if (!article.getTitle().isEmpty() && !article.getShortDescription().isEmpty() &&
-                !article.getDescription().isEmpty() && article.getPrice() != 0 && article.getPhotos().isEmpty()) {
-            viewModel.createPost(article, photos).observe(this, new Observer<Base<Article>>() {
-                @Override
-                public void onChanged(Base<Article> stringBase) {
-                    if (stringBase.isSuccess()) {
-                        Log.e(LOG, "createPost.isSuccess:" + stringBase.getData());
-                        startActivity(mainActivity);
-                    } else {
-                        Log.e(LOG, "createPost.error", stringBase.getException());
-                    }
+        //if (!article.getTitle().isEmpty() && !article.getShortDescription().isEmpty() &&
+        //      !article.getDescription().isEmpty() && article.getPrice() != 0 && article.getPhotos().isEmpty()) {
+        viewModel.addArticle(article, photos).observe(this, new Observer<Base<Article>>() {
+            @Override
+            public void onChanged(Base<Article> stringBase) {
+                if (stringBase.isSuccess()) {
+                    Log.e(LOG, "createPost.isSuccess:" + stringBase.getData());
+                    startActivity(mainActivity);
+                } else {
+                    Log.e(LOG, "createPost.error", stringBase.getException());
                 }
-            });
-            startActivity(mainActivity);
-        } else {
+            }
+        });
+        startActivity(mainActivity);
+    } /*else {
             Toast.makeText(context, context.getString(R.string.error_fill_values),
                     Toast.LENGTH_SHORT).show();
-        }
-    }
+        }}*/
+
 
     public void returnToPrevious(View view) {
         finish();

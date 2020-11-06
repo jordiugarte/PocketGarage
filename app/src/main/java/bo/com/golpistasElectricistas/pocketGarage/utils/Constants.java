@@ -28,7 +28,9 @@ public class Constants {
 
     //  Firebase
     public static final String FIREBASE_PATH_USERS = "/users";
-    public static final String FIREBASE_PATH_STARTUP = "/articles";
+    public static final String FIREBASE_PATH_ARTICLE = "/articles";
+    public static final String FIREBASE_PATH_STORAGE = "gs://pocket-garage-9ce4d.appspot.com";
+    public static final String FIREBASE_PATH_STORAGE_IMAGES = FIREBASE_PATH_STORAGE + "/images";
 
     //  Categories
     public static final int CARS_CATEGORY = 0;

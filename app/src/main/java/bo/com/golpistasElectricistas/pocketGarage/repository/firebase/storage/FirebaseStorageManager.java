@@ -13,6 +13,7 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import bo.com.golpistasElectricistas.pocketGarage.model.Article;
@@ -44,9 +45,45 @@ public class FirebaseStorageManager {
         return this.uploadImage(path, image);
     }
 
-    public LiveData<Base<String>> uploadArticleImages(Article article, List<Uri> photos) {
-        String path = "images/" + article.getArticleId() + ".jpg";
-        return this.uploadImage(path, photos.get(0));
+    public LiveData<Base<List<String>>> uploadArticleImages(Article article, List<Uri> photos) {
+        List<String> tempPaths = new ArrayList<>();
+        for (int i = 0; i < photos.size(); i++) {
+            tempPaths.add("images/" + article.getArticleId() + "/" + i + ".jpg");
+        }
+        return this.uploadImages(tempPaths, photos);
+    }
+
+    private LiveData<Base<List<String>>> uploadImages(List<String> paths, List<Uri> photos) {
+        MutableLiveData<Base<List<String>>> results = new MutableLiveData<>();
+        List<String> totalResults = new ArrayList<>();
+        for (int i = 0; i < paths.size(); i++) {
+            MutableLiveData<Base<String>> result = new MutableLiveData<>();
+            StorageReference ref = storage.child(paths.get(i));
+            UploadTask uploadTask = ref.putFile(photos.get(i));
+            uploadTask.continueWithTask(new Continuation<UploadTask.TaskSnapshot, Task<Uri>>() {
+                @Override
+                public Task<Uri> then(@NonNull Task<UploadTask.TaskSnapshot> task) throws Exception {
+                    if (!task.isSuccessful()) {
+                        throw task.getException();
+                    }
+                    return ref.getDownloadUrl();
+                }
+            }).addOnCompleteListener(new OnCompleteListener<Uri>() {
+                @Override
+                public void onComplete(@NonNull Task<Uri> task) {
+                    if (task.isSuccessful()) {
+                        Uri downloadUri = task.getResult();
+                        result.postValue(new Base<>(downloadUri.toString()));
+                        totalResults.add(downloadUri.toString());
+                    } else {
+                        result.postValue(new Base<>(Constants.ERROR_UPLOAD_IMAGE, task.getException()));
+                    }
+                }
+            });
+        }
+        results.postValue(new Base<>(totalResults));
+
+        return results;
     }
 
     private LiveData<Base<String>> uploadImage(String path, Uri image) {

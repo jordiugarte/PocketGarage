@@ -19,6 +19,8 @@ public interface RepositoryImpl {
 
     LiveData<Base<List<Article>>> getFavorites();
 
+    LiveData<Base<List<Article>>> getLastFiveArticles();
+
     LiveData<Base<List<Article>>> getMyArticles();
 
     LiveData<Base<User>> register(User user, Uri photo);

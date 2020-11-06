@@ -45,14 +45,12 @@ public class MainActivity extends AppCompatActivity implements ArticleCallback {
     private Intent newArticleActivity, myProfileActivity, favouritesActivity, articleActivity;
 
     private List<Article> articles = new ArrayList<>();
+    private List<Article> lastFiveArticles = new ArrayList<>();
 
     private ArticleAdapter adapter;
 
-    String[] sampleImages = {
-            "https://scontent.flpb2-2.fna.fbcdn.net/v/t1.0-9/121192448_3711992668812129_3055426446455598271_o.jpg?_nc_cat=106&_nc_sid=730e14&_nc_ohc=9xzNn9kpN_AAX-MJRXY&_nc_ht=scontent.flpb2-2.fna&oh=75800d9f014704494f4ede158f313c3b&oe=5FAAD43D",
-            "https://scontent.flpb2-1.fna.fbcdn.net/v/t1.0-9/121021076_3702364973189322_7247070921577086116_o.jpg?_nc_cat=102&_nc_sid=730e14&_nc_ohc=A8mjKOJWXzgAX8JYwf3&_nc_ht=scontent.flpb2-1.fna&oh=f1ba19fb8b37b8fe02aa4d7e4fc9fae2&oe=5FABF2EA",
-            "https://scontent.flpb2-1.fna.fbcdn.net/v/t1.0-9/106571277_1453836774811044_5992646281856668927_n.jpg?_nc_cat=110&_nc_sid=730e14&_nc_ohc=7b9a8hvn32EAX9scXvj&_nc_ht=scontent.flpb2-1.fna&oh=46c15bfbb5ab245ef6242e96dc37600b&oe=5FAC2C3C"
-    };
+    //String[] lastFiveImages = {lastFiveArticles.get(0).getPhotos().get(0), lastFiveArticles.get(1).getPhotos().get(0), lastFiveArticles.get(2).getPhotos().get(0), lastFiveArticles.get(3).getPhotos().get(0), lastFiveArticles.get(4).getPhotos().get(0)};
+    String[] lastFiveImages = {"http://i.autos.com.ar/fotos/2012/0619/Toyota-Hilux-SRV-2006-201206191049053.jpg", "http://i.autos.com.ar/fotos/2012/0619/Toyota-Hilux-SRV-2006-201206191049053.jpg", "http://i.autos.com.ar/fotos/2012/0619/Toyota-Hilux-SRV-2006-201206191049053.jpg"};
 
     private RelativeLayout parentLinearLayout;
     private CarouselView carouselView;
@@ -95,7 +93,7 @@ public class MainActivity extends AppCompatActivity implements ArticleCallback {
     private void initViews() {
         parentLinearLayout = findViewById(R.id.mainActivityLayout);
         carouselView = findViewById(R.id.carouselView);
-        carouselView.setPageCount(sampleImages.length);
+        carouselView.setPageCount(lastFiveImages.length);
         carouselView.setImageListener(imageListener);
         articlesList = findViewById(R.id.articlesList);
         adapter = new ArticleAdapter(articles, context);
@@ -113,7 +111,7 @@ public class MainActivity extends AppCompatActivity implements ArticleCallback {
     ImageListener imageListener = new ImageListener() {
         @Override
         public void setImageForPosition(int position, ImageView imageView) {
-            Picasso.with(getApplicationContext()).load(sampleImages[position]).into(imageView);
+            Picasso.with(getApplicationContext()).load(lastFiveImages[position]).into(imageView);
         }
     };
 
@@ -151,8 +149,8 @@ public class MainActivity extends AppCompatActivity implements ArticleCallback {
         startActivity(articleActivity);
     }
 
-    public void openCarCategory(View view){
-        Intent intent = new Intent(context,ListArticleActivity.class);
+    public void openCarCategory(View view) {
+        Intent intent = new Intent(context, ListArticleActivity.class);
         startActivity(intent);
     }
 }

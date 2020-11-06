@@ -1,11 +1,13 @@
 package bo.com.golpistasElectricistas.pocketGarage.ui.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
@@ -19,8 +21,11 @@ import com.squareup.picasso.Picasso;
 import com.synnapps.carouselview.CarouselView;
 import com.synnapps.carouselview.ImageListener;
 
+import java.util.List;
+
 import bo.com.golpistasElectricistas.pocketGarage.R;
 import bo.com.golpistasElectricistas.pocketGarage.model.Article;
+import bo.com.golpistasElectricistas.pocketGarage.model.Base;
 import bo.com.golpistasElectricistas.pocketGarage.utils.Constants;
 import bo.com.golpistasElectricistas.pocketGarage.utils.ErrorMapper;
 import bo.com.golpistasElectricistas.pocketGarage.viewModel.ArticleViewModel;
@@ -88,6 +93,24 @@ public class ArticleActivity extends AppCompatActivity {
         articleDescription = findViewById(R.id.descriptionArticle);
         carouselView = findViewById(R.id.articleCarouselView);
         carouselView.setImageListener(imageListener);
+        articleViewModel.getFavorites().observeForever(new Observer<Base<List<Article>>>() {
+            @Override
+            public void onChanged(Base<List<Article>> listBase) {
+                if (listBase.isSuccess()) {
+                    for (Article article : listBase.getData()) {
+                        if (article.getArticleId() == thisArticle.getArticleId()) {
+                            isFavourite = true;
+                            favouriteButton.setBackgroundResource(R.drawable.ic_baseline_star_24);
+                            Log.e("favo", "true");
+                        } else {
+                            Log.e("favo", "false");
+                        }
+                    }
+                } else {
+                    Log.e("favo", "fail");
+                }
+            }
+        });
     }
 
     ImageListener imageListener = new ImageListener() {
@@ -110,12 +133,12 @@ public class ArticleActivity extends AppCompatActivity {
             isFavourite = false;
             favouriteButton.setBackgroundResource(R.drawable.ic_baseline_star_border_24);
             articleViewModel.deleteFavorite(thisArticle);
-            Snackbar.make(view, thisArticle.getTitle() + " delete", Snackbar.LENGTH_SHORT).show();
+            Snackbar.make(view, "Eliminado de Favoritos", Snackbar.LENGTH_SHORT).show();
         } else {
             isFavourite = true;
             favouriteButton.setBackgroundResource(R.drawable.ic_baseline_star_24);
             articleViewModel.addFavorite(thisArticle);
-            Snackbar.make(view, thisArticle.getTitle() + " add", Snackbar.LENGTH_SHORT).show();
+            Snackbar.make(view, "Añadido a Favoritos", Snackbar.LENGTH_SHORT).show();
         }
     }
 }

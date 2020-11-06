@@ -56,5 +56,6 @@
     <string name="action_favourites">Favorites</string>
     <string name="msg_added_to_favourites">Added to favorites</string>
     <string name="msg_removed_from_favourites">Removed from favorites</string>
-    <string name="button_change_language">Change language</string>
+    <string name="title_age">Age:</string>
+    <string name="direction_hint">Address</string>
 </resources>

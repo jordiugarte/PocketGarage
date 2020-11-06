@@ -50,8 +50,7 @@ public class MainActivity extends AppCompatActivity implements ArticleCallback {
 
     private ArticleAdapter adapter;
 
-    //String[] lastFiveImages = {lastFiveArticles.get(0).getPhotos().get(0), lastFiveArticles.get(1).getPhotos().get(0), lastFiveArticles.get(2).getPhotos().get(0), lastFiveArticles.get(3).getPhotos().get(0), lastFiveArticles.get(4).getPhotos().get(0)};
-    String[] lastFiveImages = {"http://i.autos.com.ar/fotos/2012/0619/Toyota-Hilux-SRV-2006-201206191049053.jpg", "http://i.autos.com.ar/fotos/2012/0619/Toyota-Hilux-SRV-2006-201206191049053.jpg", "http://i.autos.com.ar/fotos/2012/0619/Toyota-Hilux-SRV-2006-201206191049053.jpg"};
+    String[] lastFiveImages = {"http://i.autos.com.ar/fotos/2012/0619/Toyota-Hilux-SRV-2006-201206191049053.jpg", "https://upload.wikimedia.org/wikipedia/commons/thumb/e/ee/Lamborghini_Urus_20180306_Genf_2018.jpg/1920px-Lamborghini_Urus_20180306_Genf_2018.jpg", "http://clasicosyusados.weebly.com/uploads/2/7/0/6/27065335/4413925_orig.jpg"};
 
     private RelativeLayout parentLinearLayout;
     private CarouselView carouselView;

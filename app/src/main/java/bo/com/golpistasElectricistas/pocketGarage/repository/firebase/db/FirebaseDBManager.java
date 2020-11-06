@@ -36,7 +36,7 @@ public class FirebaseDBManager {
     public LiveData<Base<String>> addArticle(Article article, List<Uri> photos) {
         MutableLiveData<Base<String>> results = new MutableLiveData<>();
         String path = Constants.FIREBASE_PATH_ARTICLE;
-        DatabaseReference reference = db.getReference(path).push();
+        DatabaseReference reference = db.getReference(path).child(article.getArticleId() + "");
         reference.setValue(article).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {

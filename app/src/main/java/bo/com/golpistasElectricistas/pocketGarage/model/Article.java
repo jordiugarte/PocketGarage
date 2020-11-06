@@ -17,7 +17,7 @@ public class Article {
     private int articleId;
 
     @ColumnInfo(name = "userId")
-    private int userId;
+    private String userId;
 
     @ColumnInfo(name = "photos")
     private List<String> photos;
@@ -43,7 +43,7 @@ public class Article {
     @ColumnInfo(name = "category")
     private int category;
 
-    public Article(int articleId, int userId, List<String> photos, String shortDescription, String description, String title, long timestamp, double price, boolean newState, int category) {
+    public Article(int articleId, String userId, List<String> photos, String shortDescription, String description, String title, long timestamp, double price, boolean newState, int category) {
         this.articleId = articleId;
         this.userId = userId;
         this.photos = photos;
@@ -59,11 +59,11 @@ public class Article {
     public Article() {
     }
 
-    public int getUserId() {
+    public String getUserId() {
         return userId;
     }
 
-    public void setUserId(int userId) {
+    public void setUserId(String userId) {
         this.userId = userId;
     }
 

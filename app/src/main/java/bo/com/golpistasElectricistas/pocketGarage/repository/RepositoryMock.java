@@ -51,11 +51,6 @@ public class RepositoryMock implements RepositoryImpl {
     }
 
     @Override
-    public LiveData<Base<List<Article>>> getArticlesItems() {
-        return null;
-    }
-
-    @Override
     public Article getArticleItem(int id) {
         return null;
     }
@@ -71,7 +66,7 @@ public class RepositoryMock implements RepositoryImpl {
     }
 
     @Override
-    public LiveData<Base<List<Article>>> getMyArticles() {
+    public LiveData<Base<List<Article>>> getArticles(int category) {
         return null;
     }
 

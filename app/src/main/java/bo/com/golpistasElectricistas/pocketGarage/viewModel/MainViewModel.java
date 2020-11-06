@@ -13,6 +13,8 @@ import bo.com.golpistasElectricistas.pocketGarage.model.Base;
 import bo.com.golpistasElectricistas.pocketGarage.repository.Repository;
 import bo.com.golpistasElectricistas.pocketGarage.repository.RepositoryImpl;
 
+import static bo.com.golpistasElectricistas.pocketGarage.utils.Constants.ALL_CATEGORIES;
+
 public class MainViewModel extends AndroidViewModel {
     private RepositoryImpl repository;
 
@@ -22,7 +24,7 @@ public class MainViewModel extends AndroidViewModel {
     }
 
     public LiveData<Base<List<Article>>> getArticles() {
-        return repository.getArticlesItems();
+        return repository.getArticles(ALL_CATEGORIES);
     }
 
     public LiveData<Base<List<Article>>> getLastFiveArticles() {

@@ -14,9 +14,12 @@ import bo.com.golpistasElectricistas.pocketGarage.model.Base;
 import bo.com.golpistasElectricistas.pocketGarage.model.User;
 import bo.com.golpistasElectricistas.pocketGarage.repository.api.ApiRepository;
 import bo.com.golpistasElectricistas.pocketGarage.repository.firebase.Firebase;
+import bo.com.golpistasElectricistas.pocketGarage.repository.firebase.db.FirebaseDBManager;
 import bo.com.golpistasElectricistas.pocketGarage.repository.local.Local;
 import bo.com.golpistasElectricistas.pocketGarage.utils.Constants;
 import bo.com.golpistasElectricistas.pocketGarage.utils.Validations;
+
+import static bo.com.golpistasElectricistas.pocketGarage.utils.Constants.ALL_CATEGORIES;
 
 public class Repository implements RepositoryImpl {
     private Local local;
@@ -42,23 +45,24 @@ public class Repository implements RepositoryImpl {
     }
 
     @Override
-    public LiveData<Base<List<Article>>> getArticlesItems() {
-        MutableLiveData<Base<List<Article>>> result = new MutableLiveData<>();
-        ApiRepository.getInstance().getArticles().observeForever(new Observer<Base<List<Article>>>() {
+    public LiveData<Base<List<Article>>> getArticles(int category) {
+        MutableLiveData<Base<List<Article>>> results = new MutableLiveData<>();
+        ApiRepository.getInstance().getArticles(category).observeForever(new Observer<Base<List<Article>>>() {
             @Override
             public void onChanged(Base<List<Article>> listBase) {
                 if (listBase.isSuccess()) {
-                    result.postValue(listBase);
+                    results.postValue(listBase);
                 }
             }
         });
-        return result;
+
+        return results;
     }
 
     @Override
     public Article getArticleItem(int id) {
         Article result = null;
-        for (Article article : getArticlesItems().getValue().getData()) {
+        for (Article article : getArticles(ALL_CATEGORIES).getValue().getData()) {
             if (article.getArticleId() == id) {
                 result = article;
             }
@@ -90,7 +94,7 @@ public class Repository implements RepositoryImpl {
     @Override
     public LiveData<Base<List<Article>>> getLastFiveArticles() {
         MutableLiveData<Base<List<Article>>> result = new MutableLiveData<>();
-        ApiRepository.getInstance().getArticles().observeForever(new Observer<Base<List<Article>>>() {
+        ApiRepository.getInstance().getArticles(ALL_CATEGORIES).observeForever(new Observer<Base<List<Article>>>() {
             @Override
             public void onChanged(Base<List<Article>> listBase) {
                 if (listBase.isSuccess()) {
@@ -105,11 +109,6 @@ public class Repository implements RepositoryImpl {
             }
         });
         return result;
-    }
-
-    @Override
-    public LiveData<Base<List<Article>>> getMyArticles() {
-        return null;
     }
 
     @Override

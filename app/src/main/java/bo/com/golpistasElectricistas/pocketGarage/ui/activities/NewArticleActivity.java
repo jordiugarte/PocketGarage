@@ -27,8 +27,11 @@ import java.util.List;
 import bo.com.golpistasElectricistas.pocketGarage.R;
 import bo.com.golpistasElectricistas.pocketGarage.model.Article;
 import bo.com.golpistasElectricistas.pocketGarage.model.Base;
+import bo.com.golpistasElectricistas.pocketGarage.repository.local.Local;
 import bo.com.golpistasElectricistas.pocketGarage.utils.CompressImage;
 import bo.com.golpistasElectricistas.pocketGarage.viewModel.NewArticleViewModel;
+
+import static bo.com.golpistasElectricistas.pocketGarage.utils.Constants.FIREBASE_PATH_STORAGE_IMAGES;
 
 public class NewArticleActivity extends AppCompatActivity {
     private Context context;
@@ -111,8 +114,10 @@ public class NewArticleActivity extends AppCompatActivity {
     public void postArticle(View view) {
         Article article = new Article();
         article.setTitle(titleField.getText().toString());
+        article.setUserId(new Local(context).getCurrentUser().getCi());
         article.setShortDescription(shortDescriptionField.getText().toString());
         article.setDescription(descriptionField.getText().toString());
+        article.setPhotos(convertList(photos));
         article.setPrice(Double.parseDouble(priceField.getText().toString()));
         article.setNewState(newSwitch.isChecked());
         article.setCategory(categorySpinner.getSelectedItemPosition());
@@ -140,5 +145,13 @@ public class NewArticleActivity extends AppCompatActivity {
 
     public void returnToPrevious(View view) {
         finish();
+    }
+
+    private List<String> convertList(List<Uri> list) {
+        List<String> result = new ArrayList<>();
+        for (int i = 0; i < list.size(); i++) {
+            result.add(FIREBASE_PATH_STORAGE_IMAGES + "/" + i + ".jpg");
+        }
+        return result;
     }
 }

@@ -9,7 +9,7 @@ import java.util.List;
 import bo.com.golpistasElectricistas.pocketGarage.model.Article;
 import retrofit2.http.Query;
 
-public interface ArticulosApi {
+public interface ArticleApi {
    @GET(Constants.RESOURCE_ARTICLES)
     Call<List<Article>> getArticles(@Query("alt") String alt);
 }

@@ -37,7 +37,6 @@ import bo.com.golpistasElectricistas.pocketGarage.viewModel.MainViewModel;
 
 public class MainActivity extends AppCompatActivity implements ArticleCallback {
 
-    private static final String LOG = LoginActivity.class.getName();
     private Context context;
 
     private MainViewModel viewModel;
@@ -65,6 +64,12 @@ public class MainActivity extends AppCompatActivity implements ArticleCallback {
         initViews();
         initIntents();
         initEvents();
+        subscribeToData();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
         subscribeToData();
     }
 
@@ -123,8 +128,6 @@ public class MainActivity extends AppCompatActivity implements ArticleCallback {
         viewModel.getArticles().observe(this, new Observer<Base<List<Article>>>() {
             @Override
             public void onChanged(Base<List<Article>> listBase) {
-                //T1: Local
-                //T2: API
                 if (listBase.isSuccess()) {
                     articles = listBase.getData();
                     adapter.updateItems(articles);

@@ -21,8 +21,8 @@ public class Constants {
     public static final int SERVER_ERROR = 5000;
 
     //  Api
-    public static final String BASE_URL = "https://us-central1-emprende-ya-2cd09.cloudfunctions.net/api/";
-    public static final String RESOURCE_ARTICLES = "pocket-garage";
+    public static final String BASE_URL = "https://pocket-garage-9ce4d.firebaseio.com/";
+    public static final String RESOURCE_ARTICLES = "articles.json";
     public static final String QUERY_PARAM_ALT = "media";
     public static final String KEY_STARTUP_SELECTED = "articleSelected";
 
@@ -39,6 +39,7 @@ public class Constants {
     public static final int ELECTRONICS_CATEGORY = 3;
     public static final int WHEELS_CATEGORY = 4;
     public static final int OTHERS_CATEGORY = 5;
+    public static final int ALL_CATEGORIES = 999;
 
     //  Keys
     public static final String KEY_SHARED_PREFS = "shared preferences";

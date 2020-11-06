@@ -3,6 +3,7 @@ package bo.com.golpistasElectricistas.pocketGarage.repository.api;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import bo.com.golpistasElectricistas.pocketGarage.model.Article;
@@ -12,10 +13,12 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+import static bo.com.golpistasElectricistas.pocketGarage.utils.Constants.ALL_CATEGORIES;
+
 public class ApiRepository {
 
     private static ApiRepository instance;
-    private ArticulosApi articulosApi;
+    private ArticleApi articleApi;
 
     public static ApiRepository getInstance() {
         if (instance == null) {
@@ -25,16 +28,26 @@ public class ApiRepository {
     }
 
     public ApiRepository() {
-        articulosApi = ApiService.createService(ArticulosApi.class);
+        articleApi = ApiService.createService(ArticleApi.class);
     }
 
-    public LiveData<Base<List<Article>>> getArticles() {
+    public LiveData<Base<List<Article>>> getArticles(int category) {
         MutableLiveData<Base<List<Article>>> result = new MutableLiveData<>();
-        articulosApi.getArticles(Constants.QUERY_PARAM_ALT).enqueue(new Callback<List<Article>>() {
+        articleApi.getArticles(Constants.QUERY_PARAM_ALT).enqueue(new Callback<List<Article>>() {
             @Override
             public void onResponse(Call<List<Article>> call, Response<List<Article>> response) {
                 if (response.isSuccessful()) {
-                    result.postValue(new Base<>(response.body()));
+                    List<Article> articlesByCategory = new ArrayList<>();
+                    if (category == ALL_CATEGORIES) {
+                        result.postValue(new Base<>(response.body()));
+                    } else {
+                        for (Article article : response.body()) {
+                            if (article.getCategory() == category) {
+                                articlesByCategory.add(article);
+                            }
+                        }
+                        result.postValue(new Base<>(response.body()));
+                    }
                 } else {
                     result.postValue(new Base<>(Constants.SERVER_ERROR, new Exception(response.message())));
                 }

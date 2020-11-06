@@ -13,15 +13,13 @@ import bo.com.golpistasElectricistas.pocketGarage.model.User;
 public interface RepositoryImpl {
     LiveData<Base<User>> login(String email, String password);
 
-    LiveData<Base<List<Article>>> getArticlesItems();
-
     Article getArticleItem(int id);
 
     LiveData<Base<List<Article>>> getFavorites();
 
     LiveData<Base<List<Article>>> getLastFiveArticles();
 
-    LiveData<Base<List<Article>>> getMyArticles();
+    LiveData<Base<List<Article>>> getArticles(int category);
 
     LiveData<Base<User>> register(User user, Uri photo);
 

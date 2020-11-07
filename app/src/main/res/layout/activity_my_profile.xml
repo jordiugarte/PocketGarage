@@ -47,7 +47,7 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:padding="10dp"
-        android:text="Nombres y apellidos"
+        android:text="@string/names_hint"
         android:textSize="30sp"
         android:textStyle="bold" />
 
@@ -56,7 +56,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:text="Edad: "
+        android:text="@string/phone_hint"
         android:textSize="20sp"
         android:textStyle="italic" />
 
@@ -68,7 +68,7 @@
         android:drawableTint="@color/colorGray"
         android:gravity="left"
         android:padding="15dp"
-        android:text="Direccion: "
+        android:text="@string/direction_hint"
         android:textSize="20sp"
         android:textStyle="normal" />
 
@@ -80,7 +80,7 @@
         android:drawableTint="@color/colorGray"
         android:gravity="left"
         android:padding="15dp"
-        android:text="Numero: "
+        android:text="@string/phone_hint"
         android:textSize="20sp"
         android:textStyle="normal" />
 
@@ -93,7 +93,7 @@
         android:drawableTint="@color/colorGray"
         android:gravity="left"
         android:padding="15dp"
-        android:text="Correo: "
+        android:text="@string/email_hint"
         android:textSize="20sp"
         android:textStyle="normal" />
 

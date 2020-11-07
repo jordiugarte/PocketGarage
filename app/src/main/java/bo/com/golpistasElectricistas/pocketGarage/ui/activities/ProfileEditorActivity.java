@@ -61,8 +61,8 @@ public class ProfileEditorActivity extends AppCompatActivity {
         ageField = findViewById(R.id.ageEditProfileField);
         addressField = findViewById(R.id.addressEditProfileField);
         numberField = findViewById(R.id.numberEditPofileField);
-        String cel2 = ""+cel;
-        //numberField.setText(cel2);
+        String cel2 = String.valueOf(cel);
+        numberField.setText(cel2);
         emailField = findViewById(R.id.emailField);
         if(email != null){
             emailField.setText(email);

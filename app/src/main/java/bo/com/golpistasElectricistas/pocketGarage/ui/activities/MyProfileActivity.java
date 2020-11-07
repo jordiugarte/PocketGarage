@@ -76,7 +76,10 @@ public class MyProfileActivity extends AppCompatActivity {
     }
     private void getData(){
         SharedPreferencesService preferences = new SharedPreferencesService(this);
-        nombreCompleto= preferences.getCurrentUser().getName() + " " + preferences.getCurrentUser().getLastName();
+        if(preferences.getCurrentUser().getName() != null || preferences.getCurrentUser().getLastName() != null){
+            nombreCompleto= preferences.getCurrentUser().getName() + " " + preferences.getCurrentUser().getLastName();
+        }
+        
         cel = preferences.getCurrentUser().getPhone();
         email = preferences.getCurrentUser().getEmail();
         //path
@@ -113,17 +116,20 @@ public class MyProfileActivity extends AppCompatActivity {
         //profilePicture.setImageURI(uri);
 
         namesLabel = findViewById(R.id.profileNames);
-        namesLabel.setText(getNombreCompleto());
-
+        if(nombreCompleto != null) {
+            namesLabel.setText(nombreCompleto);
+        }
         ageLabel = findViewById(R.id.profileAge);
         addressLabel = findViewById(R.id.profileAddress);
 
         numberLabel = findViewById(R.id.profileNumber);
-        String cel2 = ""+cel;
+        String cel2 = String.valueOf(cel);
         numberLabel.setText(cel2);
 
         emailLabel = findViewById(R.id.profileEmail);
-        emailLabel.setText(email);
+        if(email != null){
+            emailLabel.setText(email);
+        }
     }
 
     public void returnToPrevious(View view) {

@@ -118,7 +118,14 @@ public class RegisterActivity extends AppCompatActivity {
         String date = dateText.getText().toString();
         try {
             int phone = Integer.parseInt(phoneText.getText().toString());
-            User user = new User(ci, email, password, name, lastName, date, phone);
+            User user = new User();
+            user.setPhone(phone);
+            user.setPassword(password);
+            user.setName(name);
+            user.setLastName(lastName);
+            user.setEmail(email);
+            user.setCi(ci);
+            user.setBornDate(date);
             if (!password.isEmpty() && !pass2.isEmpty() && !phoneText.getText().toString().isEmpty() && password.equals(pass2)) {
                 viewModel.register(user, photo).observeForever(new Observer<Base<User>>() {
                     @Override
